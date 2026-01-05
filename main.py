@@ -25,5 +25,23 @@ if __name__ == "__main__":
     cortana = Cortana("Cortana")
     cortana.greeting()
 
+    while True:
+        command = input("Enter a command (remember, list, exit):").lower()
+        
+        if command == "exit":
+            print("Bye!")
+
+        elif command == "remember":
+            key = input("What should I remember?")
+            value = input(f"What is '{key}'?")
+            cortana.memory[key] = value
+            print(f"Got it! I'll remember {key}.")
+
+        elif command == "list":
+            cortana.list_memory()
+
+        else:
+            print("I don't understand that command.")    
+
 
 
