@@ -7,5 +7,8 @@ class Cortana:
         self.memory = {}
 
     def greeting(self):
-        print("Hi, my name is {self.name}")
+        print(f"Hi, my name is {self.name}")
 
+if __name__ == "__main__":
+    cortana = Cortana("Cortana")
+    cortana.greeting()
