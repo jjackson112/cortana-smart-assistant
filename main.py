@@ -6,10 +6,26 @@
 # for key, value lists everything in memory
 # for loop for inside commands or methods
 
+import json
+
 class Cortana:
     def __init__(self, name):
         self.name = name
-        self.memory = {}
+        self.memory = self.load_memory()
+
+    def load_memory(self):
+        try:
+            with open("memory.json", "r") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            return {}
+        except json.JSONDecodeError:
+            print("Memory file corrupted. Starting fresh.")
+            return {}
+        
+    def save_memory(self):
+        with open("memory.json", "w") as file:
+            json.dump(self.memory, file, indent=4)
 
     def greeting(self):
         print(f"Hi, my name is {self.name}")
