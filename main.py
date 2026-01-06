@@ -26,7 +26,6 @@ class Cortana:
             return {}
         
     def save_memory(self):
-        print("Saving to:", os.path.abspath("memory.json"))
         with open("memory.json", "w") as file:
             json.dump(self.memory, file, indent=4)
 
@@ -56,11 +55,11 @@ if __name__ == "__main__":
             break
 
         elif command == "remember":
-            key = input("What should I remember?")
-            value = input(f"What is '{key}'?")
+            key = input("What should I remember? ")
+            value = input(f"What is '{key}'? ")
             cortana.memory[key] = value
             cortana.save_memory()
-            print(f"Got it! I'll remember {key}.")
+            print(f"\nGot it! I'll remember {key}.")
 
         elif command == "list":
             cortana.list_memory()
