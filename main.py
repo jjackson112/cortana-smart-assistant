@@ -49,19 +49,19 @@ class Cortana:
             print("Unknown category, using 'other'.")
             category = "other"
 
-            key = input("What should I remember? ").strip()
-            if not key:
-                print("Key cannot be empty!")
-                return
+        key = input("What should I remember? ").strip()
+        if not key:
+            print("Key cannot be empty!")
+            return
             
-            value = input(f"What is '{key}'? ").strip()
-            if not value:
-                print("Value cannot be empty!")
-                return
+        value = input(f"What is '{key}'? ").strip()
+        if not value:
+            print("Value cannot be empty!")
+            return
             
-            self.memory[category][key] = value
-            self.save_memory()
-            print(f"Got it! I'll remember '{key}' in {category}.")
+        self.memory[category][key] = value
+        self.save_memory()
+        print(f"Got it! I'll remember '{key}' in {category}.")
 
             
     def list_memory(self):
@@ -72,7 +72,7 @@ class Cortana:
                 for key, value in items.items():
                     print(f"{key}: {value}")
                 has_memory = True
-                
+
             if not has_memory:
                 print("I don't remember anything yet.")
 
