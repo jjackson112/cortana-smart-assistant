@@ -17,7 +17,7 @@ class Cortana:
 
     def load_memory(self):
         try:
-            with open("memory.json", "r") as file:
+            with open(self.memory_path, "r") as file:
                 return json.load(file)
         except FileNotFoundError:
             return {}
@@ -26,7 +26,7 @@ class Cortana:
             return {}
         
     def save_memory(self):
-        with open("memory.json", "w") as file:
+        with open(self.memory_path, "w") as file:
             json.dump(self.memory, file, indent=4)
 
     def get_memory_path(self):
@@ -47,6 +47,7 @@ if __name__ == "__main__":
     cortana = Cortana("Cortana")
     cortana.greeting()
 
+# boolean
     while True:
         command = input("Enter a command (remember, list, exit):").lower()
         
