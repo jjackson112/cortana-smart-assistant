@@ -49,12 +49,12 @@ class Cortana:
             print("Unknown category, using 'other'.")
             category = "other"
 
-        key = input("What should I remember? ").strip()
+        key = input("What key should I remember? ").strip()
         if not key:
             print("Key cannot be empty!")
             return
             
-        value = input(f"What is '{key}'? ").strip()
+        value = input(f"What is the value of '{key}'? ").strip()
         if not value:
             print("Value cannot be empty!")
             return
@@ -83,7 +83,7 @@ class Cortana:
                 print(f"{key}: {value}")
 
     def search(self):
-        query = input("What do you wnat to search for? ").strip().lower()
+        query = input("What do you want to search for? ").strip().lower()
         if not query:
             print("Search query cannot be empty.")
             return
