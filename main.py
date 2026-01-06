@@ -101,8 +101,9 @@ class Cortana:
             print("There are no matching memories.")
 
     # where to update, verify category exists, ask what to update, ask for new value and save
+    # self.memory[category][key] = new_value
     def update(self):
-        update_existing_value = input("What needs to be updated? ").strip().lower()
+        update_existing_value = input("What category needs to be updated? ").strip().lower()
 
         how to ask for category
         if category not found:
