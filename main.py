@@ -51,6 +51,7 @@ if __name__ == "__main__":
             key = input("What should I remember?")
             value = input(f"What is '{key}'?")
             cortana.memory[key] = value
+            cortana.save_memory()
             print(f"Got it! I'll remember {key}.")
 
         elif command == "list":
