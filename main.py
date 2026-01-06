@@ -46,6 +46,7 @@ if __name__ == "__main__":
         
         if command == "exit":
             print("Bye!")
+            break
 
         elif command == "remember":
             key = input("What should I remember?")
