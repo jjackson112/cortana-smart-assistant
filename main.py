@@ -31,7 +31,7 @@ class Cortana:
             json.dump(self.memory, file, indent=4)
 
     def get_memory_path(self):
-        base_dir = os.path.dirname(os.path.abpath(__file__))
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         return os.path.join(base_dir, "memory.json")
 
     def greeting(self):
@@ -39,7 +39,7 @@ class Cortana:
 
     def list_memory(self):
         if not self.memory:
-            print("I don't recall this.")
+            print("I don't remember this.")
         else:
             for key, value in self.memory.items():
                 print(f"{key}: {value}")
