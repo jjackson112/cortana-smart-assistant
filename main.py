@@ -120,13 +120,19 @@ class Cortana:
 
         choice = input("Update (k)ey, (v)alue, or (b)oth? ").strip().lower()
 
+        current_value = self.memory[category][key]["value"]
+        current_timestamp = self.memory[category][key]["timestamp"]
+
         if choice == "v":
             updated_value = input(f"What should '{key}' be updated to? ").strip()
             if not updated_value:
                 print("Value cannot be empty.")
                 return
 
-            self.memory[category][key] = updated_value
+            self.memory[category][key] = {
+                "value": updated_value,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
         
         elif choice == "k":
             updated_key = input(f"What's the new key's name? ").strip()
@@ -149,7 +155,10 @@ class Cortana:
                 print("That key already exists.")
                 return
             
-            self.memory[category][updated_key] = updated_value
+            self.memory[category][updated_key] = {
+                "value": updated_value,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
             del self.memory[category][key]
 
         else:
