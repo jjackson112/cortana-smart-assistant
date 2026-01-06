@@ -25,10 +25,7 @@ class Cortana:
         try:
             with open(self.memory_path, "r") as file:
                 return json.load(file)
-        except FileNotFoundError:
-            return {}
-        except json.JSONDecodeError:
-            print("Memory file corrupted. Starting fresh.")
+        except (FileNotFoundError, json.JSONDecodeError):
             return {}
         
     def save_memory(self):
@@ -36,8 +33,7 @@ class Cortana:
             json.dump(self.memory, file, indent=4)
 
     def get_memory_path(self):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        return os.path.join(base_dir, "memory.json")
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), "memory.json")
     
     # Commands
     def greeting(self):
