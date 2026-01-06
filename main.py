@@ -13,11 +13,9 @@ class Cortana:
     def __init__(self, name):
         self.name = name
         self.memory_path = self.get_memory_path()
-        self.memory = {
-            "personal": {},
-            "work": {},
-            "other": {}
-        }
+        self.memory = self.load_memory()
+
+        
 
     def load_memory(self):
         try:
