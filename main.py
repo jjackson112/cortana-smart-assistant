@@ -100,12 +100,30 @@ class Cortana:
         if not found:
             print("There are no matching memories.")
 
+    # where to update, verify category exists, ask what to update, ask for new value and save
+    def update(self):
+        ask for category
+if category not found:
+    explain and stop
+
+ask for key
+if key not found in category:
+    explain and stop
+
+ask for new value
+if value empty:
+    explain and stop
+
+update value
+save memory
+confirm update
+
+
 # Main program loop
 if __name__ == "__main__":
     cortana = Cortana("Cortana")
     cortana.greeting()
 
-# boolean
     while True:
         command = input("\nEnter a command (remember, list, search, exit):").strip().lower()
         
