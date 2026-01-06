@@ -117,11 +117,11 @@ class Cortana:
         if key not in self.memory[category]:
             print("That does not exist.")
             return
+        
+        entry = self.memory[category][key]
 
         choice = input("Update (k)ey, (v)alue, or (b)oth? ").strip().lower()
-
-        current_value = self.memory[category][key]["value"]
-        current_timestamp = self.memory[category][key]["timestamp"]
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if choice == "v":
             updated_value = input(f"What should '{key}' be updated to? ").strip()
@@ -129,10 +129,8 @@ class Cortana:
                 print("Value cannot be empty.")
                 return
 
-            self.memory[category][key] = {
-                "value": updated_value,
-                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
+            entry["value"] = updated_value
+            entry["timestamp"] = timestamp
         
         elif choice == "k":
             updated_key = input(f"What's the new key's name? ").strip()
@@ -140,7 +138,12 @@ class Cortana:
                 print("Key cannot be empty")
                 return
             
-            self.memory[category][updated_key] = self.memory[category][key]
+            if updated_key in self.memory[category]:
+                print("This key already exists.")
+                return
+            
+            self.memory[category][updated_key] = entry
+            self.memory[category][updated_key]["timestamp"] = timestamp
             del self.memory[category][key]
         
         elif choice == "b":
@@ -157,7 +160,7 @@ class Cortana:
             
             self.memory[category][updated_key] = {
                 "value": updated_value,
-                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                "timestamp": timestamp
             }
             del self.memory[category][key]
 
@@ -211,7 +214,7 @@ if __name__ == "__main__":
         command = input("\nEnter a command (remember, list, search, update, delete, exit):").strip().lower()
 
         if command == "exit":
-            print("Bye!")
+            print("Later Jasmine! 🤗")
             break
 
         action = commands.get(command)
