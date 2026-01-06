@@ -103,11 +103,11 @@ class Cortana:
     # where to update, verify category exists, ask what to update, ask for new value and save
     # self.memory[category][key] = new_value
     def update(self):
-        update_existing_value = input("What category needs to be updated? ").strip().lower()
+        category = input("What category needs to be updated? ").strip().lower()
 
-        how to ask for category
-        if category not found:
-            print("Category not found")
+        if category not in self.memory:
+            print("This category does not exist.")
+            return
 
         ask for key
         if not key:
