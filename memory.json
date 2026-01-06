@@ -1,5 +1,7 @@
 {
     "personal": {},
-    "work": {},
+    "work": {
+        "decomposition": "breaking down issue"
+    },
     "other": {}
 }

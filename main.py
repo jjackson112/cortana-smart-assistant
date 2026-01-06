@@ -90,7 +90,7 @@ class Cortana:
         
         found = False
         for category, items in self.memory.items():
-            results = {k:v for k,v in items.items() if query in k.lower()}
+            results = {k:v for k,v in items.items() if query in k.lower() or query in v.lower()}
             if results:
                 print(f"\n[{category.capitalize()}]")
                 for k, v in results.items():
