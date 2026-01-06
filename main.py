@@ -106,17 +106,23 @@ class Cortana:
         category = input("What category needs to be updated? ").strip().lower()
 
         if category not in self.memory:
-            print("This category does not exist.")
+            print("Category does not exist.")
             return
 
-        ask for key
+        key = input("What should I update? ").strip()
         if not key:
-            return
-
-         ask for value
-        if not value:
+            print("Key cannot be empty.")
             return
         
+        if key not in self.memory[category]:
+            print("That does not exist.")
+            return
+
+        updated_value = input(f"What should '{key}' be updated to? ").strip()
+        if not updated_value:
+            print("Value cannot be empty.")
+            return
+                
         else:
             print("This value cannot be updated.")
         
