@@ -48,6 +48,10 @@ class Cortana:
         if category not in self.memory:
             print("Unknown category, using 'other'.")
             category = "other"
+            key = input("What should I remember? ").strip()
+            if not key:
+                print("Key cannot be empty!")
+                return
 
     def list_memory(self):
         has_memory = False
