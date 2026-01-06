@@ -128,7 +128,7 @@ class Cortana:
 
             self.memory[category][key] = updated_value
         
-        if choice == "k":
+        elif choice == "k":
             updated_key = input(f"What's the new key's name? ").strip()
             if not updated_key:
                 print("Key cannot be empty")
@@ -136,6 +136,25 @@ class Cortana:
             
             self.memory[category][updated_key] = self.memory[category][key]
             del self.memory[category][key]
+        
+        elif choice == "b":
+            updated_key = input("New key name: ").strip()
+            updated_value = input("New value: ").strip()
+
+            if not updated_key or not updated_value:
+                print("Key and value cannot be empty.")
+                return
+            
+            if updated_key in self.memory[category]:
+                print("That key already exists.")
+                return
+            
+            self.memory[category][updated_key] = updated_value
+            del self.memory[category][key]
+
+        else:
+            print("Invalid choice")
+            return
 
         self.save_memory()
         print(f"Updated successfully.")
