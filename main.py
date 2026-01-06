@@ -7,10 +7,12 @@
 # for loop for inside commands or methods
 
 import json
+import os
 
 class Cortana:
     def __init__(self, name):
         self.name = name
+        self.memory_path = self.get_memory_path()
         self.memory = self.load_memory()
 
     def load_memory(self):
@@ -24,8 +26,13 @@ class Cortana:
             return {}
         
     def save_memory(self):
+        print("Saving to:", os.path.abspath("memory.json"))
         with open("memory.json", "w") as file:
             json.dump(self.memory, file, indent=4)
+
+    def get_memory_path(self):
+        base_dir = os.path.dirname(os.path.abpath(__file__))
+        return os.path.join(base_dir, "memory.json")
 
     def greeting(self):
         print(f"Hi, my name is {self.name}")
@@ -60,6 +67,3 @@ if __name__ == "__main__":
 
         else:
             print("I don't understand that command.")    
-
-
-
