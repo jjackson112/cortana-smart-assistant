@@ -45,6 +45,10 @@ class Cortana:
     def remember(self):
         category = input("Category (personal/work/other): ").strip().lower()
 
+        if category not in self.memory:
+            print("Unknown category, using 'other'.")
+            category = "other"
+
     def list_memory(self):
         has_memory = False
         for category, items in self.memory.items():
