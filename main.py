@@ -52,7 +52,11 @@ class Cortana:
             if not key:
                 print("Key cannot be empty!")
                 return
-
+            value = input(f"What is '{key}'? ").strip()
+            if not value:
+                print("Value cannot be empty!")
+                return
+            
     def list_memory(self):
         has_memory = False
         for category, items in self.memory.items():
