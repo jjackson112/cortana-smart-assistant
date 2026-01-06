@@ -73,8 +73,8 @@ class Cortana:
                     print(f"{key}: {value}")
                 has_memory = True
 
-            if not has_memory:
-                print("I don't remember anything yet.")
+        if not has_memory:
+            print("I don't remember anything yet.")
 
         if not self.memory:
             print("I don't remember this.")
@@ -87,6 +87,7 @@ class Cortana:
         if not query:
             print("Search query cannot be empty.")
             return
+        
         found = False
         for category, items in self.memory.items():
             results = {k:v for k,v in items.items() if query in k.lower()}
@@ -95,8 +96,9 @@ class Cortana:
                 for k, v in results.items():
                     print(f"{k}: {v}")
                 found = True
-            if not found:
-                print("There are no matching memories.")
+
+        if not found:
+            print("There are no matching memories.")
 
 # Main program loop
 if __name__ == "__main__":
