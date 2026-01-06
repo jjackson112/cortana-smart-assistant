@@ -75,16 +75,12 @@ class Cortana:
                 print(f"\n[{category.capitalize()}]")
                 for key, info in items.items():
                     value = info.get("value", "")
-                    timestamp = info.get("timestamp" "unknown")
+                    timestamp = info.get("timestamp", "unknown")
                     print(f"{key}: {value} (saved at {timestamp})")
                 has_memory = True
 
         if not has_memory:
             print("I don't remember anything yet.")
-
-        else:
-            for key, value in self.memory.items():
-                print(f"{key}: {value}")
 
     def search(self):
         query = input("What do you want to search for? ").strip().lower()
