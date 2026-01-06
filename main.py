@@ -72,6 +72,7 @@ class Cortana:
                 for key, value in items.items():
                     print(f"{key}: {value}")
                 has_memory = True
+                
             if not has_memory:
                 print("I don't remember anything yet.")
 
@@ -111,7 +112,7 @@ if __name__ == "__main__":
             break
 
         elif command == "remember":
-            cortana.save_memory()
+            cortana.remember()
             
         elif command == "list":
             cortana.list_memory()
