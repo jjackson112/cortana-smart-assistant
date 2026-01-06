@@ -15,7 +15,9 @@ class Cortana:
         self.memory_path = self.get_memory_path()
         self.memory = self.load_memory()
 
-        
+    # Categories setup
+        for category in ["personal", "work", "other"]:
+            self.memory.setdefault(category, {})
 
     def load_memory(self):
         try:
@@ -39,6 +41,15 @@ class Cortana:
         print(f"Hi, my name is {self.name}")
 
     def list_memory(self):
+        has_memory = False
+        for category, items in self.memory.items():
+            if items:
+                print(f"\n[{category.capitalize()}]")
+                for key, value in items.items():
+                    print(f"{key}: {value}")
+                has_memory = True
+            if not has_memory:
+                print("I don't remember anything yet.")
         if not self.memory:
             print("I don't remember this.")
         else:
