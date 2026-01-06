@@ -8,6 +8,7 @@
 
 import json
 import os
+from datetime import datetime
 
 class Cortana:
     def __init__(self, name):
@@ -58,8 +59,11 @@ class Cortana:
         if not value:
             print("Value cannot be empty!")
             return
-            
-        self.memory[category][key] = value
+        
+        # Timestamp added
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.memory[category][key] = {"value": value, "timestamp": timestamp}
+
         self.save_memory()
         print(f"Got it! I'll remember '{key}' in {category}.")
 
