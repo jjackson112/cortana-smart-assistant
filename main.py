@@ -102,22 +102,23 @@ class Cortana:
 
     # where to update, verify category exists, ask what to update, ask for new value and save
     def update(self):
-        ask for category
-if category not found:
-    explain and stop
+        update_existing_value = input("What needs to be updated? ").strip().lower()
 
-ask for key
-if key not found in category:
-    explain and stop
+        how to ask for category
+        if category not found:
+            print("Category not found")
 
-ask for new value
-if value empty:
-    explain and stop
+        ask for key
+        if not key:
+            return
 
-update value
-save memory
-confirm update
-
+         ask for value
+        if not value:
+            return
+        
+        else:
+            print("This value cannot be updated.")
+        
 
 # Main program loop
 if __name__ == "__main__":
