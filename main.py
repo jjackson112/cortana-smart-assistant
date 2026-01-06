@@ -198,12 +198,13 @@ if __name__ == "__main__":
 
     while True:
         command = input("\nEnter a command (remember, list, search, update, delete, exit):").strip().lower()
-        
-        # process the command
 
         if command == "exit":
             print("Bye!")
             break
 
+        action = commands.get(command)
+        if action:
+            action() # call method
         else:
-            print("I don't understand that command.")    
+            print("I don't understand that command.")
