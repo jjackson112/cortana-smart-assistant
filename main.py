@@ -73,8 +73,10 @@ class Cortana:
         for category, items in self.memory.items():
             if items:
                 print(f"\n[{category.capitalize()}]")
-                for key, value in items.items():
-                    print(f"{key}: {value}")
+                for key, info in items.items():
+                    value = info.get("value", "")
+                    timestamp = info.get("timestamp" "unknown")
+                    print(f"{key}: {value} (saved at {timestamp})")
                 has_memory = True
 
         if not has_memory:
