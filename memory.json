@@ -1,5 +1,7 @@
 {
-    "personal": {},
+    "personal": {
+        "I like movies": "activity"
+    },
     "work": {},
     "other": {}
 }
