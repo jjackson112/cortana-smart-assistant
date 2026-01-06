@@ -94,14 +94,14 @@ class Cortana:
             if results:
                 print(f"\n[{category.capitalize()}]")
                 for k, v in results.items():
-                    print(f"{k}: {v}")
+                    print(f"{k}: {v['value']} (saved at {v['timestamp']})")
                 found = True
 
         if not found:
             print("There are no matching memories.")
 
     # where to update, verify category exists, ask what to update, ask for new value and save
-    # self.memory[category][key] = new_value
+    # self.memory[category][key] = updated_value
     def update(self):
         category = input("What category needs to be updated? ").strip().lower()
 
