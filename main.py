@@ -64,10 +64,15 @@ if __name__ == "__main__":
 
         elif command == "list":
             cortana.list_memory()
-        
+
         elif command == "search":
             query = input("What do you want to search for?")
             results = {k:v for k,v in cortana.memory.items() if query.lower() in k.lower()}
+            if results:
+                for k,v in results.items():
+                    print(f"{k}: {v}")
+        else: 
+            print("There are no matching memories.")
 
         else:
             print("I don't understand that command.")    
