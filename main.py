@@ -126,6 +126,28 @@ class Cortana:
         self.memory[category][key] = updated_value
         self.save_memory()
         print(f"Updated '{key}' in {category}.")
+
+    # delete function answers similar questions as updating the value - ending action is just different
+    # verify category and key exist, is the new value valid, overwrite value and save
+    def delete(self):
+        category = input("What category should I delete from? ").strip().lower()
+
+        if category not in self.memory:
+            print("Category does not exist.")
+            return
+
+        key = input("What should I delete? ").strip()
+        if not key:
+            print("Key cannot be empty.")
+            return
+        
+        if key not in self.memory[category]:
+            print("That does not exist.")
+            return
+
+        del self.memory[category][key]
+        self.save_memory()
+        print(f"I've deleted '{key}' from {category}.")
         
 # Main program loop
 if __name__ == "__main__":
@@ -133,7 +155,7 @@ if __name__ == "__main__":
     cortana.greeting()
 
     while True:
-        command = input("\nEnter a command (remember, list, search, update, exit):").strip().lower()
+        command = input("\nEnter a command (remember, list, search, update, delete, exit):").strip().lower()
         
         if command == "exit":
             print("Bye!")
@@ -150,6 +172,9 @@ if __name__ == "__main__":
 
         elif command == "update":
             cortana.update()
-            
+        
+        elif command == "delete":
+            cortana.delete()
+
         else:
             print("I don't understand that command.")    
