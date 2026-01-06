@@ -122,11 +122,11 @@ class Cortana:
         if not updated_value:
             print("Value cannot be empty.")
             return
-                
-        else:
-            print("This value cannot be updated.")
-        
 
+        self.memory[category][key] = updated_value
+        self.save_memory()
+        print(f"Updated '{key}' in {category}.")
+        
 # Main program loop
 if __name__ == "__main__":
     cortana = Cortana("Cortana")
