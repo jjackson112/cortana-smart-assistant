@@ -19,6 +19,7 @@ class Cortana:
         for category in ["personal", "work", "other"]:
             self.memory.setdefault(category, {})
 
+    # File Handling
     def load_memory(self):
         try:
             with open(self.memory_path, "r") as file:
@@ -36,9 +37,13 @@ class Cortana:
     def get_memory_path(self):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         return os.path.join(base_dir, "memory.json")
-
+    
+    # Commands
     def greeting(self):
         print(f"Hi, my name is {self.name}")
+
+    def remember(self):
+        category = input("Category (personal/work/other): ").strip().lower()
 
     def list_memory(self):
         has_memory = False
@@ -50,7 +55,7 @@ class Cortana:
                 has_memory = True
             if not has_memory:
                 print("I don't remember anything yet.")
-                
+
         if not self.memory:
             print("I don't remember this.")
         else:
@@ -88,5 +93,5 @@ if __name__ == "__main__":
         else: 
             print("There are no matching memories.")
 
-        else:
-            print("I don't understand that command.")    
+    else:
+        print("I don't understand that command.")    
