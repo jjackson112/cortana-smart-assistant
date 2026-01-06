@@ -50,6 +50,7 @@ class Cortana:
                 has_memory = True
             if not has_memory:
                 print("I don't remember anything yet.")
+                
         if not self.memory:
             print("I don't remember this.")
         else:
