@@ -81,36 +81,42 @@ class Cortana:
             for key, value in self.memory.items():
                 print(f"{key}: {value}")
 
+    def search(self):
+        query = input("What do you wnat to search for? ").strip().lower()
+        if not query:
+            print("Search query cannot be empty.")
+            return
+        found = False
+        for category, items in self.memory.items():
+            results = {k:v for k,v in items.items() if query in k.lower()}
+            if results:
+                print(f"\n[{category.capitalize()}]")
+                for k, v in results.items():
+                    print(f"{k}: {v}")
+                found = True
+            if not found:
+                print("There are no matching memories.")
+
+# Main program loop
 if __name__ == "__main__":
     cortana = Cortana("Cortana")
     cortana.greeting()
 
 # boolean
     while True:
-        command = input("Enter a command (remember, list, exit):").lower()
+        command = input("\nEnter a command (remember, list, search, exit):").strip().lower()
         
         if command == "exit":
             print("Bye!")
             break
 
         elif command == "remember":
-            key = input("What should I remember? ")
-            value = input(f"What is '{key}'? ")
-            cortana.memory[key] = value
             cortana.save_memory()
-            print(f"\nGot it! I'll remember {key}.")
-
+            
         elif command == "list":
             cortana.list_memory()
 
         elif command == "search":
-            query = input("What do you want to search for?")
-            results = {k:v for k,v in cortana.memory.items() if query.lower() in k.lower()}
-            if results:
-                for k,v in results.items():
-                    print(f"{k}: {v}")
-        else: 
-            print("There are no matching memories.")
-
-    else:
-        print("I don't understand that command.")    
+            cortana.search()
+        else:
+            print("I don't understand that command.")    
