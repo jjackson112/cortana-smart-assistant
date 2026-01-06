@@ -75,9 +75,7 @@ class Cortana:
 
         if not has_memory:
             print("I don't remember anything yet.")
-
-        if not self.memory:
-            print("I don't remember this.")
+            
         else:
             for key, value in self.memory.items():
                 print(f"{key}: {value}")
