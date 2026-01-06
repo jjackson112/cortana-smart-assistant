@@ -133,7 +133,7 @@ if __name__ == "__main__":
     cortana.greeting()
 
     while True:
-        command = input("\nEnter a command (remember, list, search, exit):").strip().lower()
+        command = input("\nEnter a command (remember, list, search, update, exit):").strip().lower()
         
         if command == "exit":
             print("Bye!")
@@ -147,5 +147,9 @@ if __name__ == "__main__":
 
         elif command == "search":
             cortana.search()
+
+        elif command == "update":
+            cortana.update()
+            
         else:
             print("I don't understand that command.")    
