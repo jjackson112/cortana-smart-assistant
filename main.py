@@ -75,7 +75,7 @@ class Cortana:
 
         if not has_memory:
             print("I don't remember anything yet.")
-            
+
         else:
             for key, value in self.memory.items():
                 print(f"{key}: {value}")
@@ -188,27 +188,22 @@ if __name__ == "__main__":
     cortana = Cortana("Cortana")
     cortana.greeting()
 
+    commands = {
+        "remember": cortana.remember,
+        "list": cortana.list_memory,
+        "search": cortana.search,
+        "update": cortana.update,
+        "delete": cortana.delete
+    }
+
     while True:
         command = input("\nEnter a command (remember, list, search, update, delete, exit):").strip().lower()
         
+        # process the command
+
         if command == "exit":
             print("Bye!")
             break
-
-        elif command == "remember":
-            cortana.remember()
-            
-        elif command == "list":
-            cortana.list_memory()
-
-        elif command == "search":
-            cortana.search()
-
-        elif command == "update":
-            cortana.update()
-        
-        elif command == "delete":
-            cortana.delete()
 
         else:
             print("I don't understand that command.")    
