@@ -118,14 +118,18 @@ class Cortana:
             print("That does not exist.")
             return
 
-        updated_value = input(f"What should '{key}' be updated to? ").strip()
-        if not updated_value:
-            print("Value cannot be empty.")
-            return
+        choice = input("Update (k)ey, (v)alue, or (b)oth? ").strip().lower()
 
-        self.memory[category][key] = updated_value
+        if choice == "v":
+            updated_value = input(f"What should '{key}' be updated to? ").strip()
+            if not updated_value:
+                print("Value cannot be empty.")
+                return
+
+            self.memory[category][key] = updated_value
+            
         self.save_memory()
-        print(f"Updated '{key}' in {category}.")
+        print(f"Updated successfully.")
 
     # delete function answers similar questions as updating the value - ending action is just different
     # verify category and key exist, is the new value valid, overwrite value and save
