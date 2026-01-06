@@ -168,13 +168,17 @@ class Cortana:
             print("Category does not exist.")
             return
 
-        key = input("What should I delete? ").strip()
+        key = input("What key should I delete? ").strip()
         if not key:
             print("Key cannot be empty.")
             return
         
         if key not in self.memory[category]:
             print("That does not exist.")
+            return
+        
+        delete_confirmation = input("Are you sure? (y/n): ").lower()
+        if delete_confirmation != "y":
             return
 
         del self.memory[category][key]
