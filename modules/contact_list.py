@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 # normalize data after json load - take what ever comes out of JSON and force it into a predictable structure my code can rely on
 # for ex - missing keys, inconsistent casing, extra whitespace, old data formats
@@ -118,5 +119,9 @@ def update_contacts(self):
   else:
     print("Invalid choice")
     return
+  
+  # timestamp
+  contact["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 
 # delete contacts
