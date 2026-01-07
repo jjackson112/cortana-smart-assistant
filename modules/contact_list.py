@@ -30,11 +30,7 @@ class ContactList:
       phone_number = str(contact.get("phone_number","")).strip()
       job = str(contact.get("job", "")).strip()
 
-      if not name:
-        continue
-      if not phone_number:
-        continue
-      if not job:
+      if not name or not phone_number or not job:
         continue
 
       normalized.append({
