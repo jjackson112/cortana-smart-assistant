@@ -57,6 +57,14 @@ class ContactList:
     })
     self.save_contacts()
 
+# find contacts as a utility method - search for a single contact by job or name
+  def find_contact(self, query):
+    query = query.strip().lower()
+    for contact in self.contacts:
+        if contact["name"].lower() == query or contact["job"].lower() == query:
+            return contact
+    return None
+
 # search contacts - find by name or job
   def search_contacts(self):
     query = input(f"Enter a keyword to search the contact list" )
@@ -69,7 +77,7 @@ class ContactList:
     for contact in self.contacts:
       if query in contact["name"].lower() or query in contact["job"].lower():
         print(f"{contact['name']} | {contact['phone_number']} | {contact['job']}")
-    found = True
+      found = True
 
     if not found:
       print("No matching contacts found.")
