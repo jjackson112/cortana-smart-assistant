@@ -13,8 +13,9 @@ class ToDo:
             "completed": False
         })
 
-    def show_list(self):
-
     def update_task(self):
 
     def delete_task(self):
+    
+    def show_list(self):
+        return self.tasks
