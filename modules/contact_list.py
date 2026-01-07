@@ -54,9 +54,9 @@ class ContactList:
       raise ValueError("This contact already exists.")
   
     self.contacts.append({
-      "name": name,
-      "phone_number": phone_number,
-      "job": job
+      "name": name.strip(),
+      "phone_number": phone_number.strip(),
+      "job": job.strip()
     })
     self.save_contacts()
 
