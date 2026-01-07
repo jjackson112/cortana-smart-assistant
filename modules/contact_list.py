@@ -123,5 +123,7 @@ def update_contacts(self):
   # timestamp
   contact["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-
+  self.save_contacts()
+  print("Contact updated successfully.")
+  
 # delete contacts
