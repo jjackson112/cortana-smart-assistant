@@ -60,7 +60,7 @@ class ContactList:
     })
     self.save_contacts()
 
-# search contacts 
+# search contacts - find by name or job
 def search_contacts(self):
   query = input("Enter a keyword to search the contact list" )
   if not query:
@@ -78,7 +78,10 @@ def search_contacts(self):
     print("No matching contacts found.")
 
 
-# update contacts
-  
+# update contacts - find by name or job, edit value only, timestamp
+def update_contacts():
+  updated_value = input("What needs to be updated? ").strip().lower()
 
+  selected_value = input("Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
+  
 # delete contacts
