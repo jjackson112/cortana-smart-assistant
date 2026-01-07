@@ -43,7 +43,7 @@ class ContactList:
         "job": job
       })
 
-      return normalized
+    return normalized
     
   def save_contacts(self):
     with open(self.file_path, "w") as file:
@@ -63,7 +63,7 @@ class ContactList:
 
 # search contacts - find by name or job
 def search_contacts(self):
-  query = input("Enter a keyword to search the contact list" )
+  query = input(f"Enter a keyword to search the contact list" )
   if not query:
     print("Search query cannot be empty.")
     return
@@ -86,7 +86,7 @@ def update_contacts(self):
   if not contact:
     return 
 
-  selected_value = input("Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
+  selected_value = input(f"Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
   
   if selected_value == "n":
     updated_value = input(f"What's the new name? ").strip()
@@ -132,13 +132,13 @@ def update_contacts(self):
 
 # delete contacts -verify existence, is the new value valid, overwrite value and save
 def delete_contacts(self):
-  delete_name = input("What contact would you like to delete?")
+  delete_name = input(f"What contact would you like to delete?")
   contact = self.find_contact(delete_name)
   if not contact:
     print("This contact cannot be found.")
     return 
   
-  delete_confirmation = input("Are you sure you want to delete {delete_name}? (y/n): ").lower()
+  delete_confirmation = input(f"Are you sure you want to delete {delete_name}? (y/n): ").lower()
   if delete_confirmation != "y":
     return
   
