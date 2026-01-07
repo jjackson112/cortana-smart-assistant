@@ -69,6 +69,11 @@ def search_contacts(self):
   
   found = False
 
+  for contact in self.contacts:
+    if query in contact["name"].lower() or query in contact["job"].lower():
+    print()
+    found = True
+
   if not found:
     print("No matching contacts found.")
 
