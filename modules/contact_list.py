@@ -63,14 +63,15 @@ class ContactList:
 # search contacts 
 
 # update contacts
-def update_contacts(self, name):
-  for contact in self.contacts:
-    input("Which contact would you like to update?")
-  
-  search_contact_list = input("Would you like to see the contact list? (y/n) ")
-    if search_contact_list != "y":
-    return
+def update_contacts(self):
+  query = input("Would you like to search the contact list? ")
 
+  if not query:
+    print("Search query cannot be empty.")
+    return
+  
+  found = False
+  
   
 
 # delete contacts
