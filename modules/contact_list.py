@@ -8,7 +8,7 @@ class ContactList:
 
   def __init__(self, file_path="contacts.json"):
     self.file_path = file_path
-    self.contacts = self.load_contacts()
+    self.contacts = self.normalize_contacts(self.load_contacts())
 
   def load_contacts(self):
     try:
