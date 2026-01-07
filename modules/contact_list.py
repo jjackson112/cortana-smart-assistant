@@ -62,86 +62,86 @@ class ContactList:
     self.save_contacts()
 
 # search contacts - find by name or job
-def search_contacts(self):
-  query = input(f"Enter a keyword to search the contact list" )
-  if not query:
-    print("Search query cannot be empty.")
-    return
+  def search_contacts(self):
+    query = input(f"Enter a keyword to search the contact list" )
+    if not query:
+      print("Search query cannot be empty.")
+      return
   
-  found = False
+    found = False
 
-  for contact in self.contacts:
-    if query in contact["name"].lower() or query in contact["job"].lower():
-      print(f"{contact['name']} | {contact['phone_number']} | {contact['job']}")
+    for contact in self.contacts:
+      if query in contact["name"].lower() or query in contact["job"].lower():
+        print(f"{contact['name']} | {contact['phone_number']} | {contact['job']}")
     found = True
 
-  if not found:
-    print("No matching contacts found.")
+    if not found:
+      print("No matching contacts found.")
 
 
 # update contacts - find by name, verify existence in self.contacts, edit value only, timestamp
-def update_contacts(self):
-  update_query = input("Enter the name of the contact you want to update. ").strip().lower()
-  contact = self.find_contact(update_query)
-  if not contact:
-    return 
+  def update_contacts(self):
+    update_query = input("Enter the name of the contact you want to update. ").strip().lower()
+    contact = self.find_contact(update_query)
+    if not contact:
+      return 
 
-  selected_value = input(f"Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
-  
-  if selected_value == "n":
-    updated_value = input(f"What's the new name? ").strip()
-    if not updated_value:
-      print("It cannot be empty")
-      return
-            
-    if any(c["name"].lower() == updated_value.lower() for c in self.contacts):
-      print("This name already exists.")
-      return
-    
-    contact["name"] = updated_value
-    
-  elif selected_value == "p":
-    updated_value = input(f"What's the new phone number? ").strip()
-    if not updated_value:
-      print("It cannot be empty")
-      return
-            
-    if any(c["phone_number"] == updated_value for c in self.contacts):
-      print("This phone number already exists.")
-      return
-    
-    contact["phone_number"] = updated_value
-    
-  elif selected_value == "j":
-    updated_value = input(f"What's the new job title? ").strip()
-    if not updated_value:
-      print("It cannot be empty")
-      return
-    
-    contact["job"] = updated_value
+    selected_value = input(f"Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
 
-  else:
-    print("Invalid choice")
-    return
-  
-  # timestamp
-  contact["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if selected_value == "n":
+      updated_value = input(f"What's the new name? ").strip()
+      if not updated_value:
+        print("It cannot be empty")
+        return
 
-  self.save_contacts()
-  print("Contact updated successfully.")
+      if any(c["name"].lower() == updated_value.lower() for c in self.contacts):
+        print("This name already exists.")
+        return
+
+      contact["name"] = updated_value
+
+    elif selected_value == "p":
+      updated_value = input(f"What's the new phone number? ").strip()
+      if not updated_value:
+        print("It cannot be empty")
+        return
+
+      if any(c["phone_number"] == updated_value for c in self.contacts):
+        print("This phone number already exists.")
+        return
+
+      contact["phone_number"] = updated_value
+
+    elif selected_value == "j":
+      updated_value = input(f"What's the new job title? ").strip()
+      if not updated_value:
+        print("It cannot be empty")
+        return
+
+      contact["job"] = updated_value
+
+    else:
+      print("Invalid choice")
+      return
+
+    # timestamp
+    contact["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    self.save_contacts()
+    print("Contact updated successfully.")
 
 # delete contacts -verify existence, is the new value valid, overwrite value and save
-def delete_contacts(self):
-  delete_name = input(f"What contact would you like to delete?")
-  contact = self.find_contact(delete_name)
-  if not contact:
-    print("This contact cannot be found.")
-    return 
-  
-  delete_confirmation = input(f"Are you sure you want to delete {delete_name}? (y/n): ").lower()
-  if delete_confirmation != "y":
-    return
-  
-  self.contacts.remove(contact)
-  self.save_contacts()
-  print(f"{delete_name} has been deleted successfully.")
+  def delete_contacts(self):
+    delete_name = input(f"What contact would you like to delete?")
+    contact = self.find_contact(delete_name)
+    if not contact:
+      print("This contact cannot be found.")
+      return 
+
+    delete_confirmation = input(f"Are you sure you want to delete {delete_name}? (y/n): ").lower()
+    if delete_confirmation != "y":
+      return
+
+    self.contacts.remove(contact)
+    self.save_contacts()
+    print(f"{delete_name} has been deleted successfully.")
