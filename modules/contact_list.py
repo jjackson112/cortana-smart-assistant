@@ -79,9 +79,12 @@ def search_contacts(self):
     print("No matching contacts found.")
 
 
-# update contacts - find by name, verify existance, edit value only, timestamp
+# update contacts - find by name, verify existance in self.contacts, edit value only, timestamp
 def update_contacts(self):
   update_query = input("Enter the name of the contact you want to update. ").strip().lower()
+  contact = self.find_contact(update_query)
+  if not contact:
+    return 
 
   if not update_query:
     print("You must enter a name or their job title.")
@@ -125,5 +128,5 @@ def update_contacts(self):
 
   self.save_contacts()
   print("Contact updated successfully.")
-  
+
 # delete contacts
