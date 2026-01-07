@@ -130,4 +130,18 @@ def update_contacts(self):
   self.save_contacts()
   print("Contact updated successfully.")
 
-# delete contacts
+# delete contacts -verify existence, is the new value valid, overwrite value and save
+def delete_contacts(self):
+  delete_name = input("What contact would you like to delete?")
+  contact = self.find_contact(delete_name)
+  if not contact:
+    print("This contact cannot be found.")
+    return 
+  
+  delete_confirmation = input("Are you sure you want to delete {delete_name}? (y/n): ").lower()
+  if delete_confirmation != "y":
+    return
+  
+  self.contacts.remove(contact)
+  self.save_contacts()
+  print(f"{delete_name} has been deleted successfully.")
