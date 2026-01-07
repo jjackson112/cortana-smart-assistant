@@ -71,7 +71,7 @@ def search_contacts(self):
 
   for contact in self.contacts:
     if query in contact["name"].lower() or query in contact["job"].lower():
-    print()
+      print(f"{contact['name']} | {contact['phone_number']} | {contact['job']}")
     found = True
 
   if not found:
