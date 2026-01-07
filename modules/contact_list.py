@@ -79,16 +79,12 @@ def search_contacts(self):
     print("No matching contacts found.")
 
 
-# update contacts - find by name, verify existance in self.contacts, edit value only, timestamp
+# update contacts - find by name, verify existence in self.contacts, edit value only, timestamp
 def update_contacts(self):
   update_query = input("Enter the name of the contact you want to update. ").strip().lower()
   contact = self.find_contact(update_query)
   if not contact:
     return 
-
-  if not update_query:
-    print("You must enter a name or their job title.")
-    return
 
   selected_value = input("Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
   
@@ -98,9 +94,11 @@ def update_contacts(self):
       print("It cannot be empty")
       return
             
-    if updated_value in self.contacts[name]:
+    if any(c["name"].lower() == updated_value.lower() for c in self.contacts):
       print("This name already exists.")
       return
+    
+    contact["name"] = updated_value
     
   elif selected_value == "p":
     updated_value = input(f"What's the new phone number? ").strip()
@@ -108,15 +106,18 @@ def update_contacts(self):
       print("It cannot be empty")
       return
             
-    if updated_value in self.contacts[phone_number]:
+    if any(c["phone_number"] == updated_value for c in self.contacts):
       print("This phone number already exists.")
       return
+    
+    contact["phone_number"] = updated_value
     
   elif selected_value == "j":
     updated_value = input(f"What's the new job title? ").strip()
     if not updated_value:
       print("It cannot be empty")
       return
+    
     contact["job"] = updated_value
 
   else:
