@@ -71,7 +71,10 @@ def update_contacts(self):
     return
   
   found = False
-  
+  if not found:
+    print("Query not found")
+
+
   
 
 # delete contacts
