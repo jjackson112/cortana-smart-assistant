@@ -8,5 +8,10 @@ class ContactList:
     self.file_path = file_path()
     self.contacts = self.load_contacts()
 
-
+  def load_contacts(self):
+    try:
+      with open(self.file_path, "r") as file:
+        return json.load(file)
+    except:
+      return []
    
