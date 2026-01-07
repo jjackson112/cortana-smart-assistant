@@ -77,7 +77,7 @@ class ContactList:
     for contact in self.contacts:
       if query in contact["name"].lower() or query in contact["job"].lower():
         print(f"{contact['name']} | {contact['phone_number']} | {contact['job']}")
-      found = True
+        found = True
 
     if not found:
       print("No matching contacts found.")
