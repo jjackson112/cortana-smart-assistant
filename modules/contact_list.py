@@ -141,7 +141,7 @@ class ContactList:
       print("This contact cannot be found.")
       return 
 
-    delete_confirmation = input(f"Are you sure you want to delete '{delete_name}'? (y/n): ").lower()
+    delete_confirmation = input(f"Are you sure you want to delete '{contact['name']}'? (y/n): ").lower()
     if delete_confirmation != "y":
       return
 
