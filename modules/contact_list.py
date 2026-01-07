@@ -67,7 +67,7 @@ class ContactList:
 
 # search contacts - find by name or job
   def search_contacts(self):
-    query = input(f"Enter a keyword to search the contact list" )
+    query = input(f"Enter a keyword to search the contact list" ).strip().lower()
     if not query:
       print("Search query cannot be empty.")
       return
@@ -81,7 +81,6 @@ class ContactList:
 
     if not found:
       print("No matching contacts found.")
-
 
 # update contacts - find by name, verify existence in self.contacts, edit value only, timestamp
   def update_contacts(self):
@@ -136,7 +135,7 @@ class ContactList:
 
 # delete contacts -verify existence, is the new value valid, overwrite value and save
   def delete_contacts(self):
-    delete_name = input(f"What contact would you like to delete?")
+    delete_name = input(f"What contact would you like to delete?").strip().lower()
     contact = self.find_contact(delete_name)
     if not contact:
       print("This contact cannot be found.")
