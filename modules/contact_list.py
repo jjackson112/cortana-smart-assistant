@@ -65,14 +65,19 @@ class ContactList:
 # update contacts
 def update_contacts(self):
   query = input("Would you like to search the contact list? ")
+  
+  confirm = input("(y/n): ").lower()
+  if confirm != "y":
+    return
 
   if not query:
     print("Search query cannot be empty.")
     return
   
   found = False
+
   if not found:
-    print("Query not found")
+    print("No matching contacts found.")
 
 
   
