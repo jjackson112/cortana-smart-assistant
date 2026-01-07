@@ -61,15 +61,8 @@ class ContactList:
     self.save_contacts()
 
 # search contacts 
-
-# update contacts
-def update_contacts(self):
-  query = input("Would you like to search the contact list? ")
-  
-  confirm = input("(y/n): ").lower()
-  if confirm != "y":
-    return
-
+def search_contacts(self):
+  query = input("Enter a keyword to search the contact list" )
   if not query:
     print("Search query cannot be empty.")
     return
@@ -80,6 +73,7 @@ def update_contacts(self):
     print("No matching contacts found.")
 
 
+# update contacts
   
 
 # delete contacts
