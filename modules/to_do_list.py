@@ -1,7 +1,7 @@
 import json
 
 class ToDo:
-    def __init__(self, tasks):
+    def __init__(self):
         self.tasks = []
 
     def greeting(self):
