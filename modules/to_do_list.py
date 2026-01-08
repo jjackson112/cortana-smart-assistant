@@ -29,7 +29,7 @@ class ToDo:
             print("Enter a valid number.")
             return
         
-        index = int(index) -1
+        index = int(select) -1
         if index < 0 or index >= len(self.tasks):
             print("Task number out of range.")
             return
@@ -42,7 +42,7 @@ class ToDo:
         self.tasks[index] = updated_task
         print("Task updated successfully.")
         
-    def delete_task(self, index):
+    def delete_task(self):
         self.tasks.pop(index)
         
         if not self.tasks:
