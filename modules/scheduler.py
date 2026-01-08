@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 class Scheduler:
     def __init__(self, file_path="events.json"):
         self.file_path = file_path
-        self.reminders = self.load_events()
+        self.events = self.load_events()
 
     def load_events(self):
         try:
@@ -32,7 +32,7 @@ class Scheduler:
         
         schedule_type = input("Is this a meeting or a reminder?" ).strip().lower()
 
-        if schedule_type in ("meeting", "reminder"):
+        if schedule_type not in ("meeting", "reminder"):
             print("Invalid type")
             return
         
