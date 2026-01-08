@@ -6,10 +6,12 @@ from json
 from datetime import datetime, timedelta
 
 class Scheduler:
-    def __init__(self, title, description):
+    def __init__(self, file_path="reminders.json", title, description):
+        self.file_path = file_path
+        self.reminders = self.load_reminders()
+
         self.title = title
         self.description = description
-        self.reminders = []
 
     def greeting(self):
         print("What's on the schedule today?")
@@ -30,7 +32,7 @@ class Scheduler:
         })
 
         self.save_reminders()
-        
+
     def view_reminders():
 
     def search_reminders():
