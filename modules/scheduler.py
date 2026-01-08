@@ -2,19 +2,13 @@
 # usual - add, update, delete, view/show, search
 # add in sort + notify reminders
 
-from json
+import json
 from datetime import datetime, timedelta
 
 class Scheduler:
-    def __init__(self, file_path="reminders.json", title, type, description, date, time):
+    def __init__(self, file_path="reminders.json"):
         self.file_path = file_path
         self.reminders = self.load_reminders()
-
-        self.title = title
-        self.type = type
-        self.description = description
-        self.date = date
-        self.time = time
 
     def load_reminders(self):
         try:
@@ -28,7 +22,7 @@ class Scheduler:
             json.dump(self.reminders, file, indent=4)
 
     def greeting(self):
-        print("What's on the schedule today?")
+        print("What's on the schedule today Jasmine?")
 
     def add_reminders(self):
         title = input("Reminder title:").strip()
