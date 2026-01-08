@@ -68,7 +68,6 @@ class ToDo:
         print(f"Deleted: {deleted}")
     
     def show_list(self):
-        return self.tasks
 
         if not self.tasks:
             print("No tasks added yet.")
