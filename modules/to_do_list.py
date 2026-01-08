@@ -25,7 +25,15 @@ class ToDo:
             return
         
         self.show_tasks()
+
+        choice = input("Enter task number to delete.")
+
+        try:
+            index = int(choice) -1
         
+        except ValueError:
+            print("Invalid number.")
+            return
     
     def show_list(self):
         return self.tasks
