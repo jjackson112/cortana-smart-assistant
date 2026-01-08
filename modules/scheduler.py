@@ -36,15 +36,12 @@ class Scheduler:
             print("Invalid type")
             return
         
-        meeting_date = None
-        meeting_time = None
-        
         if schedule_type == "meeting":
             meeting_date = input("Enter the meeting date (MM-DD-YYYY): ").strip()
             meeting_time = input("Enter the meeting time (HH:MM): ").strip()
         else:
             reminder_date = input("Do you want to add a date? (y/n) ").lower()
-            if reminder_date != "y":
+            if reminder_date == "y":
                 date = input("Enter the reminder date (MM-DD-YYYY): ").strip()
             
                 reminder_time = input("Do you want to add a time? (y/n) ").lower()
@@ -53,7 +50,7 @@ class Scheduler:
 
         description = input("Add a short description").strip()
         
-        self.events.append({
+        event ={
             "title": title,
             "type": schedule_type,
             "description": description,
@@ -61,10 +58,9 @@ class Scheduler:
             "time": time,
             "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "updated_at": None
-        })
+        }
 
-        # timestamp
-        event["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.events.append(event)
 
         self.save_events()
         print("Added to calendar.")
