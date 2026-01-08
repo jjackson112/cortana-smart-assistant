@@ -22,6 +22,8 @@ class ToDo:
 
         for i, task in enumerate(self.tasks, start=1):
             print(f"{i}. {task}")
+        
+        select = input("Enter the task number to update:")
 
     def delete_task(self, index):
         self.tasks.pop(index)
