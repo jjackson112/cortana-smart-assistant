@@ -19,6 +19,13 @@ class ToDo:
 
     def delete_task(self, index):
         self.tasks.pop(index)
+        
+        if not self.tasks:
+            print("Nothing to delete.")
+            return
+        
+        self.show_tasks()
+        
     
     def show_list(self):
         return self.tasks
