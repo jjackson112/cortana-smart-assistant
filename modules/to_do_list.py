@@ -15,10 +15,14 @@ class ToDo:
         self.tasks.append(task)
         print("Task added")
 
-    def update_task(self, index):
+    def update_task(self):
 
     def delete_task(self, index):
         self.tasks.pop(index)
     
     def show_list(self):
         return self.tasks
+
+        if not self.tasks:
+            print("No tasks added yet.")
+            return
