@@ -1,3 +1,7 @@
+# If code prints data → helper method
+# If code changes data → action method
+# If code does both → refactor
+
 class ToDo:
     def __init__(self):
         self.tasks = []
@@ -65,5 +69,3 @@ class ToDo:
         
         deleted = self.tasks.pop(index)
         print(f"Deleted: {deleted}")
-    
-    
