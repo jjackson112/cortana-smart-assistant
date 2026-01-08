@@ -1,5 +1,3 @@
-import json
-
 class ToDo:
     def __init__(self):
         self.tasks = []
@@ -15,14 +13,19 @@ class ToDo:
         self.tasks.append(task)
         print("Task added")
 
+    def show_list(self):
+        if not self.tasks:
+            print("No tasks added yet.")
+            return
+        
+        for i, task in enumerate(self.tasks, start=1):
+            print(f"{i}. {task}")
+
     def update_task(self):
         if not self.tasks:
             print("No tasks to update.")
             return
 
-        for i, task in enumerate(self.tasks, start=1):
-            print(f"{i}. {task}")
-        
         select = input("Enter the task number to update:")
 
         if not select.isdigit():
@@ -67,11 +70,4 @@ class ToDo:
         deleted = self.tasks.pop(index)
         print(f"Deleted: {deleted}")
     
-    def show_list(self):
-
-        if not self.tasks:
-            print("No tasks added yet.")
-            return
-        
-        for i, task in enumerate(self.tasks, start=1):
-            print(f"{i}. {task}")
+    
