@@ -18,7 +18,7 @@ class Scheduler:
             return []
 
     def save_reminders(self):
-        with open("self.file_path", "w") as file:
+        with open(self.file_path, "w") as file:
             json.dump(self.reminders, file, indent=4)
 
     def greeting(self):
@@ -30,7 +30,12 @@ class Scheduler:
             print("Title not found.")
             return
         
-        type = input("Is this a meeting or a reminder?" ).strip()
+        reminder_type = input("Is this a meeting or a reminder?" ).strip().lower()
+
+        if reminder_type == "meeting":
+            meeting_date = input("Enter meeting date (MM-DD-YYYY): ").strip()
+        else:
+            meeting_date = None
 
         description = input("Add a short description").strip()
         
