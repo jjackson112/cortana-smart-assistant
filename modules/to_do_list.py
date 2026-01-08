@@ -19,7 +19,9 @@ class ToDo:
         if not self.tasks:
             print("No tasks to update.")
             return
-        
+
+        for i, task in enumerate(self.tasks, start=1):
+            print(f"{i}. {task}")
 
     def delete_task(self, index):
         self.tasks.pop(index)
