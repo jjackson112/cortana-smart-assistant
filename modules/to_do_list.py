@@ -26,6 +26,7 @@ class ToDo:
             print("No tasks to update.")
             return
 
+        self.show_tasks() # enumerate lives here now
         select = input("Enter the task number to update:")
 
         if not select.isdigit():
