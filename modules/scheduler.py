@@ -50,6 +50,9 @@ class Scheduler:
 
         description = input("Add a short description").strip()
         
+        # timestamp 
+        event["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         event ={
             "title": title,
             "type": schedule_type,
