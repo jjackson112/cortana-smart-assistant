@@ -13,6 +13,15 @@ class Scheduler:
         self.title = title
         self.description = description
 
+    def load_reminders(self):
+        try:
+            with open(self.file_path, "r") as file:
+                return json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return []
+
+    def save_reminders(self):
+
     def greeting(self):
         print("What's on the schedule today?")
 
@@ -33,10 +42,10 @@ class Scheduler:
 
         self.save_reminders()
 
-    def view_reminders():
+    def view_reminders(self):
 
-    def search_reminders():
+    def search_reminders(self):
 
-    def update_reminders():
+    def update_reminders(self):
 
-    def delete_reminders():
+    def delete_reminders(self):
