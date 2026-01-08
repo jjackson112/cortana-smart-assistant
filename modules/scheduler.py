@@ -6,26 +6,26 @@ import json
 from datetime import datetime, timedelta
 
 class Scheduler:
-    def __init__(self, file_path="reminders.json"):
+    def __init__(self, file_path="events.json"):
         self.file_path = file_path
-        self.reminders = self.load_reminders()
+        self.reminders = self.load_events()
 
-    def load_reminders(self):
+    def load_events(self):
         try:
             with open(self.file_path, "r") as file:
                 return json.load(file)
         except (FileNotFoundError, json.JSONDecodeError):
             return []
 
-    def save_reminders(self):
+    def save_events(self):
         with open(self.file_path, "w") as file:
-            json.dump(self.reminders, file, indent=4)
+            json.dump(self.events, file, indent=4)
 
     def greeting(self):
         print("What's on the schedule today Jasmine?")
 
-    def add_reminders(self):
-        title = input("Reminder title:").strip()
+    def add_events(self):
+        title = input("Event title:").strip()
         if not title:
             print("Title not found.")
             return
@@ -50,20 +50,25 @@ class Scheduler:
 
         description = input("Add a short description").strip()
         
-        self.reminders.append({
+        self.events.append({
             "title": title,
             "type": schedule_type,
             "description": description,
-            "date": "",
-            "time": None
+            "date": date,
+            "time": time,
+            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
 
-        self.save_reminders()
+        # timestamp
+        Scheduler["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    def view_reminders(self):
+        self.save_events()
+        print("Added to calendar.")
 
-    def search_reminders(self):
+    def view_events(self):
 
-    def update_reminders(self):
+    def search_events(self):
 
-    def delete_reminders(self):
+    def update_events(self):
+
+    def delete_events(self):
