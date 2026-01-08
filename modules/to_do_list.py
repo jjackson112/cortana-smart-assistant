@@ -16,6 +16,10 @@ class ToDo:
         print("Task added")
 
     def update_task(self):
+        if not self.tasks:
+            print("No tasks to update.")
+            return
+        
 
     def delete_task(self, index):
         self.tasks.pop(index)
@@ -34,6 +38,13 @@ class ToDo:
         except ValueError:
             print("Invalid number.")
             return
+
+        if index < 0 or index >= len(self.tasks):
+            print("Task number out of range.")
+            return
+        
+        deleted = self.tasks.pop(index)
+        print(f"Deleted: {deleted}")
     
     def show_list(self):
         return self.tasks
