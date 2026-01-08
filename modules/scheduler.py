@@ -36,11 +36,17 @@ class Scheduler:
             print("Invalid type")
             return
         
-            select_date = input("Do you want to add a date? (y/n) ").lower()
-        elif select_date != "y":
-            return
-        elif select_date = "n":
-            return input("What about a time?")
+        if schedule_type == "meeting":
+            meeting_date = input("Enter the meeting date (MM-DD-YYYY): ").strip()
+            meeting_time = input("Enter the meeting time (HH:MM): ").strip()
+        else:
+            reminder_date = input("Do you want to add a date? (y/n) ").lower()
+            if reminder_date != "y":
+                date = input("Enter the reminder date (MM-DD-YYYY): ").strip()
+            
+                reminder_time = input("Do you want to add a time? (y/n) ").lower()
+                if reminder_time != "y":
+                    time = input("Enter the reminder time (HH:MM): ").strip()
 
         description = input("Add a short description").strip()
         
