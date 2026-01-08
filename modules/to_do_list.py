@@ -26,3 +26,6 @@ class ToDo:
         if not self.tasks:
             print("No tasks added yet.")
             return
+        
+        for i, task in enumerate(self.tasks, start=1):
+            print(f"{i}. {task}")
