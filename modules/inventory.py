@@ -10,7 +10,7 @@ import json
 import os
 from datetime import datetime
 
-class Cortana:
+class Inventory:
     def __init__(self, name):
         self.name = name
         self.memory_path = self.get_memory_path()
@@ -195,15 +195,15 @@ class Cortana:
         
 # Main program loop
 if __name__ == "__main__":
-    cortana = Cortana("Cortana")
-    cortana.greeting()
+    inventory = Inventory("Cortana")
+    inventory.greeting()
 
     commands = {
-        "remember": cortana.remember,
-        "list": cortana.list_memory,
-        "search": cortana.search,
-        "update": cortana.update,
-        "delete": cortana.delete
+        "remember": inventory.remember,
+        "list": inventory.list_memory,
+        "search": inventory.search,
+        "update": inventory.update,
+        "delete": inventory.delete
     }
 
     while True:
