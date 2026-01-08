@@ -30,19 +30,26 @@ class Scheduler:
             print("Title not found.")
             return
         
-        reminder_type = input("Is this a meeting or a reminder?" ).strip().lower()
+        schedule_type = input("Is this a meeting or a reminder?" ).strip().lower()
 
-        if reminder_type == "meeting":
-            meeting_date = input("Enter meeting date (MM-DD-YYYY): ").strip()
-        else:
-            meeting_date = None
+        if schedule_type in ("meeting", "reminder"):
+            print("Invalid type")
+            return
+        
+            select_date = input("Do you want to add a date? (y/n) ").lower()
+        elif select_date != "y":
+            return
+        elif select_date = "n":
+            return input("What about a time?")
 
         description = input("Add a short description").strip()
         
         self.reminders.append({
             "title": title,
-            "type": type,
+            "type": schedule_type,
             "description": description,
+            "date": "",
+            "time": None
         })
 
         self.save_reminders()
