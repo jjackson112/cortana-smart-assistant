@@ -67,14 +67,33 @@ class Scheduler:
         self.save_events()
         print("Added to calendar.")
 
+    def event_datetime(self, event):
+        if not event ["date"]:
+            return datetime.max # pushes undated reminders to the end
+        
+        date_str = event["date"]
+        time_str = event["time"] or "00:00"
+
+        return datetime.strptime(
+            f"{date_str} {time_str}",
+            "%m-%d-%Y %H:%M"
+        )
+
+        # self.events.sort(key=self.event_datetime) - events in chronological order
+
     def list_events(self):
         if not self.events:
             print("No events added yet.")
             return
         
+        self.events.sort(key=self.event_datetime)
+        
         print("All events")
         for i, event in enumerate(self.events, start=1):
-            print(f"{i}. {event['title']} ({event['type']})")
+            print(f"{i}. {event['title']} "
+                f"({event['type']}) "
+                f"{event['date'] or ''} {event['time'] or ''}"
+                )
 
     def search_events(self):
         query_category = input("Would you like to look up meetings or reminders? ").strip().lower()
@@ -176,15 +195,3 @@ class Scheduler:
         self.events.remove(deleted_event)
         self.save_events()
         print(f"Deleted: {deleted_event['title']}")
-
-    def event_datetime(self, event):
-        if not event ["date"]:
-            return datetime.max # pushes undated reminders to the end
-        
-        date_str = event["date"]
-        time_str = event["time"] or "00:00"
-
-        return datetime.strptime(
-            f"{date_str} {time_str}",
-            "%m-%d-%Y %H:%M"
-        )
