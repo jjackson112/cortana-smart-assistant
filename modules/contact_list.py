@@ -36,7 +36,8 @@ class ContactList:
       normalized.append({
         "name": name,
         "phone_number": phone_number,
-        "job": job
+        "job": job,
+        "updated_at": contact.get("updated_at")
       })
 
     return normalized
