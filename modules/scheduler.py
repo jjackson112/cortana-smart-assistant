@@ -79,9 +79,12 @@ class Scheduler:
     def search_events(self):
         query_category = input("Would you like to look up meetings or reminders? ").strip().lower()
 
-        if not query_category:
-            print("Invalid category. Try again.")
+        if query_category not in ("meeting", "reminder"):
+            print("Invalid category.")
             return
         
+        found = False
+        
         if query_category == "meeting":
+
 
