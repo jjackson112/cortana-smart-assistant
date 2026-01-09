@@ -47,14 +47,11 @@ class Scheduler:
                 date = input("Enter the reminder date (MM-DD-YYYY): ").strip()
             
                 reminder_time = input("Do you want to add a time? (y/n) ").lower()
-                if reminder_time != "y":
+                if reminder_time == "y":
                     time = input("Enter the reminder time (HH:MM): ").strip()
 
         description = input("Add a short description").strip()
         
-        # timestamp 
-        event["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
         event ={
             "title": title,
             "type": schedule_type,
@@ -70,8 +67,13 @@ class Scheduler:
         self.save_events()
         print("Added to calendar.")
 
-    def view_events(self):
+    def list_events(self):
         if not self.events:
             print("No events added yet.")
             return
- 
+        
+        print("\All events")
+        for i, event in enumerate(self.events, start=1):
+            print(f"{i}. {event['title']} ({event['type']})")
+
+    def search_by_category(self):
