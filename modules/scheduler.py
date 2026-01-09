@@ -98,14 +98,20 @@ class Scheduler:
             print(f"{event['title']} ({event['date']} {event['time']})")
 
     def update_events(self):
-        update = input("What needs to be updated - a meeting or a reminder? ")
+        update_type = input("What needs to be updated - a meeting or a reminder? ")
+        
+        filtered_type = [
+            event for event in self.events
+            if event["type"] == update_type
+        ]
 
-        if not update:
-            print("Invalid selection.")
+        if not filtered_type:
+            print("No matching event types.")
             return
         
+        print(f"\n{update_type.capitalize()}s:")
         for i, event in enumerate(self.events, start=1):
-            print(f"{i}. {event['title']}")
+            print(f"{i}. {event['title']} ({event['date']} {event['time']})")
 
         selection = input("Enter event number to be updated: ").strip()
 
