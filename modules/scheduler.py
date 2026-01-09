@@ -72,7 +72,7 @@ class Scheduler:
             print("No events added yet.")
             return
         
-        print("\All events")
+        print("All events")
         for i, event in enumerate(self.events, start=1):
             print(f"{i}. {event['title']} ({event['type']})")
 
@@ -93,4 +93,24 @@ class Scheduler:
         if not found:
             print(f"No {query_category}s found.")
 
+    def update_events(self):
+        update = input("What needs to be updated - a meeting or a reminder? ")
 
+        if not update:
+            print("Invalid selection.")
+            return
+        
+        for i, event in enumerate(self.events, start=1):
+            print(f"{i}. {event['title']}")
+
+        selection = input("Enter event number to be updated: ").strip()
+
+        if not selection.isdigit():
+            print("Invalid number")
+            return
+
+        index = int(selection) -1
+
+        if index < 0 or index >= len(self.events):
+            print("Task number out of range.")
+            return
