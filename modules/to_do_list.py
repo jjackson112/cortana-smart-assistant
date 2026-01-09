@@ -13,7 +13,7 @@ class ToDo:
             with open(self.file_path, "r") as file:
                 return json.load(file)
         except:
-            (FileNotFoundError, json.JSONDecodeError):
+            (FileNotFoundError, json.JSONDecodeError)
             return []
 
     def save_tasks(self):
