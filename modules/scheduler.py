@@ -143,7 +143,24 @@ class Scheduler:
             print("Nothing to delete.")
             return
         
-        self.list_events()
+        delete_filter_type = input("Do you want to delete a meeting or a reminder? ").strip().lower()
+        
+        if delete_filter_type in ("meeting", "reminder"):
+            filtered_events = [
+                event for event in self.events
+                if event["type"] == delete_filter_type
+            ]
+        else:
+            filtered_events = self.events # show all with no filtering
+
+        if not filtered_events:
+            print("No events found to delete.")
+            return
+            
+        print("\nEvents:")
+        for i, event in enumerate(filtered_events, start=1):
+            print(f"{i}. {event['title']} ({event['type']})")
+        
         choice = input("Enter event number to delete.").strip()
 
         if not choice.isdigit():
