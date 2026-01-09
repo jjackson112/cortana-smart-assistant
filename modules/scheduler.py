@@ -172,5 +172,7 @@ class Scheduler:
             print("Event number out of range.")
             return
         
-        deleted = self.events.pop(index)
-        print(f"Deleted: {deleted['title']}")
+        deleted_event = filtered_events[index]
+        self.events.remove(deleted_event)
+        self.save_events()
+        print(f"Deleted: {deleted_event['title']}")
