@@ -30,6 +30,8 @@ class Scheduler:
             print("Title not found.")
             return
         
+        date = None
+        time = None
         schedule_type = input("Is this a meeting or a reminder?" ).strip().lower()
 
         if schedule_type not in ("meeting", "reminder"):
@@ -37,8 +39,8 @@ class Scheduler:
             return
         
         if schedule_type == "meeting":
-            meeting_date = input("Enter the meeting date (MM-DD-YYYY): ").strip()
-            meeting_time = input("Enter the meeting time (HH:MM): ").strip()
+            date = input("Enter the meeting date (MM-DD-YYYY): ").strip()
+            time = input("Enter the meeting time (HH:MM): ").strip()
         else:
             reminder_date = input("Do you want to add a date? (y/n) ").lower()
             if reminder_date == "y":
@@ -69,9 +71,7 @@ class Scheduler:
         print("Added to calendar.")
 
     def view_events(self):
-
-    def search_events(self):
-
-    def update_events(self):
-
-    def delete_events(self):
+        if not self.events:
+            print("No events added yet.")
+            return
+ 
