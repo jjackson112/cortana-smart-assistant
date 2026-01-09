@@ -84,7 +84,13 @@ class Scheduler:
             return
         
         found = False
+
+        for event in self.events:
+            if event["type"] == query_category:
+                print(event["title"])
+                found = True
         
-        if query_category == "meeting":
+        if not found:
+            print(f"No {query_category}s found.")
 
 
