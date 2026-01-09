@@ -176,3 +176,15 @@ class Scheduler:
         self.events.remove(deleted_event)
         self.save_events()
         print(f"Deleted: {deleted_event['title']}")
+
+    def event_datetime(self, event):
+        if not event ["date"]:
+            return datetime.max # pushes undated reminders to the end
+        
+        date_str = event["date"]
+        time_str = event["time"] or "00:00"
+
+        return datetime.strptime(
+            f"{date_str} {time_str}",
+            "%m-%d-%Y %H:%M"
+        )
