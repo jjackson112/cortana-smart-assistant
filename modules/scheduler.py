@@ -123,12 +123,12 @@ class Scheduler:
         if not updated_event:
             print("Event cannot be empty.")
             return
-        
-        self.save_events()
     
         self.events[index] ["title"] = updated_event
         self.events[index]["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print("Event updated successfully.")
+
+        self.save_events()
 
     def delete_event(self):        
         if not self.events:
