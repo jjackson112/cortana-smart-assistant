@@ -76,4 +76,12 @@ class Scheduler:
         for i, event in enumerate(self.events, start=1):
             print(f"{i}. {event['title']} ({event['type']})")
 
-    def search_by_category(self):
+    def search_events(self):
+        query_category = input("Would you like to look up meetings or reminders? ").strip().lower()
+
+        if not query_category:
+            print("Invalid category. Try again.")
+            return
+        
+        if query_category == "meeting":
+
