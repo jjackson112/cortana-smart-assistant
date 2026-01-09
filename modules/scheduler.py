@@ -122,7 +122,8 @@ class Scheduler:
         
         self.save_events()
     
-        self.events[index] = updated_event
+        self.events[index] ["title"] = updated_event
+        self.events[index]["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print("Event updated successfully.")
 
     def delete_event(self):        
