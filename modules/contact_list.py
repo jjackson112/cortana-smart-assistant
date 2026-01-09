@@ -47,7 +47,7 @@ class ContactList:
 
 # add contacts - method of class (data-focused function)
   def add_contacts(self, name, phone_number, job):
-    if any (c["name"] == name for c in self.contacts):
+    if any (c["name"].lower() == name.lower() for c in self.contacts):
       raise ValueError("This contact already exists.")
   
     self.contacts.append({
