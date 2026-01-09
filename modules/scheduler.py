@@ -112,5 +112,33 @@ class Scheduler:
         index = int(selection) -1
 
         if index < 0 or index >= len(self.events):
-            print("Task number out of range.")
+            print("Event number out of range.")
             return
+        
+        updated_event = input("Enter the updated event").strip()
+        if not updated_event:
+            print("Event cannot be empty.")
+            return
+    
+        self.events[index] = updated_event
+        print("Event updated successfully.")
+
+    def delete_event(self):        
+        if not self.events:
+            print("Nothing to delete.")
+            return
+        
+        self.list_events()
+        choice = input("Enter event number to delete.").strip()
+
+        if not choice.isdigit():
+            print("Enter a valid number.")
+            return
+
+        index = int(choice) -1
+        if index < 0 or index >= len(self.events):
+            print("Event number out of range.")
+            return
+        
+        deleted = self.events.pop(index)
+        print(f"Deleted: {deleted['title']}")
