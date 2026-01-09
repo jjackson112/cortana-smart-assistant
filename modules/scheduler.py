@@ -87,7 +87,7 @@ class Scheduler:
 
         for event in self.events:
             if event["type"] == query_category:
-                print(event["title"])
+                print(event["title", "date", "time"])
                 found = True
         
         if not found:
@@ -119,6 +119,8 @@ class Scheduler:
         if not updated_event:
             print("Event cannot be empty.")
             return
+        
+        self.save_events()
     
         self.events[index] = updated_event
         print("Event updated successfully.")
