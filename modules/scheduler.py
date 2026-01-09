@@ -150,7 +150,6 @@ class Scheduler:
             return
     
         # Update the chosen event
-        self.events = filtered_type[index]
         self.events[index] ["title"] = updated_event
         self.events[index]["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
