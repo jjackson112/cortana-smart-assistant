@@ -83,15 +83,19 @@ class Scheduler:
             print("Invalid category.")
             return
         
-        found = False
+        filtered_events = list(
+            filter(
+                lambda event: event["type"] == query_category,
+                self.events
+            )
+        )
 
-        for event in self.events:
-            if event["type"] == query_category:
-                print(event["title", "date", "time"])
-                found = True
+        if not filtered_events:
+            print(f"No {query_category} found.")
+            return
         
-        if not found:
-            print(f"No {query_category}s found.")
+        for event in filtered_events:
+            print(f"{event['title']} ({event['date']} {event['time']})")
 
     def update_events(self):
         update = input("What needs to be updated - a meeting or a reminder? ")
