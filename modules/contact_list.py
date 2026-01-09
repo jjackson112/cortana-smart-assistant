@@ -147,4 +147,4 @@ class ContactList:
 
     self.contacts.remove(contact)
     self.save_contacts()
-    print(f"{delete_name} has been deleted successfully.")
+    print(f"{contact['name']} has been deleted successfully.")
