@@ -24,33 +24,37 @@ def main():
 
         select_mode = input("Select an option").strip()
 
+        if select_mode == "5":
+            print("See you next time {username}! 🤗")
+            break
+
         commands = {
             # contacts
-    
+
             # inventory
             "remember": inventory.remember,
             "list": inventory.list_memory,
             "search": inventory.search,
             "update": inventory.update,
             "delete": inventory.delete
-    
+
             # schedule
-    
+
             # to do list
         }
-    
+
         while True:
             command = input("\nCommand (or exit): ").strip().lower()
-    
+
             if command == "exit":
                 print("Later {username}! 🤗")
                 break
-            
+
             action = commands.get(command)
             if action:
                 action() # call method
             else:
                 print("I don't understand that command.")
-    
+
         if __name__ == "__main__":
             main()
