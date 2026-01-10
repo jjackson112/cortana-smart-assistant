@@ -1,42 +1,56 @@
 from contacts import ContactList
 from inventory import Inventory
-from schedule import Scheduler
+from scheduler import Scheduler
 from todo import ToDo
 
-# Main program loop
+# Main program loop (COMMAND ROUTER)
 def main():
     assistant_name = "Cortana"
     username = "Jasmine"
 
-    print(f"Hi {username}! I'm {assistant_name}. How may I help you?")
+    inventory = Inventory()
+    contacts = ContactList()
+    scheduler = Scheduler()
+    todo = ToDo()
 
-    commands = {
-        # contacts
-
-        # inventory
-        "remember": inventory.remember,
-        "list": inventory.list_memory,
-        "search": inventory.search,
-        "update": inventory.update,
-        "delete": inventory.delete
-
-        # schedule
-
-        # to do list
-    }
+    print(f"Hi {username}! I'm {assistant_name}. How may I help you?\n")
 
     while True:
-        command = input("\nEnter a command (remember, list, search, update, delete, exit):").strip().lower()
+        print("1. Contact List")
+        print("2. Inventory")
+        print("3. Schedule")
+        print("4. To Do List")
+        print("5. Exit")
 
-        if command == "exit":
-            print("Later {username}! 🤗")
-            break
+        select_mode = input("Select an option").strip()
 
-        action = commands.get(command)
-        if action:
-            action() # call method
-        else:
-            print("I don't understand that command.")
-
-    if __name__ == "__main__":
-        main()
+        commands = {
+            # contacts
+    
+            # inventory
+            "remember": inventory.remember,
+            "list": inventory.list_memory,
+            "search": inventory.search,
+            "update": inventory.update,
+            "delete": inventory.delete
+    
+            # schedule
+    
+            # to do list
+        }
+    
+        while True:
+            command = input("\nCommand (or exit): ").strip().lower()
+    
+            if command == "exit":
+                print("Later {username}! 🤗")
+                break
+            
+            action = commands.get(command)
+            if action:
+                action() # call method
+            else:
+                print("I don't understand that command.")
+    
+        if __name__ == "__main__":
+            main()
