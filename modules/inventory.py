@@ -11,8 +11,7 @@ import os
 from datetime import datetime
 
 class Inventory:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
         self.memory_path = self.get_memory_path()
         self.memory = self.load_memory()
 
@@ -36,9 +35,6 @@ class Inventory:
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), "memory.json")
     
     # Commands
-    def greeting(self):
-        print(f"Hi, my name is {self.name}")
-
     def remember(self):
         category = input("Category (personal/work/other): ").strip().lower()
 
@@ -193,28 +189,3 @@ class Inventory:
         self.save_memory()
         print(f"I've deleted '{key}' from {category}.")
         
-# Main program loop
-if __name__ == "__main__":
-    inventory = Inventory("Cortana")
-    inventory.greeting()
-
-    commands = {
-        "remember": inventory.remember,
-        "list": inventory.list_memory,
-        "search": inventory.search,
-        "update": inventory.update,
-        "delete": inventory.delete
-    }
-
-    while True:
-        command = input("\nEnter a command (remember, list, search, update, delete, exit):").strip().lower()
-
-        if command == "exit":
-            print("Later Jasmine! 🤗")
-            break
-
-        action = commands.get(command)
-        if action:
-            action() # call method
-        else:
-            print("I don't understand that command.")
