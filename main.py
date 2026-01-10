@@ -11,18 +11,25 @@ def main():
     print(f"Hi {username}! I'm {assistant_name}. How may I help you?")
 
     commands = {
+        # contacts
+
+        # inventory
         "remember": inventory.remember,
         "list": inventory.list_memory,
         "search": inventory.search,
         "update": inventory.update,
         "delete": inventory.delete
+
+        # schedule
+
+        # to do list
     }
 
     while True:
         command = input("\nEnter a command (remember, list, search, update, delete, exit):").strip().lower()
 
         if command == "exit":
-            print("Later Jasmine! 🤗")
+            print("Later {username}! 🤗")
             break
 
         action = commands.get(command)
