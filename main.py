@@ -43,8 +43,20 @@ def main():
         else:
             print("Invalid selection.")
             return
+        
+def contact_list_mode():
+    print("\nLet's head to the contact list 📲📞☎️")
 
-        commands = {
+def inventory_mode():
+    print("\nLet's check the inventory 📋💻")
+
+def schedule_mode():
+    print("What's up with the schedule? 📅")
+
+def to_do_list_mode():
+    print("What's on the to do list? 📝")
+
+    commands = {
             # contacts
 
             # inventory
@@ -57,19 +69,19 @@ def main():
             # schedule
 
             # to do list
-        }
+    }
 
-        while True:
-            command = input("\nCommand (or exit): ").strip().lower()
+    while True:
+        command = input("\nCommand (or exit): ").strip().lower()
 
-            if command == "exit":
-                print("Later {username}! 🤗")
-                break
+        if command == "exit":
+            print("Later {username}! 🤗")
+            break
 
-            action = commands.get(command)
-            if action:
-                action() # call method
-            else:
+        action = commands.get(command)
+        if action:
+            action() # call method
+        else:
                 print("I don't understand that command.")
 
     if __name__ == "__main__":
