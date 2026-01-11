@@ -50,6 +50,26 @@ def contact_list_mode():
 def inventory_mode():
     print("\nLet's check the inventory 📋💻")
 
+    commands = {
+        "remember": inventory.remember,
+        "list": inventory.list_memory,
+        "search": inventory.search,
+        "update": inventory.update,
+        "delete": inventory.delete
+    }
+
+    while True:
+        command = input("\nInventory command (remember, list, search, update, delete, back): ").strip().lower()
+
+        if command == "back":
+            break
+
+        action = commands.get(command)
+        if action:
+            action()
+        else:
+            print("Unknown inventory command.")
+
 def schedule_mode():
     print("What's up with the schedule? 📅")
 
