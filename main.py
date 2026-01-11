@@ -96,32 +96,34 @@ def to_do_list_mode():
     print("What's on the to do list? 📝")
 
     commands = {
-            # contacts
-
-            # inventory
-            "remember": inventory.remember,
-            "list": inventory.list_memory,
-            "search": inventory.search,
-            "update": inventory.update,
-            "delete": inventory.delete
-
-            # schedule
-
-            # to do list
+            "add": todo.add_task,
+            "list": todo.show_list,
+            "update": todo.update_task,
+            "delete": todo.delete_task
     }
 
     while True:
-        command = input("\nCommand (or exit): ").strip().lower()
+        command = input("\nTo do list command (add, list, update, delete, back): ").strip().lower()
 
-        if command == "exit":
-            print("Later {username}! 🤗")
+        if command == "back":
             break
 
         action = commands.get(command)
         if action:
-            action() # call method
+            action()
         else:
-                print("I don't understand that command.")
+            print("Unknown to do list command.")
+
+while True:
+    command = input("\nCommand (or exit): ").strip().lower()
+    if command == "exit":
+        print("Later {username}! 🤗")
+        break
+    action = commands.get(command)
+    if action:
+        action() # call method
+    else:
+            print("I don't understand that command.")
 
     if __name__ == "__main__":
         main()
