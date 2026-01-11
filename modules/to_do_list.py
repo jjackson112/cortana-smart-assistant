@@ -47,7 +47,7 @@ class ToDo:
             return
 
         self.show_list() # enumerate lives here now
-        select = input("Enter the task number to update:").strip()
+        select = input("Enter the task number to update: ").strip()
 
         if not select.isdigit():
             print("Enter a valid number.")
@@ -58,7 +58,7 @@ class ToDo:
             print("Task number out of range.")
             return
         
-        updated_task = input("Enter the updated task").strip()
+        updated_task = input("Enter the updated task: ").strip()
         if not updated_task:
             print("Task cannot be empty.")
             return
@@ -73,7 +73,7 @@ class ToDo:
             return
         
         self.show_list()
-        choice = input("Enter task number to delete.").strip()
+        choice = input("Enter task number to delete: ").strip()
 
         if not choice.isdigit():
             print("Enter a valid number.")

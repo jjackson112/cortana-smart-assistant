@@ -3,7 +3,7 @@
 # add in sort + notify reminders
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 
 class Scheduler:
     def __init__(self, file_path="events.json"):
@@ -50,7 +50,7 @@ class Scheduler:
                 if reminder_time == "y":
                     time = input("Enter the reminder time (HH:MM): ").strip()
 
-        description = input("Add a short description").strip()
+        description = input("Add a short description ").strip()
         
         event ={
             "title": title,
@@ -144,7 +144,7 @@ class Scheduler:
             print("Event number out of range.")
             return
         
-        updated_event = input("Enter the updated event").strip()
+        updated_event = input("Enter the updated event ").strip()
         if not updated_event:
             print("Event cannot be empty.")
             return
