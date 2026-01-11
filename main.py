@@ -44,7 +44,7 @@ def main():
             print("Invalid selection.")
             return
         
-def contact_list_mode():
+def contact_list_mode(contacts):
     print("\nLet's head to the contact list 📲📞☎️")
 
     commands = {
@@ -66,7 +66,7 @@ def contact_list_mode():
         else:
             print("Unknown contact list command.")
 
-def inventory_mode():
+def inventory_mode(inventory):
     print("\nLet's check the inventory 📋💻")
 
     commands = {
@@ -89,17 +89,37 @@ def inventory_mode():
         else:
             print("Unknown inventory command.")
 
-def schedule_mode():
+def schedule_mode(scheduler):
     print("What's up with the schedule? 📅")
 
-def to_do_list_mode():
+    commands = {
+        "add": scheduler.add_events,
+        "list": scheduler.show_events,
+        "search": scheduler.search_events,
+        "update": scheduler.update_events,
+        "delete": scheduler.delete_event
+    }
+
+    while True:
+        command = input("\nSchedule command (add, list, search, update, delete, back): ").strip().lower()
+
+        if command == "back":
+            break
+
+        action = commands.get(command)
+        if action:
+            action()
+        else:
+            print("Unknown schedule command.")
+
+def to_do_list_mode(todo):
     print("What's on the to do list? 📝")
 
     commands = {
-            "add": todo.add_task,
-            "list": todo.show_list,
-            "update": todo.update_task,
-            "delete": todo.delete_task
+        "add": todo.add_task,
+        "list": todo.show_list,
+        "update": todo.update_task,
+        "delete": todo.delete_task
     }
 
     while True:
@@ -113,17 +133,6 @@ def to_do_list_mode():
             action()
         else:
             print("Unknown to do list command.")
-
-while True:
-    command = input("\nCommand (or exit): ").strip().lower()
-    if command == "exit":
-        print("Later {username}! 🤗")
-        break
-    action = commands.get(command)
-    if action:
-        action() # call method
-    else:
-            print("I don't understand that command.")
 
     if __name__ == "__main__":
         main()
