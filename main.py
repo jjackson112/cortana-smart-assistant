@@ -24,9 +24,25 @@ def main():
 
         select_mode = input("Select an option").strip()
 
-        if select_mode == "5":
+        if select_mode == "1":
+            contact_list_mode()
+        
+        elif select_mode == "2":
+            inventory_mode()
+
+        elif select_mode == "3":
+            schedule_mode()
+
+        elif select_mode == "4":
+            to_do_list_mode()
+
+        elif select_mode == "5":
             print("See you next time {username}! 🤗")
             break
+
+        else:
+            print("Invalid selection.")
+            return
 
         commands = {
             # contacts
@@ -56,5 +72,5 @@ def main():
             else:
                 print("I don't understand that command.")
 
-        if __name__ == "__main__":
-            main()
+    if __name__ == "__main__":
+        main()
