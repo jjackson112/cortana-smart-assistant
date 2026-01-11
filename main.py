@@ -47,6 +47,25 @@ def main():
 def contact_list_mode():
     print("\nLet's head to the contact list 📲📞☎️")
 
+    commands = {
+        "add": contacts.add_contacts,
+        "search": contacts.search_contacts,
+        "update": contacts.update_contacts,
+        "delete": contacts.delete_contacts
+    }
+
+    while True:
+        command = input("\nContact list command (add, search, update, delete, back): ").strip().lower()
+
+        if command == "back":
+            break
+
+        action = commands.get(command)
+        if action:
+            action()
+        else:
+            print("Unknown contact list command.")
+
 def inventory_mode():
     print("\nLet's check the inventory 📋💻")
 
