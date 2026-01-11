@@ -1,7 +1,7 @@
-from contacts import ContactList
-from inventory import Inventory
-from scheduler import Scheduler
-from todo import ToDo
+from modules.contact_list import ContactList
+from modules.inventory import Inventory
+from modules.scheduler import Scheduler
+from modules.to_do_list import ToDo
 
 # Main program loop (COMMAND ROUTER)
 def main():
@@ -25,16 +25,16 @@ def main():
         select_mode = input("Select an option").strip()
 
         if select_mode == "1":
-            contact_list_mode()
+            contact_list_mode(contacts)
         
         elif select_mode == "2":
-            inventory_mode()
+            inventory_mode(inventory)
 
         elif select_mode == "3":
-            schedule_mode()
+            schedule_mode(scheduler)
 
         elif select_mode == "4":
-            to_do_list_mode()
+            to_do_list_mode(todo)
 
         elif select_mode == "5":
             print("See you next time {username}! 🤗")
