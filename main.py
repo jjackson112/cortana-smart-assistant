@@ -37,12 +37,12 @@ def main():
             to_do_list_mode(todo)
 
         elif select_mode == "5":
-            print("See you next time {username}! 🤗")
+            print(f"See you next time {username}! 🤗")
             break
 
         else:
             print("Invalid selection.")
-            return
+            continue # return kills the program
         
 def contact_list_mode(contacts):
     print("\nLet's head to the contact list 📲📞☎️")
@@ -134,5 +134,5 @@ def to_do_list_mode(todo):
         else:
             print("Unknown to do list command.")
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
