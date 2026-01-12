@@ -41,7 +41,7 @@ class ContactList:
         "name": name,
         "phone_number": phone_number,
         "job": job,
-        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "updated_at": contact.get("updated_at")
       })
 
     return normalized
@@ -77,7 +77,7 @@ class ContactList:
   
     self.contacts.append({
       "name": name.strip(),
-      "phone_number": phone_number.strip(),
+      "phone_number": normalized_phone_number,
       "job": job.strip()
     })
 
