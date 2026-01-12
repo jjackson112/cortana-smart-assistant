@@ -57,7 +57,8 @@ def contact_list_mode(contacts):
     while True:
         command = input("\nContact list command (add, search, update, delete, back): ").strip().lower()
 
-        if command == "back":
+        if command == "Type 'back' to return to the main menu. ":
+            print("\nReturning to main menu...\n")
             break
 
         action = commands.get(command)
@@ -80,7 +81,8 @@ def inventory_mode(inventory):
     while True:
         command = input("\nInventory command (remember, list, search, update, delete, back): ").strip().lower()
 
-        if command == "back":
+        if command == "Type 'back' to return to the main menu. ":
+            print("\nReturning to main menu...\n")
             break
 
         action = commands.get(command)
@@ -103,7 +105,8 @@ def schedule_mode(scheduler):
     while True:
         command = input("\nSchedule command (add, list, search, update, delete, back): ").strip().lower()
 
-        if command == "back":
+        if command == "Type 'back' to return to the main menu. ":
+            print("\nReturning to main menu...\n")
             break
 
         action = commands.get(command)
@@ -125,7 +128,8 @@ def to_do_list_mode(todo):
     while True:
         command = input("\nTo do list command (add, list, update, delete, back): ").strip().lower()
 
-        if command == "back":
+        if command == "Type 'back' to return to the main menu. ":
+            print("\nReturning to main menu...\n")
             break
 
         action = commands.get(command)
