@@ -46,6 +46,7 @@ class ContactList:
 
     return normalized
   
+  # no junk characters, length enforced and consistent storage
   def normalize_phone_number(self, phone_number):
     digits = re.sub(r"\D", "", phone_number)
 
@@ -68,6 +69,11 @@ class ContactList:
   def add_contacts(self, name, phone_number, job):
     if any (c["name"].lower() == name.lower() for c in self.contacts):
       raise ValueError("This contact already exists.")
+    
+    normalized_phone_number = self.normalize_phone_number(phone_number)
+
+    if any (c["phone_number"] == normalized_phone_number for c in self.contacts):
+      raise ValueError("This phone number already exists.")
   
     self.contacts.append({
       "name": name.strip(),
