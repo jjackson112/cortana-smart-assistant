@@ -90,7 +90,7 @@ class Inventory:
                 found = True
 
         if not found:
-            print("There are no matching memories.")
+            print("There are no matching entries.")
 
     # where to update, verify category exists, ask what to update, ask for new value and save
     # self.memory[category][key] = updated_value
