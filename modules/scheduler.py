@@ -4,13 +4,16 @@
 
 import json
 from datetime import datetime
+from pathlib import Path
 
 class Scheduler:
-    def __init__(self, file_path="events.json"):
-        self.file_path = file_path
+    def __init__(self, file_path="data/events.json"):
+        self.file_path = Path(file_path)
         self.events = self.load_events()
 
     def load_events(self):
+        if not self.file_path.exists():
+            return []
         try:
             with open(self.file_path, "r") as file:
                 return json.load(file)

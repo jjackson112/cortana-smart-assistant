@@ -2,13 +2,16 @@
 # If code changes data → action method
 # If code does both → refactor
 import json
+from pathlib import Path
 
 class ToDo:
-    def __init__(self, file_path="todos.json"):
-        self.file_path = file_path
+    def __init__(self, file_path="data/todos.json"):
+        self.file_path = Path(file_path)
         self.tasks = self.load_tasks()
 
     def load_tasks(self):
+        if not self.file_path.exists():
+            return []
         try:
             with open(self.file_path, "r") as file:
                 return json.load(file)
