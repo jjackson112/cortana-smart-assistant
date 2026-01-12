@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from pathlib import Path
 
 # normalize data after json load - take what ever comes out of JSON and force it into a predictable structure my code can rely on
 # for example - missing keys, inconsistent casing, extra whitespace, old data formats
@@ -7,7 +8,7 @@ from datetime import datetime
 class ContactList:
 
   def __init__(self, file_path="data/contacts.json"):
-    self.file_path = (file_path)
+    self.file_path = Path(file_path)
     self.contacts = self.normalize_contacts(self.load_contacts())
 
   def load_contacts(self):
@@ -107,6 +108,7 @@ class ContactList:
     update_query = input("Enter the name of the contact you want to update. ").strip().lower()
     contact = self.find_contact(update_query)
     if not contact:
+      print("Contact not found.")
       return 
 
     selected_value = input(f"Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
