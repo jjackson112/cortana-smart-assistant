@@ -6,11 +6,13 @@ from datetime import datetime
 
 class ContactList:
 
-  def __init__(self, file_path="contacts.json"):
-    self.file_path = file_path
+  def __init__(self, file_path="data/contacts.json"):
+    self.file_path = (file_path)
     self.contacts = self.normalize_contacts(self.load_contacts())
 
   def load_contacts(self):
+    if not self.file_path.exists():
+      return []
     try:
       with open(self.file_path, "r") as file:
         return json.load(file)
@@ -37,7 +39,7 @@ class ContactList:
         "name": name,
         "phone_number": phone_number,
         "job": job,
-        "updated_at": contact.get("updated_at")
+        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
       })
 
     return normalized
@@ -67,6 +69,7 @@ class ContactList:
 
     if not name or not phone_number or not job:
       print("All fields are required.")
+      return
 
     try:
       self.add_contacts(name, phone_number, job)
@@ -78,7 +81,7 @@ class ContactList:
   def find_contact(self, query):
     query = query.strip().lower()
     for contact in self.contacts:
-        if contact["name"].lower() == query or contact["job"].lower() == query:
+        if query in contact["name"].lower() or query in contact["job"].lower():
             return contact
     return None
 

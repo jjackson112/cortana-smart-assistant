@@ -48,7 +48,7 @@ def contact_list_mode(contacts):
     print("\nLet's head to the contact list 📲📞☎️")
 
     commands = {
-        "add": contacts.add_contacts,
+        "add": contacts.add_contacts_prompt,
         "search": contacts.search_contacts,
         "update": contacts.update_contacts,
         "delete": contacts.delete_contacts
