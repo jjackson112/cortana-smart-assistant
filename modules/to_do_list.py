@@ -20,9 +20,6 @@ class ToDo:
         with open(self.file_path, "w") as file:
             json.dump(self.tasks, file, indent=4)
 
-    def greeting(self):
-        print("What's on your to do list? ")
-
     def add_task(self):
         task = input("Add a new task: ").strip()
         if not task:

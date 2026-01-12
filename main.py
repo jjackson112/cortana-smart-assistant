@@ -22,7 +22,7 @@ def main():
         print("4. To Do List")
         print("5. Exit")
 
-        select_mode = input("Type in the number or mode to select an option ").strip()
+        select_mode = input("Type in the number to select an option ").strip()
 
         if select_mode == "1":
             contact_list_mode(contacts)

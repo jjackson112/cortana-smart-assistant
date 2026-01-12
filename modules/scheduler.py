@@ -21,9 +21,6 @@ class Scheduler:
         with open(self.file_path, "w") as file:
             json.dump(self.events, file, indent=4)
 
-    def greeting(self):
-        print("What's on the schedule today Jasmine?")
-
     def add_events(self):
         title = input("Event title: ").strip()
         if not title:
