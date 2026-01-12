@@ -40,7 +40,7 @@ class Inventory:
 
     def get_memory_path(self):
         #  Use Path for easier handling
-        base_path = Path(__file__).parent
+        base_path = Path(__file__).parent.parent
         return base_path / "data" / "memory.json"    
     
     # Commands
