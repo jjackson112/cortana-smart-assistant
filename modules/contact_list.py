@@ -68,6 +68,12 @@ class ContactList:
     if not name or not phone_number or not job:
       print("All fields are required.")
 
+    try:
+      self.add_contacts(name, phone_number, job)
+      print("Contact added successfully.")
+    except ValueError as e:
+      print(e)
+
 # find contacts as a utility method - search for a single contact by job or name
   def find_contact(self, query):
     query = query.strip().lower()
