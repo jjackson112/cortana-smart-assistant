@@ -27,8 +27,8 @@ class Scheduler:
             print("Title not found.")
             return
         
-        date = None
-        time = None
+        date = "No date available"
+        time = "No time available"
         schedule_type = input("Is this a meeting or a reminder? ").strip().lower()
 
         if schedule_type not in ("meeting", "reminder"):
