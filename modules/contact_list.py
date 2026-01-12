@@ -78,7 +78,8 @@ class ContactList:
     self.contacts.append({
       "name": name.strip(),
       "phone_number": normalized_phone_number,
-      "job": job.strip()
+      "job": job.strip(),
+      "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     })
 
     self.save_contacts()
