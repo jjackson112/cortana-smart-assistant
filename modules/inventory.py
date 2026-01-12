@@ -9,15 +9,22 @@
 import json
 import os
 from datetime import datetime
+from pathlib import Path
 
 class Inventory:
     def __init__(self):
         self.memory_path = self.get_memory_path()
+        self.ensure_data_folder()
         self.memory = self.load_memory()
 
     # Categories setup
         for category in ["personal", "work", "other"]:
             self.memory.setdefault(category, {})
+
+    # Ensure the data folder exists
+    def ensure_data_folder(self):
+        data_folder = self.memory_path.parent
+        data_folder.mkdir(parents=True, exist_ok=True)
 
     # File Handling
     def load_memory(self):
@@ -32,7 +39,9 @@ class Inventory:
             json.dump(self.memory, file, indent=4)
 
     def get_memory_path(self):
-        return os.path.join(os.path.dirname(os.path.abspath(__file__)), "memory.json")
+        #  Use Path for easier handling
+        base_path = Path(__file__).parent
+        return base_path / "data" / "memory.json"    
     
     # Commands
     def remember(self):
