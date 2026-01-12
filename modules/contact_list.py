@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 # normalize data after json load - take what ever comes out of JSON and force it into a predictable structure my code can rely on
-# for ex - missing keys, inconsistent casing, extra whitespace, old data formats
+# for example - missing keys, inconsistent casing, extra whitespace, old data formats
 
 class ContactList:
 
@@ -47,6 +47,7 @@ class ContactList:
       json.dump(self.contacts, file, indent=4)
 
 # add contacts - method of class (data-focused function)
+# User → prompt method → data method → save
   def add_contacts(self, name, phone_number, job):
     if any (c["name"].lower() == name.lower() for c in self.contacts):
       raise ValueError("This contact already exists.")
@@ -56,7 +57,16 @@ class ContactList:
       "phone_number": phone_number.strip(),
       "job": job.strip()
     })
+
     self.save_contacts()
+
+  def add_contacts_prompt(self):
+    name = input("Enter name: ").strip()
+    phone_number = input("Enter phone number: ").strip()
+    job = input("Enter job title: ").strip()
+
+    if not name or not phone_number or not job:
+      print("All fields are required.")
 
 # find contacts as a utility method - search for a single contact by job or name
   def find_contact(self, query):
