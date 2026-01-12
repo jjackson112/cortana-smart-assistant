@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from pathlib import Path
+import re
 
 # normalize data after json load - take what ever comes out of JSON and force it into a predictable structure my code can rely on
 # for example - missing keys, inconsistent casing, extra whitespace, old data formats
@@ -44,6 +45,19 @@ class ContactList:
       })
 
     return normalized
+  
+  def normalize_phone_number(self, phone_number):
+    digits = re.sub(r"\D", "", phone_number)
+
+    # Allow US numbers only for now
+    if len(digits) == 10:
+        return f"{digits[:3]}-{digits[3:6]}-{digits[6:]}"
+    
+    if len(digits) == 11 and digits.startswith("1"):
+        digits = digits[1:]
+        return f"{digits[:3]}-{digits[3:6]}-{digits[6:]}"
+    
+    raise ValueError("Invalid phone number format.")
     
   def save_contacts(self):
     with open(self.file_path, "w") as file:
