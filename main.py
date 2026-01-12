@@ -22,7 +22,7 @@ def main():
         print("4. To Do List")
         print("5. Exit")
 
-        select_mode = input("Type in the number to select an option ").strip()
+        select_mode = input("Type in the number or mode to select an option ").strip()
 
         if select_mode == "1":
             contact_list_mode(contacts)
@@ -55,9 +55,9 @@ def contact_list_mode(contacts):
     }
 
     while True:
-        command = input("\nContact list command (add, search, update, delete, back): ").strip().lower()
+        command = input("\nContact list command (add, search, update, delete, main menu): ").strip().lower()
 
-        if command == "Type 'back' to return to the main menu. ":
+        if command == "main menu" :
             print("\nReturning to main menu...\n")
             break
 
@@ -79,9 +79,9 @@ def inventory_mode(inventory):
     }
 
     while True:
-        command = input("\nInventory command (remember, list, search, update, delete, back): ").strip().lower()
+        command = input("\nInventory command (remember, list, search, update, delete, main menu): ").strip().lower()
 
-        if command == "Type 'back' to return to the main menu. ":
+        if command == "main menu":
             print("\nReturning to main menu...\n")
             break
 
@@ -96,16 +96,16 @@ def schedule_mode(scheduler):
 
     commands = {
         "add": scheduler.add_events,
-        "list": scheduler.show_events,
+        "list": scheduler.list_events,
         "search": scheduler.search_events,
         "update": scheduler.update_events,
         "delete": scheduler.delete_event
     }
 
     while True:
-        command = input("\nSchedule command (add, list, search, update, delete, back): ").strip().lower()
+        command = input("\nSchedule command (add, list, search, update, delete, main menu): ").strip().lower()
 
-        if command == "Type 'back' to return to the main menu. ":
+        if command == "main menu":
             print("\nReturning to main menu...\n")
             break
 
@@ -126,9 +126,9 @@ def to_do_list_mode(todo):
     }
 
     while True:
-        command = input("\nTo do list command (add, list, update, delete, back): ").strip().lower()
+        command = input("\nTo do list command (add, list, update, delete, main menu): ").strip().lower()
 
-        if command == "Type 'back' to return to the main menu. ":
+        if command == "main menu":
             print("\nReturning to main menu...\n")
             break
 

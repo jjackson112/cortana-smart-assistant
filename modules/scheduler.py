@@ -25,14 +25,14 @@ class Scheduler:
         print("What's on the schedule today Jasmine?")
 
     def add_events(self):
-        title = input("Event title:").strip()
+        title = input("Event title: ").strip()
         if not title:
             print("Title not found.")
             return
         
         date = None
         time = None
-        schedule_type = input("Is this a meeting or a reminder?" ).strip().lower()
+        schedule_type = input("Is this a meeting or a reminder? ").strip().lower()
 
         if schedule_type not in ("meeting", "reminder"):
             print("Invalid type")
@@ -144,7 +144,7 @@ class Scheduler:
             print("Event number out of range.")
             return
         
-        updated_event = input("Enter the updated event ").strip()
+        updated_event = input("Enter the updated event: ").strip()
         if not updated_event:
             print("Event cannot be empty.")
             return
@@ -179,7 +179,7 @@ class Scheduler:
         for i, event in enumerate(filtered_events, start=1):
             print(f"{i}. {event['title']} ({event['type']})")
         
-        choice = input("Enter event number to delete.").strip()
+        choice = input("Enter event number to delete. ").strip()
 
         if not choice.isdigit():
             print("Enter a valid number.")
