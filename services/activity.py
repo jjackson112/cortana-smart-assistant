@@ -15,6 +15,11 @@ activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 def create_contact():
     data = request.get_json()
 
+    if not data:
+        return jsonify({"error": "Invalid JSON"}), 400
+    
+    required_fields = ["mode", "name", "phone", "job", "date_added"]
+
     contact = Contacts(
         mode = data["mode"],
         name = data["name"],
