@@ -9,14 +9,6 @@ from models import Contacts
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
-# in-memory storage - replace with database later
-state = {
-    "contacts": [],
-    "tasks": [],
-    "inventory": [],
-    "schedule": []
-}
-
 # each activity for each mode (CUD -no R) gets its own endpoint
 
 @activity_bp.route("/contacts", methods=["POST"])
