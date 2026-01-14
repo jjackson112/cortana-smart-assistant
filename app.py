@@ -1,8 +1,10 @@
 # routes are registered here
 
 from flask import Flask
+from routes.status import status_bp
 
 app = Flask("__name__")
+app.register_blueprint(status_bp)
 
 @app.route("/")
 def home():
