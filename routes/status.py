@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify
 
 status_bp = Blueprint("status", __name__)
 
-@status_bp.route("/status", methods=["GET"])
+@status_bp.route("/api/status", methods=["GET"])
 def get_status():
     return jsonify(
         mode ="idle",

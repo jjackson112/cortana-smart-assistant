@@ -2,9 +2,11 @@
 
 from flask import Flask
 from routes.status import status_bp
+from routes.health import health_bp
 
-app = Flask("__name__")
+app = Flask(__name__)
 app.register_blueprint(status_bp)
+app.register_blueprint(health_bp)
 
 @app.route("/")
 def home():
