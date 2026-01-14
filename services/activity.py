@@ -18,7 +18,16 @@ def create_contact():
     if not data:
         return jsonify({"error": "Invalid JSON"}), 400
     
-    required_fields = ["mode", "name", "phone", "job", "date_added"]
+    required_fields = ["mode", "name", "phone", "job"]
+    missing = [f for f in required_fields if f not in data]
+
+    # missing = []
+        # for f in required_fields:
+        # if f not in data:
+        # missing.append(f)
+
+    if missing:
+        return jsonify({"error": f"Missing fields: {missing}"}), 400
 
     contact = Contacts(
         mode = data["mode"],
