@@ -22,9 +22,9 @@ class Contacts(db.Model):
 class Inventory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mode = db.Column(db.String(50), nullable=False)
-    category = db.Column(db.String(100), nullable=False)
-    key = db.Column(db.String(200), nullable=False)
-    value = db.Column(db.String(200), nullable=False)
+    category = db.Column(db.String(100), nullable=False, index=True)
+    key = db.Column(db.String(200), nullable=False, index=True)
+    value = db.Column(db.String(200), nullable=False, index=True)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 class Schedule(db.Model):
