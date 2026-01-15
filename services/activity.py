@@ -43,7 +43,7 @@ def get_contact():
 
     query = Contacts.query
     if mode:
-        query = query.filter_by(mode=mode)
+        query = query.filter_by(Contacts.date_added.desc()).all()
 
     contacts = query.all()
     return jsonify([c.to_dict() for c in contacts])
