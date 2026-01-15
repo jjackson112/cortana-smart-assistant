@@ -143,6 +143,9 @@ def delete_inventory(id):
 def create_todo():
     data = request.json
 
+    if not data or "mode" not in data or "name" not in data:
+        return jsonify({"error": "Invalid JSON"}), 400
+
     todo = Todos(
         mode=data["mode"],
         name=data["name"]
