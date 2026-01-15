@@ -37,11 +37,14 @@ def create_contact():
     return jsonify(contact.to_dict()), 201
 
 @activity_bp.route("/contacts", methods=["GET"])
-def get_contact(id):
+def get_contact():
     mode = request.args.get("mode")
 
-    contacts = Contacts.query.filter_by(mode=mode).all()
+    query = Contacts.query
+    if mode:
+        query = query.filter_by(mode=mode)
 
+    contacts = query.all()
     return jsonify([c.to_dict() for c in contacts])
 
 @activity_bp.route("/contacts/<int:id>", methods=["PATCH"])
