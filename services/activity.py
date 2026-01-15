@@ -4,9 +4,8 @@
 # where will the activity live - memory or persistence?
 
 from flask import Blueprint, request, jsonify
-from app import db
-from models import Contacts
-from models import Todos
+from extensions import db
+from models import Contacts, Todos
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 

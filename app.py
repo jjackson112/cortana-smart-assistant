@@ -10,6 +10,9 @@ def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cortana.db"
 
+    # bind extensions
+    db.init_app(app)
+
     app.register_blueprint(status_bp)
     app.register_blueprint(health_bp)
     app.register_blueprint(activity_bp)
