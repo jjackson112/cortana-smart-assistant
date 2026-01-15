@@ -9,6 +9,7 @@ from services.activity import activity_bp
 def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cortana.db"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     # bind extensions
     db.init_app(app)
