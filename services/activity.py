@@ -48,11 +48,14 @@ def get_contact():
     return jsonify([c.to_dict() for c in contacts])
 
 @activity_bp.route("/contacts/<int:id>", methods=["PATCH"])
-def update_contact(id):
+def update_contact(id): # a single resource, not a collection
     contact = Contacts.query.get_or_404(id)
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid JSON"}), 400
 
     db.session.commit()
-
     return jsonify(contact.to_dict())
 
 @activity_bp.route("/contacts/<int:id>", methods=["DELETE"])
