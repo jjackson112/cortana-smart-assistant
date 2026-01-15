@@ -83,7 +83,7 @@ def add_inventory():
     if not data:
         return jsonify({"error": "Invalid JSON"}), 400
     
-    required_fields = ["mode", "category", "key", "value", "date_added"]
+    required_fields = ["mode", "category", "key", "value"]
     missing = [f for f in required_fields if f not in data]
 
     if missing:
@@ -93,8 +93,7 @@ def add_inventory():
         mode = data["mode"],
         category = data["category"],
         key = data["key"],
-        value = data["value"],
-        date_added = data["date_added"]
+        value = data["value"]
     )
 
     db.session.add(inventory)
