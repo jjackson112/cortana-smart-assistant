@@ -5,12 +5,13 @@
 
 from flask import Blueprint, request, jsonify
 from extensions import db
-from models import Contacts, Todos
+from models import Contacts, Inventory, Schedule, Todos
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
 # each activity for each mode (CRUD) gets its own endpoint
 
+# Contacts
 @activity_bp.route("/contacts", methods=["POST"])
 def create_contact():
     data = request.get_json()
@@ -74,6 +75,71 @@ def delete_contact(id):
 
     return "", 204
 
+# Inventory
+@activity_bp.route("/inventory", methods=["POST"])
+def add_inventory():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid JSON"}), 400
+    
+    required_fields = ["mode", "category", "key", "value", "date_added"]
+    missing = [f for f in required_fields if f not in data]
+
+    if missing:
+        return jsonify({"error": f"Missing fields: {missing}"}), 400
+
+    inventory = Inventory(
+        mode = data["mode"],
+        category = data["category"],
+        key = data["key"],
+        value = data["value"],
+        date_added = data["date_added"]
+    )
+
+    db.session.add(inventory)
+    db.session.commit()
+
+    return jsonify(inventory.to_dict()), 201
+
+@activity_bp.route("/inventory", methods=["GET"])
+def get_inventory():
+    mode = request.args.get("mode")
+
+    query = Inventory.query
+    if mode:
+        query = query.filter_by(mode=mode)
+
+    inventory = query.all()
+    return jsonify([i.to_dict() for i in inventory])
+
+@activity_bp.route("/inventory/<int:id>", methods=["PATCH"])
+def update_inventory(id): 
+    inventory = Inventory.query.get_or_404(id)
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid JSON"}), 400
+    
+    for field in ["mode", "category", "key", "value", "date_added"]:
+        if field in data:
+            setattr(inventory, field, data[field])
+
+    db.session.commit()
+    return jsonify(inventory.to_dict())
+
+@activity_bp.route("/inventory/<int:id>", methods=["DELETE"])
+def delete_inventory(id):
+    inventory = Inventory.query.get_or_404(id)
+
+    db.session.delete(inventory)
+    db.session.commit()
+
+    return "", 204
+
+# Schedule
+
+# To do 
 @activity_bp.route("/todos", methods=["POST"])
 def create_todo():
     data = request.json
