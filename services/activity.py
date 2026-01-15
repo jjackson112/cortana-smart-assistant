@@ -168,7 +168,10 @@ def get_todos():
 def update_todo(id):
     todo = Todos.query.get_or_404(id)
 
-    todo.completed = True
+    data = request.get_json()
+    if "completed" in data:
+        todo.completed = data["completed"]
+
     db.session.commit()
 
     return jsonify(todo.to_dict())
