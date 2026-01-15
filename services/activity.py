@@ -37,9 +37,26 @@ def create_contact():
     return jsonify(contact.to_dict()), 201
 
 @activity_bp.route("/contacts", methods=["GET"])
-def get_contacts():
+def get_contact(id):
     mode = request.args.get("mode")
 
     contacts = Contacts.query.filter_by(mode=mode).all()
 
     return jsonify([c.to_dict() for c in contacts])
+
+@activity_bp.route("/contacts/<int:id>", methods=["PATCH"])
+def update_contact(id):
+    contact = Contacts.query.get_or_404(id)
+
+    db.session.commit()
+
+    return jsonify(contact.to_dict())
+
+@activity_bp.route("/contacts/<int:id>", methods=["DELETE"])
+def delete_contact(id):
+    contact = Contacts.query.get_or_404(id)
+
+    db.session.delete(contact)
+    db.session.commit()
+
+    return "", 204
