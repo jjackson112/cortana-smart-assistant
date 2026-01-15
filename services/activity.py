@@ -9,7 +9,7 @@ from models import Contacts
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
-# each activity for each mode (CUD -no R) gets its own endpoint
+# each activity for each mode (CRUD) gets its own endpoint
 
 @activity_bp.route("/contacts", methods=["POST"])
 def create_contact():
@@ -20,11 +20,6 @@ def create_contact():
     
     required_fields = ["mode", "name", "phone", "job"]
     missing = [f for f in required_fields if f not in data]
-
-    # missing = []
-        # for f in required_fields:
-        # if f not in data:
-        # missing.append(f)
 
     if missing:
         return jsonify({"error": f"Missing fields: {missing}"}), 400
@@ -40,3 +35,11 @@ def create_contact():
     db.session.commit()
 
     return jsonify(contact.to_dict()), 201
+
+@activity_bp.route("/contacts", methods=["GET"])
+def get_contacts():
+    mode = request.args.get("mode")
+
+    contacts = Contacts.query.filter_by(mode=mode).all()
+
+    return jsonify([c.to_dict() for c in contacts])
