@@ -43,12 +43,12 @@ def get_contact():
 
     query = Contacts.query
     if mode:
-        query = query.filter_by(Contacts.date_added.desc()).all()
+        query = query.filter_by(mode=mode)
 
-    contacts = query.all()
+    contacts = query.order_by(Contacts.date_added.desc()).all()
     return jsonify([c.to_dict() for c in contacts])
 
-# PATCH applies changes while PUT replaces everything
+# PATCH applies changes (partially) while PUT replaces everything
 @activity_bp.route("/contacts/<int:id>", methods=["PATCH"])
 def update_contact(id): # a single resource, not a collection
     contact = Contacts.query.get_or_404(id)
@@ -176,7 +176,7 @@ def get_event():
 
 @activity_bp.route("/events/<int:id>", methods=["PATCH"])
 def update_event(id): # a single resource, not a collection
-    event = Contacts.query.get_or_404(id)
+    event = Schedule.query.get_or_404(id)
     data = request.get_json()
 
     if not data:
