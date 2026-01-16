@@ -1,11 +1,12 @@
 # how Cortana behaves as not just when data exists with timestamps
 # central activity service + exposes records
 # create a Blueprint - GET
-# where will the activity live - memory or persistence?
+# where will the activity live - memory or persistence? - business logic
 
 from flask import Blueprint, request, jsonify
 from extensions import db
 from models import Contacts, Inventory, Schedule, Todos
+from utils import apply_updates
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
@@ -43,9 +44,10 @@ def get_contact():
 
     query = Contacts.query
     if mode:
-        query = query.filter_by(mode=mode)
+        query = query.filter_by(mode=mode) # filters keywords only
 
-    contacts = query.order_by(Contacts.date_added.desc()).all()
+    # order_by sorts queries
+    contacts = query.order_by(Contacts.date_added.desc()).all() # all() ends query
     return jsonify([c.to_dict() for c in contacts])
 
 # PATCH applies changes (partially) while PUT replaces everything
@@ -57,11 +59,11 @@ def update_contact(id): # a single resource, not a collection
     if not data:
         return jsonify({"error": "Invalid JSON"}), 400
     
-    # For each allowed field, if the client sent it, update that attribute on the database object - no hardcoding
-    # no if "mode" in data: contact.mode = data["mode"] - less error prone + more concise
-    for field in ["mode", "name", "phone", "job"]:
-        if field in data:
-            setattr(contact, field, data[field])
+    apply_updates(
+        contact,
+        data,
+        ["mode", "name", "phone", "job"]
+    )
 
     db.session.commit()
     return jsonify(contact.to_dict())
@@ -109,7 +111,7 @@ def get_inventory():
     if mode:
         query = query.filter_by(mode=mode)
 
-    inventory = query.all()
+    inventory = query.order_by(Inventory.date_added.desc()).all()
     return jsonify([i.to_dict() for i in inventory])
 
 @activity_bp.route("/inventory/<int:id>", methods=["PATCH"])
@@ -169,9 +171,9 @@ def get_event():
 
     query = Schedule.query
     if mode:
-        query = query.filter_by(Schedule.date_added.desc()).all()
+        query = query.filter_by(mode=mode)
 
-    events = query.all()
+    events = query.order_by(Schedule.date_added.desc()).all()
     return jsonify([e.to_dict() for e in events])
 
 @activity_bp.route("/events/<int:id>", methods=["PATCH"])
