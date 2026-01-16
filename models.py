@@ -73,3 +73,9 @@ class Todos(db.Model):
             "completed": self.completed
         }
 
+class ActivityLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    mode = db.Column(db.String(50))
+    action = db.Column(db.String(20)) # CRUD
+    entity_id = db.Column(db.Integer)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)

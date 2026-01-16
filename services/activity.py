@@ -137,6 +137,68 @@ def delete_inventory(id):
     return "", 204
 
 # Schedule
+@activity_bp.route("/events", methods=["POST"])
+def create_event():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid JSON"}), 400
+    
+    required_fields = ["mode", "type", "description", "date", "time"]
+    missing = [f for f in required_fields if f not in data]
+
+    if missing:
+        return jsonify({"error": f"Missing fields: {missing}"}), 400
+
+    event = Schedule(
+        mode = data["mode"],
+        type = data["type"],
+        description = data["description"],
+        date = data["date"],
+        time = data["time"]
+    )
+
+    db.session.add(event)
+    db.session.commit()
+
+    return jsonify(event.to_dict()), 201
+
+@activity_bp.route("/events", methods=["GET"])
+def get_event():
+    mode = request.args.get("mode")
+
+    query = Schedule.query
+    if mode:
+        query = query.filter_by(Schedule.date_added.desc()).all()
+
+    events = query.all()
+    return jsonify([e.to_dict() for e in events])
+
+@activity_bp.route("/events/<int:id>", methods=["PATCH"])
+def update_event(id): # a single resource, not a collection
+    event = Contacts.query.get_or_404(id)
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid JSON"}), 400
+    
+    # For each allowed field, if the client sent it, update that attribute on the database object - no hardcoding
+    # no if "mode" in data: contact.mode = data["mode"] - less error prone + more concise
+    for field in ["mode", "type", "description", "date", "time"]:
+        if field in data:
+            setattr(event, field, data[field])
+
+    db.session.commit()
+    return jsonify(event.to_dict())
+
+@activity_bp.route("/events/<int:id>", methods=["DELETE"])
+def delete_event(id):
+    event = Schedule.query.get_or_404(id)
+
+    db.session.delete(event)
+    db.session.commit()
+
+    return "", 204
 
 # To do 
 @activity_bp.route("/todos", methods=["POST"])
