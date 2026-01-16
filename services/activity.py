@@ -6,7 +6,7 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
 from models import Contacts, Inventory, Schedule, Todos
-from utils import apply_updates
+from utils.crud import apply_updates
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
