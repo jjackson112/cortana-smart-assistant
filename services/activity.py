@@ -121,10 +121,12 @@ def update_inventory(id):
 
     if not data:
         return jsonify({"error": "Invalid JSON"}), 400
-    
-    for field in ["mode", "category", "key", "value", "date_added"]:
-        if field in data:
-            setattr(inventory, field, data[field])
+
+    apply_updates(
+        inventory,
+        data,
+        ["mode", "category", "key", "value", "date_added"]
+    )
 
     db.session.commit()
     return jsonify(inventory.to_dict())
@@ -184,11 +186,11 @@ def update_event(id): # a single resource, not a collection
     if not data:
         return jsonify({"error": "Invalid JSON"}), 400
     
-    # For each allowed field, if the client sent it, update that attribute on the database object - no hardcoding
-    # no if "mode" in data: contact.mode = data["mode"] - less error prone + more concise
-    for field in ["mode", "type", "description", "date", "time"]:
-        if field in data:
-            setattr(event, field, data[field])
+    apply_updates(
+        event,
+        data,
+        ["mode", "type", "description", "date", "time"]
+    )
 
     db.session.commit()
     return jsonify(event.to_dict())
