@@ -77,15 +77,10 @@ def delete_contact(id):
 @activity_bp.route("/inventory", methods=["POST"])
 def add_inventory():
     data = request.get_json()
+    ok, error = require_fields(["mode", "category", "key", "value"])
 
-    if not data:
-        return jsonify({"error": "Invalid JSON"}), 400
-    
-    required_fields = ["mode", "category", "key", "value"]
-    missing = [f for f in required_fields if f not in data]
-
-    if missing:
-        return jsonify({"error": f"Missing fields: {missing}"}), 400
+    if not ok:
+        return jsonify({"error": error}), 400
 
     inventory = Inventory(
         mode = data["mode"],
@@ -140,15 +135,10 @@ def delete_inventory(id):
 @activity_bp.route("/events", methods=["POST"])
 def create_event():
     data = request.get_json()
+    ok, error = require_fields(["mode", "type", "description", "date", "time"])
 
-    if not data:
-        return jsonify({"error": "Invalid JSON"}), 400
-    
-    required_fields = ["mode", "type", "description", "date", "time"]
-    missing = [f for f in required_fields if f not in data]
-
-    if missing:
-        return jsonify({"error": f"Missing fields: {missing}"}), 400
+    if not ok:
+        return jsonify({"error": error}), 400
 
     event = Schedule(
         mode = data["mode"],
