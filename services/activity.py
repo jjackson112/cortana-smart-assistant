@@ -72,7 +72,7 @@ def delete_contact(id):
     db.session.delete(contact)
     db.session.commit()
 
-    return "", 204
+    return success(None, 204)
 
 # Inventory
 @activity_bp.route("/inventory", methods=["POST"])
@@ -130,7 +130,7 @@ def delete_inventory(id):
     db.session.delete(inventory)
     db.session.commit()
 
-    return "", 204
+    return success(None, 204)
 
 # Schedule
 @activity_bp.route("/events", methods=["POST"])
@@ -189,7 +189,7 @@ def delete_event(id):
     db.session.delete(event)
     db.session.commit()
 
-    return "", 204
+    return success(None, 204)
 
 # To do 
 @activity_bp.route("/todos", methods=["POST"])
@@ -237,4 +237,4 @@ def delete_todo(id):
     db.session.delete(todo)
     db.session.commit()
 
-    return "", 204
+    return success(None, 204)
