@@ -7,6 +7,7 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from models import Contacts, Inventory, Schedule, Todos
 from utils.crud import apply_updates
+from utils.validation import require_fields
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
@@ -16,15 +17,10 @@ activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 @activity_bp.route("/contacts", methods=["POST"])
 def create_contact():
     data = request.get_json()
+    ok, error = require_fields(data, ["mode", "name", "phone", "job"])
 
-    if not data:
-        return jsonify({"error": "Invalid JSON"}), 400
-    
-    required_fields = ["mode", "name", "phone", "job"]
-    missing = [f for f in required_fields if f not in data]
-
-    if missing:
-        return jsonify({"error": f"Missing fields: {missing}"}), 400
+    if not ok:
+        return jsonify({"error": error}), 400
 
     contact = Contacts(
         mode = data["mode"],
