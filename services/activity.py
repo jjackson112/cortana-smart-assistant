@@ -8,7 +8,7 @@ from extensions import db
 from models import Contacts, Inventory, Schedule, Todos
 from utils.crud import apply_updates
 from utils.validation import require_fields
-from utils.response import 
+from utils.response import success, error_response
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
@@ -21,7 +21,7 @@ def create_contact():
     ok, error = require_fields(data, ["mode", "name", "phone", "job"])
 
     if not ok:
-        return jsonify({"error": error}), 400
+        return error_response({"error": error}), 400
 
     contact = Contacts(
         mode = data["mode"],
@@ -33,7 +33,7 @@ def create_contact():
     db.session.add(contact)
     db.session.commit()
 
-    return jsonify(contact.to_dict()), 201
+    return success(contact.to_dict()), 201
 
 @activity_bp.route("/contacts", methods=["GET"])
 def get_contact():
@@ -78,10 +78,10 @@ def delete_contact(id):
 @activity_bp.route("/inventory", methods=["POST"])
 def add_inventory():
     data = request.get_json()
-    ok, error = require_fields(["mode", "category", "key", "value"])
+    ok, error = require_fields(data, ["mode", "category", "key", "value"])
 
     if not ok:
-        return jsonify({"error": error}), 400
+        return error_response({"error": error}), 400
 
     inventory = Inventory(
         mode = data["mode"],
@@ -93,7 +93,7 @@ def add_inventory():
     db.session.add(inventory)
     db.session.commit()
 
-    return jsonify(inventory.to_dict()), 201
+    return success(inventory.to_dict()), 201
 
 @activity_bp.route("/inventory", methods=["GET"])
 def get_inventory():
@@ -136,10 +136,10 @@ def delete_inventory(id):
 @activity_bp.route("/events", methods=["POST"])
 def create_event():
     data = request.get_json()
-    ok, error = require_fields(["mode", "type", "description", "date", "time"])
+    ok, error = require_fields(data, ["mode", "type", "description", "date", "time"])
 
     if not ok:
-        return jsonify({"error": error}), 400
+        return error_response({"error": error}), 400
 
     event = Schedule(
         mode = data["mode"],
@@ -152,7 +152,7 @@ def create_event():
     db.session.add(event)
     db.session.commit()
 
-    return jsonify(event.to_dict()), 201
+    return success(event.to_dict()), 201
 
 @activity_bp.route("/events", methods=["GET"])
 def get_event():
@@ -197,7 +197,7 @@ def create_todo():
     data = request.json
 
     if not data or "mode" not in data or "name" not in data:
-        return jsonify({"error": "Invalid JSON"}), 400
+        return error_response({"error": "Invalid JSON"}), 400
 
     todo = Todos(
         mode=data["mode"],
@@ -207,7 +207,7 @@ def create_todo():
     db.session.add(todo)
     db.session.commit()
 
-    return jsonify(todo.to_dict()), 201
+    return success(todo.to_dict()), 201
 
 @activity_bp.route("/todos", methods=["GET"])
 def get_todos():

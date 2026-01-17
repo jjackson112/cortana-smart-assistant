@@ -1,3 +1,5 @@
+# helper method for jsonify response
+
 from flask import jsonify
 
 def success(data=None, status=200):
@@ -6,7 +8,7 @@ def success(data=None, status=200):
         "data": data
     }), status
 
-def error(message, status=400):
+def error_response(message, status=400):
     return jsonify({
         "success": False,
         "error": message
