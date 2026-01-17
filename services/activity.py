@@ -18,10 +18,10 @@ activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 @activity_bp.route("/contacts", methods=["POST"])
 def create_contact():
     data = request.get_json()
-    ok, error = require_fields(data, ["mode", "name", "phone", "job"])
+    ok, error_message = require_fields(data, ["mode", "name", "phone", "job"])
 
     if not ok:
-        return error_response({"error": error}), 400
+        return error_response(error_message, 400)
 
     contact = Contacts(
         mode = data["mode"],
@@ -78,10 +78,10 @@ def delete_contact(id):
 @activity_bp.route("/inventory", methods=["POST"])
 def add_inventory():
     data = request.get_json()
-    ok, error = require_fields(data, ["mode", "category", "key", "value"])
+    ok, error_message = require_fields(data, ["mode", "category", "key", "value"])
 
     if not ok:
-        return error_response({"error": error}), 400
+        return error_response(error_message, 400)
 
     inventory = Inventory(
         mode = data["mode"],
@@ -136,10 +136,10 @@ def delete_inventory(id):
 @activity_bp.route("/events", methods=["POST"])
 def create_event():
     data = request.get_json()
-    ok, error = require_fields(data, ["mode", "type", "description", "date", "time"])
+    ok, error_message = require_fields(data, ["mode", "type", "description", "date", "time"])
 
     if not ok:
-        return error_response({"error": error}), 400
+        return error_response(error_message, 400)
 
     event = Schedule(
         mode = data["mode"],
@@ -195,9 +195,10 @@ def delete_event(id):
 @activity_bp.route("/todos", methods=["POST"])
 def create_todo():
     data = request.json
+    ok, error_message = require_fields(data, ["mode", "name"])
 
-    if not data or "mode" not in data or "name" not in data:
-        return error_response({"error": "Invalid JSON"}), 400
+    if not ok:
+        return error_response(error_message, 400)
 
     todo = Todos(
         mode=data["mode"],
