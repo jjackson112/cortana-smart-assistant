@@ -7,7 +7,7 @@ from utils.response import success, error_response
 
 schedule_bp = Blueprint("/", __name__, url_prefix='/api/schedule')
 
-@schedule_bp.route("", methods=["POST"])
+@schedule_bp.route("/", methods=["POST"])
 def create_event():
     data = request.get_json()
     ok, error_message = require_fields(data, ["mode", "type", "description", "date", "time"])
@@ -22,8 +22,8 @@ def create_event():
 
     return success(event.to_dict()), 201
 
-@schedule_bp.route("", methods=["GET"])
-def list_event():
+@schedule_bp.route("/", methods=["GET"])
+def list_events():
     mode = request.args.get("mode")
 
     query = Schedule.query
@@ -57,4 +57,4 @@ def delete_event(id):
     db.session.delete(event)
     db.session.commit()
 
-    return success(None, 204)
+    return "", 204

@@ -13,14 +13,14 @@ def create_contact():
     ok, error_message = require_fields(data, ["mode", "name", "phone", "job"])
 
     if not ok:
-        return error_response("Invalid JSON", 400)
+        return error_response(error_message, 400)
 
     contact = Contacts(**data)
 
     db.session.add(contact)
     db.session.commit()
 
-    
+
 
     return success(contact.to_dict()), 201
 

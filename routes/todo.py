@@ -49,4 +49,4 @@ def delete_todo(id):
     db.session.delete(todo)
     db.session.commit()
 
-    return success(None, 204)
+    return "", 204

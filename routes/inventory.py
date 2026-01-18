@@ -7,7 +7,7 @@ from utils.response import success, error_response
 
 inventory_bp = Blueprint("inventory", __name__, url_prefix='/api/inventory')
 
-@inventory_bp.route("", methods=["POST"])
+@inventory_bp.route("/", methods=["POST"])
 def add_inventory():
     data = request.get_json()
     ok, error_message = require_fields(data, ["mode", "category", "key", "value"])
@@ -22,7 +22,7 @@ def add_inventory():
 
     return success(inventory.to_dict()), 201
 
-@inventory_bp.route("", methods=["GET"])
+@inventory_bp.route("/", methods=["GET"])
 def list_inventory():
     mode = request.args.get("mode")
 
@@ -39,7 +39,7 @@ def update_inventory(id):
     data = request.get_json()
 
     if not data:
-        return error_response("Invalid JSON", 400)
+        return error_response("Invalod JSON", 400)
 
     apply_updates(
         inventory,
@@ -57,4 +57,4 @@ def delete_inventory(id):
     db.session.delete(inventory)
     db.session.commit()
 
-    return success(None, 204)
+    return "", 204
