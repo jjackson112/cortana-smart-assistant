@@ -12,62 +12,8 @@ from utils.response import success, error_response
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
-# each activity for each mode (CRUD) gets its own endpoint
-
-# Contacts
-@activity_bp.route("/contacts", methods=["POST"])
-def create_contact():
-    data = request.get_json()
-    ok, error_message = require_fields(data, ["mode", "name", "phone", "job"])
-
-    if not ok:
-        return error_response(error_message, 400)
-
-    contact = Contacts(**data)
-
-    db.session.add(contact)
-    db.session.commit()
-
-    return success(contact.to_dict()), 201
-
-@activity_bp.route("/contacts", methods=["GET"])
-def get_contact():
-    mode = request.args.get("mode")
-
-    query = Contacts.query
-    if mode:
-        query = query.filter_by(mode=mode) # filters keywords only
-
-    # order_by sorts queries
-    contacts = query.order_by(Contacts.date_added.desc()).all() # all() ends query
-    return jsonify([c.to_dict() for c in contacts])
-
-# PATCH applies changes (partially) while PUT replaces everything
-@activity_bp.route("/contacts/<int:id>", methods=["PATCH"])
-def update_contact(id): # a single resource, not a collection
-    contact = Contacts.query.get_or_404(id)
-    data = request.get_json()
-
-    if not data:
-        return jsonify({"error": "Invalid JSON"}), 400
-    
-    apply_updates(
-        contact,
-        data,
-        ["mode", "name", "phone", "job"]
-    )
-
-    db.session.commit()
-    return jsonify(contact.to_dict())
-
-@activity_bp.route("/contacts/<int:id>", methods=["DELETE"])
-def delete_contact(id):
-    contact = Contacts.query.get_or_404(id)
-
-    db.session.delete(contact)
-    db.session.commit()
-
-    return success(None, 204)
+# each activity for each mode (CRUD) gets its own endpoint - check routes for separate files
+# GET requests don't need a request body - no JSON validation or request.get_json()
 
 # Inventory
 @activity_bp.route("/inventory", methods=["POST"])
