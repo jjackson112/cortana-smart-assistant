@@ -4,8 +4,9 @@ from models import Schedule
 from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
+from services.activity import log_activity
 
-schedule_bp = Blueprint("/", __name__, url_prefix='/api/schedule')
+schedule_bp = Blueprint("schedule", __name__, url_prefix='/api/schedule')
 
 @schedule_bp.route("/", methods=["POST"])
 def create_event():
@@ -19,6 +20,12 @@ def create_event():
 
     db.session.add(event)
     db.session.commit()
+
+    log_activity(
+        action="created_event",
+        entity_type="event",
+        entity_id=event.id
+    )
 
     return success(event.to_dict()), 201
 

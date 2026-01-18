@@ -10,7 +10,11 @@ todo_bp = Blueprint("todo", __name__, url_prefix='/api/todo')
 
 @todo_bp.route("/", methods=["POST"])
 def create_todo():
-    data = request.json
+    data = request.get_json()
+
+    if not data:
+        return error_response("Invalid JSON", 400)
+    
     ok, error_message = require_fields(data, ["mode", "name"])
 
     if not ok:
@@ -21,10 +25,16 @@ def create_todo():
     db.session.add(todo)
     db.session.commit()
 
+    log_activity(
+        action="created_todo",
+        entity_type="todo",
+        entity_id=todo.id
+    )
+
     return success(todo.to_dict()), 201
 
 @todo_bp.route("/", methods=["GET"])
-def get_todos():
+def list_todos():
     mode = request.args.get("mode")
 
     todos = Todos.query.filter_by(mode=mode).all()
@@ -39,7 +49,6 @@ def update_todo(id):
     apply_updates(todo, data["completed"])
 
     db.session.commit()
-
     return success(todo.to_dict())
 
 @todo_bp.route("/<int:id>", methods=["DELETE"])

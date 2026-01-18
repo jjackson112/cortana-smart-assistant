@@ -4,6 +4,7 @@ from models import Contacts
 from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
+from services.activity import log_activity
 
 contacts_bp = Blueprint("contacts", __name__, url_prefix='/api/contacts')
 
@@ -20,7 +21,11 @@ def create_contact():
     db.session.add(contact)
     db.session.commit()
 
-
+    log_activity(
+        action="created_contact",
+        entity_type="contact",
+        entity_id=contact.id
+    )
 
     return success(contact.to_dict()), 201
 

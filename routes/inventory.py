@@ -4,6 +4,7 @@ from models import Inventory
 from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
+from services.activity import log_activity
 
 inventory_bp = Blueprint("inventory", __name__, url_prefix='/api/inventory')
 
@@ -19,6 +20,12 @@ def add_inventory():
 
     db.session.add(inventory)
     db.session.commit()
+
+    log_activity(
+        action="added_inventory",
+        entity_type="inventory",
+        entity_id=inventory.id
+    )
 
     return success(inventory.to_dict()), 201
 
