@@ -46,6 +46,9 @@ def update_todo(id):
     todo = Todos.query.get_or_404(id)
 
     data = request.get_json()
+    if not data:
+        return error_response("Invalid JSON", 400)
+    
     apply_updates(todo, data["completed"])
 
     db.session.commit()
