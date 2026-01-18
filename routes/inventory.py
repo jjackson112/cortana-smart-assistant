@@ -5,7 +5,7 @@ from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
 
-inventory_bp = Blueprint("inventory", __name__, url_prefix="/api/inventory")
+inventory_bp = Blueprint("inventory", __name__, url_prefix='/api/inventory')
 
 @inventory_bp.route("", methods=["POST"])
 def add_inventory():

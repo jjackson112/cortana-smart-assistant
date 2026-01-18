@@ -16,58 +16,6 @@ activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 # GET requests don't need a request body - no JSON validation or request.get_json()
 
 
-# Schedule
-@activity_bp.route("/events", methods=["POST"])
-def create_event():
-    data = request.get_json()
-    ok, error_message = require_fields(data, ["mode", "type", "description", "date", "time"])
-
-    if not ok:
-        return error_response(error_message, 400)
-
-    event = Schedule(**data)
-
-    db.session.add(event)
-    db.session.commit()
-
-    return success(event.to_dict()), 201
-
-@activity_bp.route("/events", methods=["GET"])
-def get_event():
-    mode = request.args.get("mode")
-
-    query = Schedule.query
-    if mode:
-        query = query.filter_by(mode=mode)
-
-    events = query.order_by(Schedule.date_added.desc()).all()
-    return jsonify([e.to_dict() for e in events])
-
-@activity_bp.route("/events/<int:id>", methods=["PATCH"])
-def update_event(id): # a single resource, not a collection
-    event = Schedule.query.get_or_404(id)
-    data = request.get_json()
-
-    if not data:
-        return jsonify({"error": "Invalid JSON"}), 400
-    
-    apply_updates(
-        event,
-        data,
-        ["mode", "type", "description", "date", "time"]
-    )
-
-    db.session.commit()
-    return jsonify(event.to_dict())
-
-@activity_bp.route("/events/<int:id>", methods=["DELETE"])
-def delete_event(id):
-    event = Schedule.query.get_or_404(id)
-
-    db.session.delete(event)
-    db.session.commit()
-
-    return success(None, 204)
 
 # To do 
 @activity_bp.route("/todos", methods=["POST"])
