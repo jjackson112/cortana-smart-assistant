@@ -23,12 +23,7 @@ def create_contact():
     if not ok:
         return error_response(error_message, 400)
 
-    contact = Contacts(
-        mode = data["mode"],
-        name = data["name"],
-        phone = data["phone"],
-        job = data["job"]
-    )
+    contact = Contacts(**data)
 
     db.session.add(contact)
     db.session.commit()
