@@ -36,9 +36,11 @@ def create_todo():
 @todo_bp.route("/", methods=["GET"])
 def list_todos():
     mode = request.args.get("mode")
+    query = Todos.query
+    if mode:
+        query = query.filter_by(mode=mode)
 
-    todos = Todos.query.filter_by(mode=mode).all()
-
+    todos = query.all()
     return success([t.to_dict() for t in todos])
 
 @todo_bp.route("/<int:id>", methods=["PATCH"])
