@@ -78,12 +78,7 @@ def add_inventory():
     if not ok:
         return error_response(error_message, 400)
 
-    inventory = Inventory(
-        mode = data["mode"],
-        category = data["category"],
-        key = data["key"],
-        value = data["value"]
-    )
+    inventory = Inventory(**data)
 
     db.session.add(inventory)
     db.session.commit()
@@ -112,7 +107,7 @@ def update_inventory(id):
     apply_updates(
         inventory,
         data,
-        ["mode", "category", "key", "value", "date_added"]
+        ["mode", "category", "key", "value"]
     )
 
     db.session.commit()
@@ -136,13 +131,7 @@ def create_event():
     if not ok:
         return error_response(error_message, 400)
 
-    event = Schedule(
-        mode = data["mode"],
-        type = data["type"],
-        description = data["description"],
-        date = data["date"],
-        time = data["time"]
-    )
+    event = Schedule(**data)
 
     db.session.add(event)
     db.session.commit()
@@ -195,10 +184,7 @@ def create_todo():
     if not ok:
         return error_response(error_message, 400)
 
-    todo = Todos(
-        mode=data["mode"],
-        name=data["name"]
-    )
+    todo = Todos(**data)
 
     db.session.add(todo)
     db.session.commit()
