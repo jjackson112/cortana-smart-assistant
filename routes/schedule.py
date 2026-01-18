@@ -5,7 +5,7 @@ from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
 
-schedule_bp = Blueprint("/schedule", __name__, url_prefix='/api/schedule')
+schedule_bp = Blueprint("/", __name__, url_prefix='/api/schedule')
 
 @schedule_bp.route("", methods=["POST"])
 def create_event():

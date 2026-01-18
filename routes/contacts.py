@@ -7,23 +7,25 @@ from utils.response import success, error_response
 
 contacts_bp = Blueprint("contacts", __name__, url_prefix='/api/contacts')
 
-@contacts_bp.route("", methods=["POST"])
+@contacts_bp.route("/", methods=["POST"])
 def create_contact():
     data = request.get_json()
     ok, error_message = require_fields(data, ["mode", "name", "phone", "job"])
 
     if not ok:
-        return error_response(error_message, 400)
+        return error_response("Invalid JSON", 400)
 
     contact = Contacts(**data)
 
     db.session.add(contact)
     db.session.commit()
 
+    
+
     return success(contact.to_dict()), 201
 
-@contacts_bp.route("", methods=["GET"])
-def list_contact():
+@contacts_bp.route("/", methods=["GET"])
+def list_contacts():
     mode = request.args.get("mode")
 
     query = Contacts.query
@@ -59,4 +61,4 @@ def delete_contact(id):
     db.session.delete(contact)
     db.session.commit()
 
-    return success(None, 204)
+    return "", 204 # HTTP correctness, JSON-friendly
