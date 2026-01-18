@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request, jsonify
+from flask import Blueprint, request
 from extensions import db
 from models import Contacts
 from utils.crud import apply_updates
@@ -7,7 +7,7 @@ from utils.response import success, error_response
 
 contacts_bp = Blueprint("contacts", __name__, url_prefix="/api/contacts")
 
-@contacts_bp.route("/contacts", methods=["POST"])
+@contacts_bp.route("", methods=["POST"])
 def create_contact():
     data = request.get_json()
     ok, error_message = require_fields(data, ["mode", "name", "phone", "job"])
