@@ -4,7 +4,8 @@
 # where will the activity live - memory or persistence? - business logic - how to create what the user wants
 
 from flask import Blueprint
-from routes import contacts, inventory, schedule, todo
+from extensions import db
+from models import ActivityLog
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
@@ -14,7 +15,7 @@ activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
 # log activity
 def log_activity(action, entity_type, entity_id=None, metadata=None):
-    activity(
+    activity = ActivityLog(
         action=action,
         entity_type=entity_type,
         entity_id=entity_id,
