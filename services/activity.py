@@ -204,8 +204,7 @@ def update_todo(id):
     todo = Todos.query.get_or_404(id)
 
     data = request.get_json()
-    if "completed" in data:
-        todo.completed = data["completed"]
+    apply_updates(todo, data["completed"])
 
     db.session.commit()
 
