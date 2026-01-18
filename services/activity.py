@@ -15,58 +15,6 @@ activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 # each activity for each mode (CRUD) gets its own endpoint - check routes for separate files
 # GET requests don't need a request body - no JSON validation or request.get_json()
 
-# Inventory
-@activity_bp.route("/inventory", methods=["POST"])
-def add_inventory():
-    data = request.get_json()
-    ok, error_message = require_fields(data, ["mode", "category", "key", "value"])
-
-    if not ok:
-        return error_response(error_message, 400)
-
-    inventory = Inventory(**data)
-
-    db.session.add(inventory)
-    db.session.commit()
-
-    return success(inventory.to_dict()), 201
-
-@activity_bp.route("/inventory", methods=["GET"])
-def get_inventory():
-    mode = request.args.get("mode")
-
-    query = Inventory.query
-    if mode:
-        query = query.filter_by(mode=mode)
-
-    inventory = query.order_by(Inventory.date_added.desc()).all()
-    return jsonify([i.to_dict() for i in inventory])
-
-@activity_bp.route("/inventory/<int:id>", methods=["PATCH"])
-def update_inventory(id): 
-    inventory = Inventory.query.get_or_404(id)
-    data = request.get_json()
-
-    if not data:
-        return jsonify({"error": "Invalid JSON"}), 400
-
-    apply_updates(
-        inventory,
-        data,
-        ["mode", "category", "key", "value"]
-    )
-
-    db.session.commit()
-    return jsonify(inventory.to_dict())
-
-@activity_bp.route("/inventory/<int:id>", methods=["DELETE"])
-def delete_inventory(id):
-    inventory = Inventory.query.get_or_404(id)
-
-    db.session.delete(inventory)
-    db.session.commit()
-
-    return success(None, 204)
 
 # Schedule
 @activity_bp.route("/events", methods=["POST"])
