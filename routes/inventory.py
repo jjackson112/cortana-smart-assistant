@@ -9,8 +9,11 @@ from services.activity import log_activity
 inventory_bp = Blueprint("inventory", __name__, url_prefix='/api/inventory')
 
 @inventory_bp.route("/", methods=["POST"])
-def add_inventory():
+def create_inventory():
     data = request.get_json()
+    if not data:
+        return error_response("Invalid JSON", 400)
+
     ok, error_message = require_fields(data, ["mode", "category", "key", "value"])
 
     if not ok:
@@ -22,7 +25,7 @@ def add_inventory():
     db.session.commit()
 
     log_activity(
-        action="added_inventory",
+        action="created_inventory",
         entity_type="inventory",
         entity_id=inventory.id,
         metadata={"category": inventory.category, "key": inventory.key, "value": inventory.value}
@@ -47,7 +50,7 @@ def update_inventory(id):
     data = request.get_json()
 
     if not data:
-        return error_response("Invalod JSON", 400)
+        return error_response("Invalid JSON", 400)
 
     apply_updates(
         inventory,
