@@ -24,7 +24,8 @@ def create_event():
     log_activity(
         action="created_event",
         entity_type="event",
-        entity_id=event.id
+        entity_id=event.id,
+        metadata={"type": event.type, "date": event.date}
     )
 
     return success(event.to_dict()), 201
@@ -55,6 +56,14 @@ def update_event(id): # a single resource, not a collection
     )
 
     db.session.commit()
+
+    log_activity(
+        action="updated",
+        entity_type="schedule",
+        entity_id=event.id,
+        metadata=data
+    )
+
     return success(event.to_dict())
 
 @schedule_bp.route("/<int:id>", methods=["DELETE"])
@@ -63,5 +72,11 @@ def delete_event(id):
 
     db.session.delete(event)
     db.session.commit()
+
+    log_activity(
+        action="deleted",
+        entity_type="schedule",
+        entity_id=id
+    )
 
     return "", 204
