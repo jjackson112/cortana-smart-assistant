@@ -28,7 +28,8 @@ def create_todo():
     log_activity(
         action="created_todo",
         entity_type="todo",
-        entity_id=todo.id
+        entity_id=todo.id,
+        metadata={"name": todo.name}
     )
 
     return success(todo.to_dict()), 201
@@ -54,6 +55,14 @@ def update_todo(id):
     apply_updates(todo, data["completed"])
 
     db.session.commit()
+
+    log_activity(
+        action="created_todo",
+        entity_type="todo",
+        entity_id=todo.id,
+        metadata=data
+    )
+
     return success(todo.to_dict())
 
 @todo_bp.route("/<int:id>", methods=["DELETE"])
@@ -62,5 +71,11 @@ def delete_todo(id):
 
     db.session.delete(todo)
     db.session.commit()
+
+    log_activity(
+        action="deleted",
+        entity_type="todo",
+        entity_id=id
+    )
 
     return "", 204
