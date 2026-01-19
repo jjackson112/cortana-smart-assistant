@@ -11,6 +11,9 @@ contacts_bp = Blueprint("contacts", __name__, url_prefix='/api/contacts')
 @contacts_bp.route("/", methods=["POST"])
 def create_contact():
     data = request.get_json()
+    if not data:
+        return error_response("Invalid JSON", 400)
+    
     ok, error_message = require_fields(data, ["mode", "name", "phone", "job"])
 
     if not ok:
@@ -61,7 +64,7 @@ def update_contact(id): # a single resource, not a collection
 
     log_activity(
         action="updated",
-        entity_type="contacts",
+        entity_type="contact",
         entity_id=contact.id,
         metadata=data
     )
