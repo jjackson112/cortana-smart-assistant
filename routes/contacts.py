@@ -24,7 +24,8 @@ def create_contact():
     log_activity(
         action="created_contact",
         entity_type="contact",
-        entity_id=contact.id
+        entity_id=contact.id,
+        metadata={"name": contact.name, "phone": contact.phone, "job": contact.job}
     )
 
     return success(contact.to_dict()), 201
@@ -57,6 +58,14 @@ def update_contact(id): # a single resource, not a collection
     )
 
     db.session.commit()
+
+    log_activity(
+        action="updated",
+        entity_type="contacts",
+        entity_id=contact.id,
+        metadata=data
+    )
+
     return success(contact.to_dict())
 
 @contacts_bp.route("/<int:id>", methods=["DELETE"])
@@ -65,5 +74,11 @@ def delete_contact(id):
 
     db.session.delete(contact)
     db.session.commit()
+    
+    log_activity(
+        action="deleted",
+        entity_type="contacts",
+        entity_id=id
+    )
 
     return "", 204 # HTTP correctness, JSON-friendly
