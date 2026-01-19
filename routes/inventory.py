@@ -24,7 +24,8 @@ def add_inventory():
     log_activity(
         action="added_inventory",
         entity_type="inventory",
-        entity_id=inventory.id
+        entity_id=inventory.id,
+        metadata={"category": inventory.category, "key": inventory.key, "value": inventory.value}
     )
 
     return success(inventory.to_dict()), 201
@@ -55,6 +56,14 @@ def update_inventory(id):
     )
 
     db.session.commit()
+
+    log_activity(
+        action="updated",
+        entity_type="inventory",
+        entity_id=inventory.id,
+        metadata=data
+    )
+
     return success(inventory.to_dict())
 
 @inventory_bp.route("/<int:id>", methods=["DELETE"])
@@ -63,5 +72,12 @@ def delete_inventory(id):
 
     db.session.delete(inventory)
     db.session.commit()
+
+    
+    log_activity(
+        action="deleted",
+        entity_type="inventory",
+        entity_id=id
+    )
 
     return "", 204
