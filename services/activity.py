@@ -3,7 +3,7 @@
 # create a Blueprint - GET
 # where will the activity live - memory or persistence? - business logic - how to create what the user wants
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, request
 from extensions import db
 from models import ActivityLog
 from utils.response import success
@@ -27,5 +27,18 @@ def log_activity(action, entity_type, entity_id=None, metadata=None):
 
 @activity_bp.route("/", methods=["GET"])
 def list_activities():
+    query = ActivityLog.query
+
+    mode = request.args.get("mode")
+    entity_type= request.args.get("entity_type")
+    action = request.args.get("action")
+
+    if mode:
+        query = query.filter_by(mode=mode)
+    if entity_type:
+        query = query.filter_by(entity_type=entity_type)
+    if action:
+        query = query.filter_by(action=action)
+
     activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all()
     return success([a.to_dict() for a in activities])
