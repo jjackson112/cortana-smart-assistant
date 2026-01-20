@@ -5,6 +5,9 @@ from models import ActivityLog
 
 # log activity
 def log_activity(action, entity_type, entity_id=None, metadata=None):
+    if not action or not entity_type:
+        return # raise ValueError could work here 
+    
     activity = ActivityLog(
         action=action,
         entity_type=entity_type,
