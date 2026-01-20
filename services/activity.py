@@ -6,6 +6,7 @@
 from flask import Blueprint, jsonify
 from extensions import db
 from models import ActivityLog
+from utils.response import success
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
@@ -27,4 +28,4 @@ def log_activity(action, entity_type, entity_id=None, metadata=None):
 @activity_bp.route("/", methods=["GET"])
 def list_activities():
     activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all()
-    return jsonify([a.to_dict() for a in activities])
+    return success([a.to_dict() for a in activities])
