@@ -30,7 +30,7 @@ def list_activities():
     query = ActivityLog.query
 
     mode = request.args.get("mode")
-    entity_type= request.args.get("entity_type")
+    entity_type = request.args.get("entity_type")
     action = request.args.get("action")
 
     if mode:
@@ -40,5 +40,5 @@ def list_activities():
     if action:
         query = query.filter_by(action=action)
 
-    activities = ActivityLog.query.order_by(ActivityLog.timestamp.desc()).all()
+    activities = query.order_by(ActivityLog.timestamp.desc()).all()
     return success([a.to_dict() for a in activities])
