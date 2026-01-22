@@ -4,7 +4,7 @@ from models import Schedule
 from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
-from services.activity import log_activity
+from services.activity_log import log_activity
 
 schedule_bp = Blueprint("schedule", __name__, url_prefix='/api/schedule')
 

@@ -4,7 +4,7 @@ from models import Todos
 from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
-from services.activity import log_activity
+from services.activity_log import log_activity
 
 todo_bp = Blueprint("todo", __name__, url_prefix='/api/todo')
 
