@@ -9,7 +9,21 @@
         <h1>Cortana</h1>
     </div>
     <!-- Mode Selection -->
+    <div class="mode-selection">
+        <label for="modes">Choose a mode:</label>
+        <select>
+            <option value="contacts">Contact List</option>
+            <option value="inventory">Inventory</option>
+            <option value="schedule">Schedule</option>
+            <option value="to-do">To Do List</option>
+            <option value="exit">Exit</option>
+        </select>
+    </div>
     <!-- User Input Field + Execute Button -->
+    <div class="user-input">
+        <input id="command" type="text" placeholder="What would you like Cortana to do?" />
+        <button id="execute">Enter</button>
+    </div>
     <!-- Response Area -->
     <!-- Activity Log -->
 </body>
