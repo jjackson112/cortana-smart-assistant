@@ -2,37 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Cortana</title>
 </head>
 <body>
     <div class="title">
         <h1>Cortana</h1>
     </div>
-    <!-- Mode Selection -->
-    <div class="mode-selection">
-        <label for="modes">Choose a mode:</label>
-        <select>
-            <option value="contacts">Contact List</option>
-            <option value="inventory">Inventory</option>
-            <option value="schedule">Schedule</option>
-            <option value="to-do">To Do List</option>
-            <option value="exit">Exit</option>
-        </select>
+    <div class="main-panel">
+        <!-- Mode Selection -->
+        <div class="mode-selection">
+            <label for="modes">Choose a mode:</label>
+            <select>
+                <option value="empty"></option>
+                <option value="contacts">Contact List</option>
+                <option value="inventory">Inventory</option>
+                <option value="schedule">Schedule</option>
+                <option value="to-do">To Do List</option>
+                <option value="exit">Exit</option>
+            </select>
+        </div>
+        <!-- User Input Field + Execute Button -->
+        <div class="user-input">
+            <input id="command" type="text" placeholder="What would you like Cortana to do?" />
+            <button id="execute">Enter</button>
+        </div>
     </div>
-    <!-- User Input Field + Execute Button -->
-    <div class="user-input">
-        <input id="command" type="text" placeholder="What would you like Cortana to do?" />
-        <button id="execute">Enter</button>
-    </div>
-    <!-- Response Area -->
-    <div class="response">
-        <h2>Response</h2>
-        <pre>Cortana is ready</pre>
-    </div>
-    <!-- Activity Log -->
-    <div>
-        <h2>Activity Log:</h2>
-        <ul id="activity-log"></ul>
+    <div class="side-panel">
+        <!-- Response Area -->
+        <div class="response">
+            <h2>Response</h2>
+            <pre>Cortana is ready</pre>
+        </div>
+        <!-- Activity Log -->
+        <div>
+            <h2>Activity Log:</h2>
+            <ul id="activity-log"></ul>
+        </div>
     </div>
 </body>
 
