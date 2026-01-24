@@ -10,10 +10,10 @@
     <div class="text-4xl font-bold text-center m-px-3" id="title">
         <h1>Cortana</h1>
     </div>
-    <div class="grid grid-cols-[2fr_1fr] h-screen" id="main-panel">
+    <div class="grid grid-cols-[2fr_1fr] h-screen p-6" id="main-panel">
         <div id="mode-user-input">
         <!-- Mode Selection -->
-            <div class="p-6 border-r" id="mode-selection">
+            <section class="p-6" id="mode-selection">
                 <label for="modes" class="text-2xl font-semibold">Choose a mode:</label>
                 <select class="outline">
                     <option value="empty"></option>
@@ -23,24 +23,24 @@
                     <option value="to-do">To Do List</option>
                     <option value="exit">Exit</option>
                 </select>
-            </div>
+            </section>
         <!-- User Input Field + Execute Button -->
-            <div class="user-input">
-                <input id="command" type="text" placeholder="What would you like Cortana to do?" />
-                <button id="execute">Enter</button>
-            </div>
+            <section id="user-input">
+                <input class="outline" id="command" type="text" placeholder="What would should I do?" />
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="execute">Enter</button>
+            </section>
         </div>
         <div id="side-panel">
             <!-- Response Area -->
-            <div class="response">
+            <section class="response">
                 <h2>Response</h2>
-                <pre>Cortana is ready</pre>
-            </div>
+                <div id="response-text">Cortana is ready</div>
+            </section>
             <!-- Activity Log -->
-            <div>
+            <section id="activity-panel">
                 <h2>Activity Log:</h2>
                 <ul id="activity-log"></ul>
-            </div>
+            </section>
         </div>
     </div>
 </body>
