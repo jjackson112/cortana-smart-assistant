@@ -7,38 +7,40 @@
     <title>Cortana</title>
 </head>
 <body>
-    <div class="title">
+    <div class="text-4xl font-bold text-center m-px-3" id="title">
         <h1>Cortana</h1>
     </div>
-    <div class="main-panel">
+    <div class="grid grid-cols-[2fr_1fr] h-screen" id="main-panel">
+        <div id="mode-user-input">
         <!-- Mode Selection -->
-        <div class="mode-selection">
-            <label for="modes">Choose a mode:</label>
-            <select>
-                <option value="empty"></option>
-                <option value="contacts">Contact List</option>
-                <option value="inventory">Inventory</option>
-                <option value="schedule">Schedule</option>
-                <option value="to-do">To Do List</option>
-                <option value="exit">Exit</option>
-            </select>
-        </div>
+            <div class="p-6 border-r" id="mode-selection">
+                <label for="modes" class="text-2xl font-semibold">Choose a mode:</label>
+                <select class="outline">
+                    <option value="empty"></option>
+                    <option value="contacts">Contact List</option>
+                    <option value="inventory">Inventory</option>
+                    <option value="schedule">Schedule</option>
+                    <option value="to-do">To Do List</option>
+                    <option value="exit">Exit</option>
+                </select>
+            </div>
         <!-- User Input Field + Execute Button -->
-        <div class="user-input">
-            <input id="command" type="text" placeholder="What would you like Cortana to do?" />
-            <button id="execute">Enter</button>
+            <div class="user-input">
+                <input id="command" type="text" placeholder="What would you like Cortana to do?" />
+                <button id="execute">Enter</button>
+            </div>
         </div>
-    </div>
-    <div class="side-panel">
-        <!-- Response Area -->
-        <div class="response">
-            <h2>Response</h2>
-            <pre>Cortana is ready</pre>
-        </div>
-        <!-- Activity Log -->
-        <div>
-            <h2>Activity Log:</h2>
-            <ul id="activity-log"></ul>
+        <div id="side-panel">
+            <!-- Response Area -->
+            <div class="response">
+                <h2>Response</h2>
+                <pre>Cortana is ready</pre>
+            </div>
+            <!-- Activity Log -->
+            <div>
+                <h2>Activity Log:</h2>
+                <ul id="activity-log"></ul>
+            </div>
         </div>
     </div>
 </body>
