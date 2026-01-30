@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/static/css/style.css"></script>
-    <script src="/static/js/app.js"></script>
+    <script src="/static/js/app.js" defer></script>
     <title>Cortana</title>
 </head>
 <body>
-    <div class="text-3xl font-bold text-center m-3" id="title">
-        <h1>Cortana</h1>
-    </div>
     <div class="grid grid-cols-[2fr_1fr] h-screen" id="main-panel">
         <div id="mode-user-input">
+            <section class="text-3xl font-bold text-center m-3" id="title">
+                <h1>Cortana</h1>
+            </section>
         <!-- Mode Selection -->
             <section class="p-6" id="mode-selection">
                 <label for="modes" class="text-2xl font-semibold mr-3">Choose a mode:</label>
-                <select class="outline rounded-lg text-center">
+                <select id="modes" class="outline rounded-lg text-center">
                     <option value="" disabled selected></option>
                     <option value="contacts">Contact List</option>
                     <option value="inventory">Inventory</option>
@@ -32,7 +32,7 @@
                 <input class="outline rounded-lg opacity-50 cursor-not-allowed" id="command" type="text" placeholder="Enter command here..." />
             </section>
         </div>
-        <div class="bg-stone-50 p-6" id="side-panel">
+        <div class="bg-slate-50 p-6" id="side-panel">
             <!-- Response Area -->
             <section class="response">
                 <h2 class="text-2xl font-semibold mb-2">Response</h2>
