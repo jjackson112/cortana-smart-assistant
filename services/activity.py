@@ -6,6 +6,7 @@
 from flask import Blueprint, request
 from models import ActivityLog
 from utils.response import success
+from services.activity_retention import prune_activity_log
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
@@ -30,3 +31,8 @@ def list_activities():
 
     activities = query.order_by(ActivityLog.timestamp.desc()).all()
     return success([a.to_dict() for a in activities])
+
+@activity_bp.route("/prune_activity", methods=["DELETE"])
+def prune_activity():
+    deleted_activity = prune_activity_log()
+    return success({"deleted": deleted_activity})
