@@ -33,14 +33,24 @@ def list_activities():
     return success([a.to_dict() for a in activities])
 
 @activity_bp.route("/created_activity", methods=["POST"])
-def create_activity():
-    data = request.get_json
+def create_activities():
+    data = request.get_json()
 
     required_fields = ["mode", "entity_type", "action"]
     if not all(field in data for field in required_fields):
         return{"error": "Missing required fields"}, 400
+    
+    activity = ActivityLog(
+        mode=data["mode"],
+        entity_type=data["entity_type"],
+        action=data["action"],
+        details=data.get("details")
+    )
+    activity.save()
+    
+    return success(activity.to_dict())
 
 @activity_bp.route("/prune_activity", methods=["DELETE"])
-def prune_activity():
+def prune_activities():
     deleted_activity = prune_activity_log()
     return success({"deleted": deleted_activity})
