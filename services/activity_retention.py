@@ -2,8 +2,12 @@
 # activity log maintenance - no user interaction, low risk, scales with usage and defines log structure
 # Load → prune → save → report - data lifecycle policy
 
-def prune_activity_log(max_entries=1000):
-    activities = load_activities() # get current list of activities
+from activity_log import load_activities, save_activities
+
+MAX_ENTRIES = 1000
+
+def prune_activity_log(max_entries=MAX_ENTRIES):
+    activities = load_activities() # get list of activity dicts
 
     if len(activities) <= max_entries:
         return 0

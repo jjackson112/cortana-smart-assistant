@@ -1,6 +1,2 @@
-const executeBtn = getElementById("execute");
-const showInput = document.querySelector("input");
-
-button.addEventListener = ("click", function(e) {
-    showInput.classList.show
-})
+const [isLoading, setIsLoading] = useState(false)
+const [error, setError] = useState(null)
