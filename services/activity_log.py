@@ -2,6 +2,7 @@
 
 from extensions import db
 from models import ActivityLog
+from activity_retention import prune_activity_log
 
 # log activity
 def log_activity(action, entity_type, entity_id=None, metadata=None):
@@ -17,5 +18,7 @@ def log_activity(action, entity_type, entity_id=None, metadata=None):
         )
         db.session.add(activity)
         db.session.commit()
-    except Exception:
+    except Exception as e:
         db.session.rollback()
+        print(f"Failed to log activity: {e}")
+        return None
