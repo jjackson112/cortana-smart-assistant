@@ -18,6 +18,13 @@ def log_activity(action, entity_type, entity_id=None, metadata=None):
         )
         db.session.add(activity)
         db.session.commit()
+
+        # Prune old activities automatically - POST is called 
+        from services.activity_retention import prune_activity_log
+        prune_activity_log()
+
+        raise activity
+    
     except Exception as e:
         db.session.rollback()
         print(f"Failed to log activity: {e}")
