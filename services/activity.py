@@ -32,6 +32,14 @@ def list_activities():
     activities = query.order_by(ActivityLog.timestamp.desc()).all()
     return success([a.to_dict() for a in activities])
 
+@activity_bp.route("/created_activity", methods=["POST"])
+def create_activity():
+    data = request.get_json
+
+    required_fields = ["mode", "entity_type", "action"]
+    if not all(field in data for field in required_fields):
+        return{"error": "Missing required fields"}, 400
+
 @activity_bp.route("/prune_activity", methods=["DELETE"])
 def prune_activity():
     deleted_activity = prune_activity_log()
