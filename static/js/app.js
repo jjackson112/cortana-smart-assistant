@@ -1,4 +1,4 @@
 import { useState } from "react";
 
-const [isLoading, setIsLoading] = useState(false)
-const [error, setError] = useState(null)
+const [activities, setActivities] = useState([])
+const [response, setResponse] = useState("Cortana is ready")
