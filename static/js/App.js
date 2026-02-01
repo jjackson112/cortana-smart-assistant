@@ -17,5 +17,11 @@ export default function App() {
                 timestamp: new Date().toISOString()
             }
         ])
+
+        const res = await fetch("/api/command", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ command })
+        });
     }
 }
