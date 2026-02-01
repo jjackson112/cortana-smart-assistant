@@ -27,6 +27,11 @@ export default function MainPanel({ onCommand }) {
                 <option value="to-do">To Do List</option>
                 <option value="exit">Exit</option>
             </select>
+            <button 
+                onClick={handleSubmit}
+                className="bg-cyan-500 hover:bg-cyan-700 text-white font-semibold py-2 px-3 ml-3 rounded-full"
+                >
+                Enter</button>
         </div>
 
       <form onSubmit={handleSubmit}>
