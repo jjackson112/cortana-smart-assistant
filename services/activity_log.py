@@ -2,7 +2,6 @@
 
 from extensions import db
 from models import ActivityLog
-from activity_retention import prune_activity_log
 
 # log activity
 def log_activity(action, entity_type, entity_id=None, metadata=None):
