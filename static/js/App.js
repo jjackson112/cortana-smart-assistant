@@ -38,4 +38,11 @@ export default function App() {
             }
         ])
     }
+
+    return (
+        <div className="layout">
+            <MainPanel onCommand={handleUserCommand} />
+            <SidePanel response={response} activities={activities} />
+        </div>
+    )
 }
