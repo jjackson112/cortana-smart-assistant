@@ -22,7 +22,7 @@ def log_activity(action, entity_type, entity_id=None, metadata=None):
         from services.activity_retention import prune_activity_log
         prune_activity_log()
 
-        raise activity
+        return activity
     
     except Exception as e:
         db.session.rollback()
