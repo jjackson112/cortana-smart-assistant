@@ -1,4 +1,5 @@
 import ActivityItem from "./ActivityItem"
+/*array data model */
 
 export default function ActivityList({ activities }) {
   if (!activities.length) {
@@ -6,7 +7,7 @@ export default function ActivityList({ activities }) {
   }
 
   return (
-    <ul>
+    <ul className="activity-list">
       {activities.map(a => (
         <ActivityItem key={a.id} activity={a} />
       ))}
