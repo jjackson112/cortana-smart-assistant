@@ -23,4 +23,15 @@ async function handleUserCommand(command) {
     const data = await res.json()
 
     setResponse(data.response)
+
+    setActivities(prev => [
+        ...prev,
+        {
+            id: Date.now() + 1,
+            action: "Cortana replied",
+            entity_type: "message",
+            metadata: { name: data.response },
+            timestamp: newDate().toISOString
+        }
+    ])
 }
