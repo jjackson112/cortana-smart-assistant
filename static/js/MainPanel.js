@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 export default function MainPanel({ onCommand }) {
-  const [command, setCommand] = useState("");
+    const [mode, setMode] = useState(null);
+    const [command, setCommand] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!command.trim()) return;
 
     onCommand(command);
     setCommand("");
