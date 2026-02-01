@@ -1,3 +1,4 @@
+
 from flask import Blueprint, request, jsonify
 
 command_bp = Blueprint("/command", __name__, url_prefix='/api')
@@ -16,3 +17,8 @@ def handle_command():
 
     # Return it as JSON
     return jsonify({"response": response})
+
+# React        → sends "5"
+# command.py  → interprets "Exit"
+# services    → log activity
+# React        ← receives "See you next time!"

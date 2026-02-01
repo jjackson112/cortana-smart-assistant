@@ -12,7 +12,7 @@ export default function SidePanel({ response, activities }) {
             {/* Activity Log */}
             <div className="activity-log-area">
                 <h2 className="text-xl font-semibold mb-2">Activity Log</h2>
-                <ActivityList activities={activities}/> 
+                <ActivityList activities={activities || []} /> 
             </div>
         </aside>
     )

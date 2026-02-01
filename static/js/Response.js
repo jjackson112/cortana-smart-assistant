@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function useCortana() {
+export default function cortanaReply() {
   const [activities, setActivities] = useState([])
   const [response, setResponse] = useState("Cortana is ready")
 
