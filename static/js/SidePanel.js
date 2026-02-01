@@ -1,13 +1,12 @@
 import ActivityList from "./ActivityList";
 
-export default function SidePanel({ activities }) {
+export default function SidePanel({ cortanaResponse, activities }) {
     return (
         <aside className="side-panel">
             {/* Cortana Response Area */}
             <div className="response-area">
                 <h2 className="text-2xl font-semibold mb-2">Response</h2>
-                <p className="text-cyan-400 font-semibold mb-4">Cortana is ready</p>
-                <p id="cortana-reply"></p>
+                <p className="cortana-reply text-cyan-400 font-semibold mb-4">{cortanaResponse || "Cortana is ready"}</p>
             </div>
 
             {/* Activity Log */}
