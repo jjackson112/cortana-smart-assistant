@@ -22,6 +22,9 @@ export default function App() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ command })
-        });
+        })
+        const data = await res.json()
+
+        setResponse(data.response)
     }
 }
