@@ -21,4 +21,6 @@ async function handleUserCommand(command) {
         body: JSON.stringify({ command })
     })
     const data = await res.json()
+
+    setResponse(data.response)
 }
