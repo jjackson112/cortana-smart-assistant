@@ -12,8 +12,22 @@ export default function MainPanel({ onCommand }) {
   }
 
   return (
-    <section className="main-panel">
-      <h1>Cortana</h1>
+    <section className="main-panel grid grid-cols-[2fr_1fr] h-screen">
+        <div className="ext-3xl font-bold text-center m-3">
+            <h1>Cortana</h1>
+        </div>
+
+        {/* Dropdown */}
+        <div className="mode-selection">
+            <select id="modes" class="outline rounded-lg text-center">
+                <option value="" disabled selected></option>
+                <option value="contacts">Contact List</option>
+                <option value="inventory">Inventory</option>
+                <option value="schedule">Schedule</option>
+                <option value="to-do">To Do List</option>
+                <option value="exit">Exit</option>
+            </select>
+        </div>
 
       <form onSubmit={handleSubmit}>
         <input
