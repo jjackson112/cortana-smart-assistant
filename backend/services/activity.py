@@ -4,7 +4,7 @@
 # where will the activity live - memory or persistence? - business logic - how to create what the user wants
 
 from flask import Blueprint, request
-from models import ActivityLog
+from backend.models import ActivityLog
 from utils.response import success
 from services.activity_retention import prune_activity_log
 
