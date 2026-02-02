@@ -19,8 +19,8 @@ export default function MainPanel({ onCommand }) {
 
         {/* Dropdown */}
         <div className="mode-selection">
-            <select id="modes" class="outline rounded-lg text-center">
-                <option value="" disabled selected></option>
+            <select className="outline rounded-lg text-center">
+                <option value="" disabled></option>
                 <option value="contacts">Contact List</option>
                 <option value="inventory">Inventory</option>
                 <option value="schedule">Schedule</option>
