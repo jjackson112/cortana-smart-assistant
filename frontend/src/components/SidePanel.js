@@ -1,4 +1,4 @@
-import ActivityList from "../../src/ActivityList";
+import ActivityList from "./ActivityList";
 {/* Output */}
 
 export default function SidePanel({ response = "", activities = [] }) {
