@@ -18,7 +18,7 @@ def prune_activity_log(max_entries=MAX_ENTRIES):
     old_entries = (
         ActivityLog.query
         .order_by(ActivityLog.timestamp.asc())
-        .limit(to_delete)
+        .limit(delete_activities)
         .all()
     )
 
