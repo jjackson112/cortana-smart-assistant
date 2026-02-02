@@ -59,7 +59,7 @@ export default function App() {
 }
 
     return (
-        <div className="layout">
+        <div className="grid grid-cols-[2fr_1fr] h-screen">
             <MainPanel onCommand={handleUserCommand} />
             <SidePanel response={response} activities={activities} />
         </div>
