@@ -1,46 +1,62 @@
 import { useState } from "react";
-import MainPanel from "./MainPanel";
 import SidePanel from "./SidePanel";
-
+import MainPanel from "./MainPanel";
 {/* Hold state and pass props down - Structure */}
+
 export default function App() {
-    const [response, setResponse] = useState("Cortana is ready");
-    const [activities, setActivities] = useState([]);
+  const [response, setResponse] = useState("Cortana is ready");
+  const [activities, setActivities] = useState([]);
 
-    async function handleUserCommand({ mode, command }) {
-        const timestamp = new Date().toISOString();
+  async function handleUserCommand({ mode, command }) {
+    const timestamp = new Date().toISOString();
 
-        setActivities(prev => [
-            ...prev,
-            {
-                id: crypto.randomUUID(),
-                action: "user executed",
-                entity_type: "command",
-                metadata: { mode, command },
-                timestamp
-            }
-        ])
+    setActivities(prev => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        action: "user executed",
+        entity_type: "command",
+        metadata: { mode, command },
+        timestamp
+      }
+    ]);
 
-        const res = await fetch("/api/command", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ command })
-        })
-        const data = await res.json()
+    try {
+      const res = await fetch("/api/command", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode, command })
+      });
 
-        setResponse(data.response)
+      const data = await res.json();
 
-        setActivities(prev => [
-            ...prev,
-            {
-                id: crypto.randomUUID(),
-                action: "Cortana replied",
-                entity_type: "message",
-                metadata: { name: data.response },
-                timestamp: new Date().toISOString()
-            }
-        ])
+      setResponse(data.response);
+
+      setActivities(prev => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          action: "Cortana replied",
+          entity_type: "message",
+          metadata: { message: data.response },
+          timestamp: new Date().toISOString()
+        }
+      ]);
+    } catch (err) {
+      setResponse("Something went wrong.");
+
+      setActivities(prev => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          action: "error",
+          entity_type: "system",
+          metadata: { message: err.message },
+          timestamp: new Date().toISOString()
+        }
+      ]);
     }
+}
 
     return (
         <div className="layout">
