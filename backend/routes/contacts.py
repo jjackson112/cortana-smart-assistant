@@ -1,6 +1,6 @@
 from flask import Blueprint, request
-from backend.extensions import db
-from backend.models import Contacts
+from extensions import db
+from models import Contacts
 from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response

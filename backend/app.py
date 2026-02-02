@@ -1,7 +1,7 @@
 # routes are registered here
 
 from flask import Flask
-from backend.extensions import db
+from extensions import db
 from routes.status import status_bp
 from routes.health import health_bp
 from routes.contacts import contacts_bp
