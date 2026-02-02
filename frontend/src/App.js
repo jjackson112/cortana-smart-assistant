@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SidePanel from "./SidePanel";
+import SidePanel from "../static/js/SidePanel";
 import MainPanel from "./MainPanel";
 {/* Hold state and pass props down - Structure */}
 
