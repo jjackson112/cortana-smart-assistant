@@ -1,4 +1,5 @@
 import { useState } from "react";
+{/* User Interaction */}
 
 export default function MainPanel({ onCommand }) {
     const [mode, setMode] = useState(null);
