@@ -8,13 +8,22 @@ from models import ActivityLog
 MAX_ENTRIES = 1000
 
 def prune_activity_log(max_entries=MAX_ENTRIES):
-    activities = ActivityLog.query.count # get list of activity dicts
+    count = ActivityLog.query.count() # get list of activity dicts
 
-    if len(activities) <= max_entries:
+    if count <= max_entries:
         return 0
     
-    delete_activities = len(activities) - max_entries
-    activities = activities[delete_activities:]
+    delete_activities = count - max_entries
+
+    old_entries = (
+        ActivityLog.query
+        .order_by(ActivityLog.timestamp.asc())
+        .limit(to_delete)
+        .all()
+    )
+
+    for entry in old_entries:
+        db.session.delete(entry)
 
     db.session.commit()
     return delete_activities
