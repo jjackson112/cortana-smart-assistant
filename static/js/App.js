@@ -7,15 +7,17 @@ export default function App() {
     const [response, setResponse] = useState("Cortana is ready");
     const [activities, setActivities] = useState([]);
 
-    async function handleUserCommand(command) {
+    async function handleUserCommand({ mode, command }) {
+        const timestamp = new Date().toISOString();
+
         setActivities(prev => [
             ...prev,
             {
-                id: Date.now(),
+                id: crypto.randomUUID(),
                 action: "user executed",
                 entity_type: "command",
-                metadata: { name: command },
-                timestamp: new Date().toISOString()
+                metadata: { mode, command },
+                timestamp
             }
         ])
 
@@ -31,7 +33,7 @@ export default function App() {
         setActivities(prev => [
             ...prev,
             {
-                id: Date.now() + 1,
+                id: crypto.randomUUID(),
                 action: "Cortana replied",
                 entity_type: "message",
                 metadata: { name: data.response },
