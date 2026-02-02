@@ -13,13 +13,13 @@ export default function MainPanel({ onCommand }) {
 
   return (
     <section className="main-panel grid grid-cols-[2fr_1fr] h-screen">
-        <div className="ext-3xl font-bold text-center m-3">
+        <div className="text-3xl font-bold text-center m-3">
             <h1>Cortana</h1>
         </div>
 
-        {/* Dropdown */}
+        {/* Mode Selection - Dropdown */}
         <div className="mode-selection">
-            <select className="outline rounded-lg text-center">
+            <select value={mode} onChange={(e) => setMode(e.target.value)} className="outline rounded-lg text-center">
                 <option value="" disabled></option>
                 <option value="contacts">Contact List</option>
                 <option value="inventory">Inventory</option>
