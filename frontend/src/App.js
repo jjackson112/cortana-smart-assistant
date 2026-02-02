@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SidePanel from "../static/js/SidePanel";
-import MainPanel from "./MainPanel";
+import MainPanel from "./components/MainPanel";
 {/* Hold state and pass props down - Structure */}
 
 export default function App() {
