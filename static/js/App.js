@@ -2,6 +2,7 @@ import { useState } from "react";
 import SidePanel from "./SidePanel";
 import MainPanel from "./MainPanel";
 
+{/* Hold state and pass props down */}
 export default function App() {
     const [response, setResponse] = useState("Cortana is ready");
     const [activities, setActivities] = useState([]);
