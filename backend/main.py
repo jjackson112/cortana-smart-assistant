@@ -115,8 +115,16 @@ def schedule_mode(scheduler):
         else:
             print("Unknown schedule command.")
 
-def to_do_list_mode(todo):
-    print("What's on the to do list? 📝")
+def to_do_list_mode(todo, input_text=None, state=None):
+    if state is None:
+        return {
+            "messages": [
+                "What's on the to do list? 📝",
+                "To do list command (add, list, update, delete, main menu):"
+            ],
+            "state": "todo_command"
+        }
+
 
     commands = {
         "add": todo.add_task,
@@ -126,7 +134,7 @@ def to_do_list_mode(todo):
     }
 
     while True:
-        command = input("\nTo do list command (add, list, update, delete, main menu): ").strip().lower()
+        command = input("\n ").strip().lower()
 
         if command == "main menu":
             print("\nReturning to main menu...\n")
