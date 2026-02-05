@@ -162,6 +162,14 @@ def to_do_list_mode(todo, input_text=None, state=None):
             "state": "todo_update_task"
         }
     
+    if state == "todo_update_task":
+        if not input_text.isdigit():
+            return {
+                "messages": ["Please enter a valid task number."],
+                "state": "todo_update_task"
+            }
+        
+    
     if input_text == "delete":
         return {
             "messages": [
