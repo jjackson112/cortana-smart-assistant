@@ -169,7 +169,12 @@ def to_do_list_mode(todo, input_text=None, state=None):
                 "state": "todo_update_task"
             }
         
-    
+        index = int(input_text) - 1
+        return{
+            "messages": ["What is the updated task?"],
+            "state": f"todo_update_text:{index}"
+        }   
+     
     if input_text == "delete":
         return {
             "messages": [
