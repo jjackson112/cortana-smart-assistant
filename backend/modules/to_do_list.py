@@ -26,20 +26,17 @@ class ToDo:
     def add_task(self):
         task = input("Add a new task: ").strip()
         if not task:
-            print("It cannot be empty.")
-            return
+            return "It cannot be empty."
+        
         self.tasks.append(task)
-        print("Task added")
-
         self.save_tasks()
+        return "Task added"
 
     def show_list(self):
         if not self.tasks:
-            print("No tasks added yet.")
-            return
+            return ["No tasks added yet."]
         
-        for i, task in enumerate(self.tasks, start=1):
-            print(f"{i}. {task}")
+        return[f"{i+1}. {task}" for i, task in enumerate(self.tasks)]
 
     def update_task(self):
         if not self.tasks:
