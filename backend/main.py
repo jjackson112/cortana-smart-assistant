@@ -192,6 +192,20 @@ def to_do_list_mode(todo, input_text=None, state=None):
             "state": "todo_delete_task"
         }
     
+    if state == "todo_delete_task":
+        if not input_text.isdigit():
+            return {
+                "messages": ["Please enter a valid task number."],
+                "state": "todo_delete_task"
+            }
+
+        index = int(input_text) - 1
+        result = todo.delete_task(index)
+        return {
+            "messages": [result],
+            "state": "todo_command"
+        }
+    
     return {
         "messages" : ["Unknown to do list command."],
         "state": "todo_command"
