@@ -174,6 +174,14 @@ def to_do_list_mode(todo, input_text=None, state=None):
             "messages": ["What is the updated task?"],
             "state": f"todo_update_text:{index}"
         }   
+    
+    if state.startswith("todo_update_text:"):
+        index = int(state.split(":")[1])
+        result = todo.update_task(index, input_text)
+        return {
+            "messages": [result],
+            "state": "todo_command"
+        }
      
     if input_text == "delete":
         return {
