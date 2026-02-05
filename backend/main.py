@@ -127,7 +127,6 @@ def to_do_list_mode(todo, input_text=None, state=None):
         }
         
     if state == "todo_command":
-
         if input_text == "main menu":
             return {
                 "messages": ["Returning to main menu..."],
@@ -138,6 +137,13 @@ def to_do_list_mode(todo, input_text=None, state=None):
         return {
             "messages": ["What would you like to add?"],
             "state": "todo_add_task"
+        }
+    
+    if state == "todo_add_task":
+        result = todo.add_task(input_text)
+        return {
+            "messages": [result],
+            "state": "todo_command"
         }
 
     if input_text == "list":
@@ -153,15 +159,15 @@ def to_do_list_mode(todo, input_text=None, state=None):
                 ["What task would you like to update?",
                 *todo.show_list()
             ],
-            "state": "todo-update_task"
+            "state": "todo_update_task"
         }
     
     if input_text == "delete":
         return {
-            "messages": 
-                ["What task should be deleted?",
+            "messages": [
+                "What task should be deleted?",
                 *todo.show_list()
-                ],
+            ],
             "state": "todo_delete_task"
         }
     

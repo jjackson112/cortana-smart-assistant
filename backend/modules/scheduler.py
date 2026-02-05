@@ -27,17 +27,15 @@ class Scheduler:
     def add_events(self):
         title = input("Event title: ").strip()
         if not title:
-            print("Title not found.")
-            return
+            return "Title not found."
         
         date = None
         time = None
         schedule_type = input("Is this a meeting or a reminder? ").strip().lower()
 
         if schedule_type not in ("meeting", "reminder"):
-            print("Invalid type")
-            return
-        
+            return "Invalid type"
+
         if schedule_type == "meeting":
             date = input("Enter the meeting date (MM-DD-YYYY): ").strip()
             time = input("Enter the meeting time (HH:MM): ").strip()
@@ -65,7 +63,7 @@ class Scheduler:
         self.events.append(event)
 
         self.save_events()
-        print("Added to calendar.")
+        return "Added to calendar."
 
     def event_datetime(self, event):
         if not event ["date"]:
@@ -83,8 +81,7 @@ class Scheduler:
 
     def list_events(self):
         if not self.events:
-            print("No events added yet.")
-            return
+            return "No events added yet."
         
         self.events.sort(key=self.event_datetime)
         
@@ -99,8 +96,7 @@ class Scheduler:
         query_category = input("Would you like to look up meetings or reminders? ").strip().lower()
 
         if query_category not in ("meeting", "reminder"):
-            print("Invalid category.")
-            return
+            return "Invalid category."
         
         filtered_events = list(
             filter(
@@ -110,11 +106,10 @@ class Scheduler:
         )
 
         if not filtered_events:
-            print(f"No {query_category} found.")
-            return
+            return(f"No {query_category} found.")
         
         for event in filtered_events:
-            print(f"{event['title']} ({event['date']} {event['time']})")
+            return(f"{event['title']} ({event['date']} {event['time']})")
 
     def update_events(self):
         update_type = input("What needs to be updated - a meeting or a reminder? ")
@@ -125,41 +120,36 @@ class Scheduler:
         ]
 
         if not filtered_type:
-            print("No matching event types.")
-            return
+            return "No matching event types."
         
         print(f"\n{update_type.capitalize()}s:")
         for i, event in enumerate(self.events, start=1):
-            print(f"{i}. {event['title']} ({event['date']} {event['time']})")
+            return(f"{i}. {event['title']} ({event['date']} {event['time']})")
 
         selection = input("Enter event number to be updated: ").strip()
 
         if not selection.isdigit():
-            print("Invalid number")
-            return
+            return "Invalid number"
 
         index = int(selection) -1
 
         if index < 0 or index >= len(self.events):
-            print("Event number out of range.")
-            return
+            return "Event number out of range."
         
         updated_event = input("Enter the updated event: ").strip()
         if not updated_event:
-            print("Event cannot be empty.")
-            return
+            return "Event cannot be empty."
     
         # Update the chosen event
         self.events[index] ["title"] = updated_event
         self.events[index]["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         self.save_events()
-        print("Event updated successfully.")
+        return "Event updated successfully."
 
     def delete_event(self):        
         if not self.events:
-            print("Nothing to delete.")
-            return
+            return "Nothing to delete."
         
         delete_filter_type = input("Do you want to delete a meeting or a reminder? ").strip().lower()
         
@@ -172,8 +162,7 @@ class Scheduler:
             filtered_events = self.events # show all with no filtering
 
         if not filtered_events:
-            print("No events found to delete.")
-            return
+            return "No events found to delete."
             
         print("\nEvents:")
         for i, event in enumerate(filtered_events, start=1):
@@ -182,15 +171,13 @@ class Scheduler:
         choice = input("Enter event number to delete. ").strip()
 
         if not choice.isdigit():
-            print("Enter a valid number.")
-            return
+            return "Enter a valid number."
 
         index = int(choice) -1
         if index < 0 or index >= len(self.events):
-            print("Event number out of range.")
-            return
+            return "Event number out of range."
         
         deleted_event = filtered_events[index]
         self.events.remove(deleted_event)
         self.save_events()
-        print(f"Deleted: {deleted_event['title']}")
+        return(f"Deleted: {deleted_event['title']}")
