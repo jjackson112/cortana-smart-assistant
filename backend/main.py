@@ -151,19 +151,23 @@ def to_do_list_mode(todo, input_text=None, state=None):
         return {
             "messages": 
                 ["What task would you like to update?",
-                todo.show_list()
+                *todo.show_list()
             ],
             "state": "todo-update_task"
         }
     
     if input_text == "delete":
         return {
-            "messages": ["What task should be deleted?"],
+            "messages": 
+                ["What task should be deleted?",
+                *todo.show_list()
+                ],
             "state": "todo_delete_task"
         }
     
     return {
-        "Unknown to do list command."
+        "messages" : ["Unknown to do list command."],
+        "state": "todo_command"
     }
 
 if __name__ == "__main__":
