@@ -23,8 +23,8 @@ class ToDo:
         with open(self.file_path, "w") as file:
             json.dump(self.tasks, file, indent=4)
 
-    def add_task(self):
-        task = input("Add a new task: ").strip()
+    def add_task(self, task):
+        task = task.strip()
         if not task:
             return "It cannot be empty."
         
@@ -38,7 +38,7 @@ class ToDo:
         
         return[f"{i+1}. {task}" for i, task in enumerate(self.tasks)]
 
-    def update_task(self):
+    def update_task(self, index, updated_task):
         if not self.tasks:
             return "No tasks to update."
 
@@ -48,31 +48,29 @@ class ToDo:
         if not select.isdigit():
             return "Enter a valid number."
         
-        index = int(select) -1
         if index < 0 or index >= len(self.tasks):
             return "Task number out of range."
         
-        updated_task = input("Enter the updated task: ").strip()
         if not updated_task:
             return "Task cannot be empty."
         
-        self.save_tasks()
         self.tasks[index] = updated_task
+        self.save_tasks()
         return "Task updated successfully."
         
-    def delete_task(self):        
+    def delete_task(self, index):        
         if not self.tasks:
-            return("Nothing to delete.")
+            return "Nothing to delete."
         
         self.show_list()
         choice = input("Enter task number to delete: ").strip()
 
         if not choice.isdigit():
-            return("Enter a valid number.")
+            return "Enter a valid number."
 
         index = int(choice) -1
         if index < 0 or index >= len(self.tasks):
-            return("Task number out of range.")
+            return"Task number out of range."
         
         self.save_tasks()
         deleted = self.tasks.pop(index)
