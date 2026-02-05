@@ -41,37 +41,24 @@ class ToDo:
     def update_task(self, index, updated_task):
         if not self.tasks:
             return "No tasks to update."
-
-        self.show_list() # enumerate lives here now
-        select = input("Enter the task number to update: ").strip()
-
-        if not select.isdigit():
-            return "Enter a valid number."
         
         if index < 0 or index >= len(self.tasks):
             return "Task number out of range."
         
-        if not updated_task:
+        if not updated_task.strip():
             return "Task cannot be empty."
         
-        self.tasks[index] = updated_task
+        self.tasks[index] = updated_task.strip()
         self.save_tasks()
         return "Task updated successfully."
         
     def delete_task(self, index):        
         if not self.tasks:
             return "Nothing to delete."
-        
-        self.show_list()
-        choice = input("Enter task number to delete: ").strip()
 
-        if not choice.isdigit():
-            return "Enter a valid number."
-
-        index = int(choice) -1
         if index < 0 or index >= len(self.tasks):
-            return"Task number out of range."
+            return "Task number out of range."
         
-        self.save_tasks()
         deleted = self.tasks.pop(index)
+        self.save_tasks()
         return(f"Deleted: {deleted}")
