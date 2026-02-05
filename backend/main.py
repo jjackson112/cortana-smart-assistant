@@ -125,26 +125,44 @@ def to_do_list_mode(todo, input_text=None, state=None):
             "state": "todo_command"
         }
 
+        
+    if state == "todo_command":
+        if input_text == "main menu":
+            return {
+                "messages": ["Returning to main menu..."],
+                "state": None
+            }
+        
+    if input_text == "add":
+        return {
+            "messages": ["What would you like to add?"],
+            "state": "todo_add_task"
+        }
 
-    commands = {
-        "add": todo.add_task,
-        "list": todo.show_list,
-        "update": todo.update_task,
-        "delete": todo.delete_task
+    if input_text == "list":
+        return {
+            "messages": todo.show_list(),
+            "state": "todo_show_list"
+        }
+    
+    if input_text == "update":
+        return {
+            "messages": 
+                ["What task would you like to update?",
+                todo.show_list()
+            ],
+            "state": "todo-update_task"
+        }
+    
+    if input_text == "delete":
+        return {
+            "messages": ["What task should be deleted?"],
+            "state": "todo_delete_task"
+        }
+    
+    return {
+        "Unknown to do list command."
     }
-
-    while True:
-        command = input("\n ").strip().lower()
-
-        if command == "main menu":
-            print("\nReturning to main menu...\n")
-            break
-
-        action = commands.get(command)
-        if action:
-            action()
-        else:
-            print("Unknown to do list command.")
 
 if __name__ == "__main__":
     main()
