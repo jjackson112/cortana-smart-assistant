@@ -116,6 +116,7 @@ def schedule_mode(scheduler):
             print("Unknown schedule command.")
 
 def to_do_list_mode(todo, input_text=None, state=None):
+
     if state is None:
         return {
             "messages": [
@@ -124,9 +125,9 @@ def to_do_list_mode(todo, input_text=None, state=None):
             ],
             "state": "todo_command"
         }
-
         
     if state == "todo_command":
+
         if input_text == "main menu":
             return {
                 "messages": ["Returning to main menu..."],
@@ -140,9 +141,10 @@ def to_do_list_mode(todo, input_text=None, state=None):
         }
 
     if input_text == "list":
+        tasks = todo.show_list()
         return {
-            "messages": todo.show_list(),
-            "state": "todo_show_list"
+            "messages": tasks if tasks else["Your to do list is empty."],
+            "state": "todo_command"
         }
     
     if input_text == "update":
