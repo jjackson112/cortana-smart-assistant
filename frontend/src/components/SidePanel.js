@@ -3,7 +3,7 @@ import ActivityList from "./ActivityList";
 
 export default function SidePanel({ response = "", activities = [] }) {
     return (
-        <aside className="side-panel p-4">
+        <aside className="side-panel bg-slate-50 p-4">
             {/* Cortana Response Area */}
             <div className="response-area mb-6">
                 <h2 className="text-2xl font-semibold mb-2">Response</h2>

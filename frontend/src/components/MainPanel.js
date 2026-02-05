@@ -13,25 +13,25 @@ export default function MainPanel({ onCommand }) {
   }
 
   return (
-    <section className="main-panel grid grid-cols-[2fr_1fr] h-screen">
+    <section>
         <div className="text-3xl font-bold text-center m-3">
             <h1>Cortana</h1>
         </div>
 
         {/* Mode Selection - Dropdown */}
-        <div className="mode-selection">
+        <div className="mode-selection p-6">
+            <label for="modes" class="text-2xl font-semibold mr-3">Choose a mode:</label>
             <select value={mode} onChange={(e) => setMode(e.target.value)} className="outline rounded-lg text-center">
-                <option value="" disabled>Select a mode</option>
+                <option value="choose" disabled>Select a mode</option>
                 <option value="contacts">Contact List</option>
                 <option value="inventory">Inventory</option>
                 <option value="schedule">Schedule</option>
                 <option value="to-do">To Do List</option>
-                <option value="exit">Exit</option>
             </select>
         </div>
         {/* Command input appears ONLY after mode selection */}
         {mode && (
-            <form onSubmit={handleSubmit} className="flex gap-2">
+            <form onSubmit={handleSubmit} className="flex gap-2 p-6">
                 <input
                     value={command}
                     onChange={(e) => setCommand(e.target.value)}
