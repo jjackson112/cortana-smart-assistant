@@ -3,9 +3,9 @@ from flask import Blueprint, request
 from utils.response import error_response, success
 from main import to_do_list_mode
 
-cortana_bp = Blueprint("command", __name__, url_prefix='/api')
+cortana_bp = Blueprint("semantic", __name__, url_prefix='/api')
 
-@cortana_bp.route("/command", methods=["POST"])
+@cortana_bp.route("/semantic", methods=["POST"])
 def handle_command():
     data = request.get_json()
     if not data or "text" not in data:

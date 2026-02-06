@@ -8,6 +8,44 @@ export default function App() {
   const [activities, setActivities] = useState([]);
   const [commands, setCommands] = useState([])
 
+  async function handleSemanticMemory(userInput) {
+    const timestamp = new Date().toISOString();
+
+    try {
+      const res = await fetch("/api/semantic", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: userInput })
+      });
+      const data = await res.json();
+
+      setResponse(data.response);
+      setCommands(data.commands || []);
+
+      setActivities(prev => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          action: "semantic memory replied",
+          entity_type: "message",
+          metadata: { message: data.response },
+          timestamp
+        }
+      ]);
+    } catch (err) {
+      setActivities(prev => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          action: "semantic memory replied",
+          entity_type: "message",
+          metadata: { message: data.response },
+          timestamp
+        }
+      ]);
+    }
+  }
+
   async function handleUserCommand({ mode, command }) {
     const timestamp = new Date().toISOString();
 
