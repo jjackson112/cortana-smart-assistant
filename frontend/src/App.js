@@ -33,13 +33,15 @@ export default function App() {
         }
       ]);
     } catch (err) {
+      setResponse("Failed semantic memory")
+
       setActivities(prev => [
         ...prev,
         {
           id: crypto.randomUUID(),
-          action: "semantic memory replied",
+          action: "error",
           entity_type: "message",
-          metadata: { message: data.response },
+          metadata: { message: err.response },
           timestamp
         }
       ]);
