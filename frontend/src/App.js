@@ -6,6 +6,7 @@ import MainPanel from "./components/MainPanel";
 export default function App() {
   const [response, setResponse] = useState("Cortana is ready");
   const [activities, setActivities] = useState([]);
+  const [commands, setCommands] = useState([])
 
   async function handleUserCommand({ mode, command }) {
     const timestamp = new Date().toISOString();
