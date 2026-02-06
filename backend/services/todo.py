@@ -56,3 +56,5 @@ def delete_todo(todo_id):
         entity_id=todo_id_value,
         metadata={"name": todo_name}
     )
+
+    return True
