@@ -43,6 +43,9 @@ def delete_todo(todo_id):
     todo = Todos.query.get(todo_id)
     if not todo:
         return None
+    
+    todo_id_value = todo.id
+    todo_name = todo.name
 
     db.session.delete(todo)
     db.session.commit()
@@ -50,5 +53,6 @@ def delete_todo(todo_id):
     log_activity(
         action="todo_deleted",
         entity_type="todo",
-        entity_id=todo.id,
+        entity_id=todo_id_value,
+        metadata={"name": todo_name}
     )
