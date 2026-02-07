@@ -41,7 +41,7 @@ export default function App() {
           id: crypto.randomUUID(),
           action: "error",
           entity_type: "message",
-          metadata: { message: err.response },
+          metadata: { message: err.message },
           timestamp
         }
       ]);
@@ -101,7 +101,7 @@ export default function App() {
 
     return (
         <div className="grid grid-cols-[2fr_1fr] h-screen">
-            <MainPanel onCommand={handleUserCommand} />
+            <MainPanel onCommand={handleUserCommand} onSemantic={handleSemanticMemory} commands={commands} />
             <SidePanel response={response} activities={activities} />
         </div>
     )
