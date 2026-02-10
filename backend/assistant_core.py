@@ -15,20 +15,45 @@ def to_do_list_mode(todo, input_text=None, state=None):
             ],
             "state": "todo_command"
         }
-        
+
     if state == "todo_command":
         if input_text == "main menu":
             return {
                 "messages": ["Returning to main menu..."],
                 "state": None
             }
-        
-    if state == "todo_command" and input_text == "add":
-        return {
-            "messages": ["What would you like to add?"],
-            "state": "todo_add_task"
-        }
-    
+
+        if input_text == "add":
+            return {
+                "messages": ["What would you like to add?"],
+                "state": "todo_add_task"
+            }
+
+        if input_text == "list":
+            tasks = todo.show_list()
+            return {
+                "messages": tasks if tasks else ["Your to do list is empty."],
+                "state": "todo_command"
+            }
+
+        if input_text == "update":
+            return {
+                "messages": [
+                    "What task would you like to update?",
+                    *todo.show_list()
+                ],
+                "state": "todo_update_task"
+            }
+
+        if input_text == "delete":
+            return {
+                "messages": [
+                    "What task should be deleted?",
+                    *todo.show_list()
+                ],
+                "state": "todo_delete_task"
+            }
+
     if state == "todo_add_task":
         result = todo.add_task(input_text)
         return {
@@ -36,52 +61,27 @@ def to_do_list_mode(todo, input_text=None, state=None):
             "state": "todo_command"
         }
 
-    if input_text == "list":
-        tasks = todo.show_list()
-        return {
-            "messages": tasks if tasks else ["Your to do list is empty."],
-            "state": "todo_command"
-        }
-    
-    if input_text == "update":
-        return {
-            "messages": 
-                ["What task would you like to update?",
-                *todo.show_list()
-            ],
-            "state": "todo_update_task"
-        }
-    
     if state == "todo_update_task":
         if not input_text.isdigit():
             return {
                 "messages": ["Please enter a valid task number."],
                 "state": "todo_update_task"
             }
-        
+
         index = int(input_text) - 1
-        return{
+        return {
             "messages": ["What is the updated task?"],
             "state": f"todo_update_text:{index}"
-        }   
-    
-    if state.startswith("todo_update_text:"):
+        }
+
+    if state and state.startswith("todo_update_text:"):
         index = int(state.split(":")[1])
         result = todo.update_task(index, input_text)
         return {
             "messages": [result],
             "state": "todo_command"
         }
-     
-    if input_text == "delete":
-        return {
-            "messages": [
-                "What task should be deleted?",
-                *todo.show_list()
-            ],
-            "state": "todo_delete_task"
-        }
-    
+
     if state == "todo_delete_task":
         if not input_text.isdigit():
             return {
@@ -95,8 +95,8 @@ def to_do_list_mode(todo, input_text=None, state=None):
             "messages": [result],
             "state": "todo_command"
         }
-    
+
     return {
-        "messages" : ["Unknown to do list command."],
+        "messages": ["Unknown to do list command."],
         "state": "todo_command"
     }

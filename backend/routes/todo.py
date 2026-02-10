@@ -5,8 +5,13 @@ from utils.crud import apply_updates
 from utils.validation import require_fields
 from utils.response import success, error_response
 from services.activity_log import log_activity
+from assistant_core import to_do_list_mode
 
 todo_bp = Blueprint("todo", __name__, url_prefix='/api/todo')
+
+# single ToDo instance for persistance
+todo = ToDo()
+state = {"current": None} # FSM state handling
 
 @todo_bp.route("/", methods=["POST"])
 def create_todo():
