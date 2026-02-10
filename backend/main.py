@@ -149,7 +149,7 @@ def to_do_list_mode(todo, input_text=None, state=None):
     if input_text == "list":
         tasks = todo.show_list()
         return {
-            "messages": tasks if tasks else["Your to do list is empty."],
+            "messages": tasks if tasks else ["Your to do list is empty."],
             "state": "todo_command"
         }
     
