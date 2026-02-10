@@ -41,6 +41,7 @@ export default function MainPanel({ onCommand }) {
                 />
                 <button
                   type="submit"
+                  disabled={!command.trim()}
                   className="bg-cyan-500 hover:bg-cyan-700 text-white font-semibold px-4 rounded-full"
                 >
                     Enter
