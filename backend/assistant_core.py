@@ -1,3 +1,5 @@
+# FSM logic - finite state machine (design systems that can be in one state at a time)
+
 from modules.to_do_list import ToDo
 
 todo = ToDo()

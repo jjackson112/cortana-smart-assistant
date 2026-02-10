@@ -7,7 +7,6 @@
 # for loop for inside commands or methods
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 
@@ -44,62 +43,60 @@ class Inventory:
         return base_path / "data" / "memory.json"    
     
     # Commands
-    def remember(self):
+    def remember(self, category, key, value):
         category = input("Category (personal/work/other): ").strip().lower()
 
         if category not in self.memory:
-            print("Unknown category, using 'other'.")
             category = "other"
+            return "Unknown category, using 'other'."
+            
 
         key = input("What key should I remember? ").strip()
         if not key:
-            print("Key cannot be empty!")
-            return
+            return "Key cannot be empty!"
             
         value = input(f"What is the value of '{key}'? ").strip()
         if not value:
-            print("Value cannot be empty!")
-            return
+            return "Value cannot be empty!"
         
         # Timestamp added
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.memory[category][key] = {"value": value, "timestamp": timestamp}
 
         self.save_memory()
-        print(f"Got it! I'll remember '{key}' in {category}.")
+        return f"Got it! I'll remember '{key}' in {category}."
 
             
     def list_memory(self):
         has_memory = False
         for category, items in self.memory.items():
             if items:
-                print(f"\n[{category.capitalize()}]")
+                return f"\n[{category.capitalize()}]"
                 for key, info in items.items():
                     value = info.get("value", "")
                     timestamp = info.get("timestamp", "unknown")
-                    print(f"{key}: {value} (saved at {timestamp})")
+                    return f"{key}: {value} (saved at {timestamp})"
                 has_memory = True
 
         if not has_memory:
-            print("I don't remember anything yet.")
+            return "I don't remember anything yet."
 
     def search(self):
         query = input("What do you want to search for? ").strip().lower()
         if not query:
-            print("Search query cannot be empty.")
-            return
+            return "Search query cannot be empty."
         
         found = False
         for category, items in self.memory.items():
             results = {k:v for k, v in items.items() if query in k.lower() or query in v.get("value", "").lower()}
             if results:
-                print(f"\n[{category.capitalize()}]")
+                return f"\n[{category.capitalize()}]"
                 for k, v in results.items():
-                    print(f"{k}: {v['value']} (saved at {v['timestamp']})")
+                    return f"{k}: {v['value']} (saved at {v['timestamp']})"
                 found = True
 
         if not found:
-            print("There are no matching entries.")
+            return "There are no matching entries."
 
     # where to update, verify category exists, ask what to update, ask for new value and save
     # self.memory[category][key] = updated_value
@@ -107,17 +104,14 @@ class Inventory:
         category = input("What category needs to be updated? ").strip().lower()
 
         if category not in self.memory:
-            print("Category does not exist.")
-            return
+            return "Category does not exist."
 
         key = input("What should I update? ").strip()
         if not key:
-            print("Key cannot be empty.")
-            return
+            return "Key cannot be empty."
         
         if key not in self.memory[category]:
-            print("That does not exist.")
-            return
+            return "That does not exist."
         
         entry = self.memory[category][key]
 
@@ -127,8 +121,7 @@ class Inventory:
         if choice == "v":
             updated_value = input(f"What should '{key}' be updated to? ").strip()
             if not updated_value:
-                print("Value cannot be empty.")
-                return
+                return "Value cannot be empty."
 
             entry["value"] = updated_value
             entry["timestamp"] = timestamp
@@ -136,12 +129,10 @@ class Inventory:
         elif choice == "k":
             updated_key = input(f"What's the new key's name? ").strip()
             if not updated_key:
-                print("Key cannot be empty")
-                return
+                return "Key cannot be empty"
             
             if updated_key in self.memory[category]:
-                print("This key already exists.")
-                return
+                return "This key already exists."
             
             self.memory[category][updated_key] = entry
             self.memory[category][updated_key]["timestamp"] = timestamp
@@ -152,12 +143,10 @@ class Inventory:
             updated_value = input("New value: ").strip()
 
             if not updated_key or not updated_value:
-                print("Key and value cannot be empty.")
-                return
+                return "Key and value cannot be empty."
             
             if updated_key in self.memory[category]:
-                print("That key already exists.")
-                return
+                return "That key already exists."
             
             self.memory[category][updated_key] = {
                 "value": updated_value,
@@ -166,11 +155,10 @@ class Inventory:
             del self.memory[category][key]
 
         else:
-            print("Invalid choice")
-            return
+            return "Invalid choice"
 
         self.save_memory()
-        print(f"Updated successfully.")
+        return f"Updated successfully."
 
     # delete function answers similar questions as updating the value - ending action is just different
     # verify category and key exist, is the new value valid, overwrite value and save
@@ -178,17 +166,14 @@ class Inventory:
         category = input("What category should I delete from? ").strip().lower()
 
         if category not in self.memory:
-            print("Category does not exist.")
-            return
+            return "Category does not exist."
 
         key = input("What key should I delete? ").strip()
         if not key:
-            print("Key cannot be empty.")
-            return
+            return "Key cannot be empty."
         
         if key not in self.memory[category]:
-            print("That does not exist.")
-            return
+            return "That does not exist."
         
         delete_confirmation = input("Are you sure? (y/n): ").lower()
         if delete_confirmation != "y":
@@ -196,5 +181,5 @@ class Inventory:
 
         del self.memory[category][key]
         self.save_memory()
-        print(f"I've deleted '{key}' from {category}.")
+        return f"I've deleted '{key}' from {category}."
         
