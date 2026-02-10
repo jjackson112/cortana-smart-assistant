@@ -7,6 +7,7 @@ export default function MainPanel({ onCommand }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if(!command.trim()) return;
 
     onCommand(command);
     setCommand("");
