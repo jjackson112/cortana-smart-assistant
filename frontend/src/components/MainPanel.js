@@ -27,8 +27,8 @@ export default function MainPanel({ onCommand }) {
 
             {/* Mode Selection - Dropdown */}
             <div className="mode-selection p-6">
-                <label for="modes" class="text-2xl font-semibold mr-3">Choose a mode:</label>
-                <select value={mode} onChange={(e) => setMode(e.target.value)} className="outline rounded-lg text-center">
+                <label htmlFor="modes" className="text-2xl font-semibold mr-3">Choose a mode:</label>
+                <select value={mode || ""} onChange={(e) => setMode(e.target.value)} className="outline rounded-lg text-center">
                     <option value="choose">Select a mode</option>
                     <option value="contacts">Contact List</option>
                     <option value="inventory">Inventory</option>
