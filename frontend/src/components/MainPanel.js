@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 {/* User Interaction */}
 
 export default function MainPanel({ onCommand }) {
-    const [mode, setMode] = useState(null);
+    const [mode, setMode] = useState("");
     const [command, setCommand] = useState("");
 
     useEffect(() => {
         if( mode === "to-do") {
-            onCommand("", mode);
+            onCommand("");
         }
     }, [mode]);
 
