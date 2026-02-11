@@ -8,6 +8,7 @@ from routes.contacts import contacts_bp
 from routes.inventory import inventory_bp
 from routes.schedule import schedule_bp
 from routes.todo import todo_bp
+from routes.assistant import assistant_bp
 from services.activity import activity_bp
 
 def create_app():
@@ -25,6 +26,7 @@ def create_app():
     app.register_blueprint(schedule_bp)
     app.register_blueprint(todo_bp)
     app.register_blueprint(activity_bp)
+    app.register_blueprint(assistant_bp)
 
     with app.app_context():
         db.create_all()
