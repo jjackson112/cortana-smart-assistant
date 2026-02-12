@@ -70,6 +70,8 @@ export default function App() {
       });
 
       const data = await res.json();
+      input_text = data.get("command");
+      state = data.get("state");
 
       setResponse(data.response || []);
 
