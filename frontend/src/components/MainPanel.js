@@ -26,9 +26,12 @@ export default function MainPanel({ onCommand, fsmResponse }) {
             </div>
             
             <div className="p-6 min-h-[100px]">
-                {fsmResponse.map((msg, i) => (
-                    <p key={i} className="mb-2">{msg}</p>
-                  ))}
+                {fsmResponse.length > 0 ? (
+                    fsmResponse.map((msg, i) => 
+                        <p key={i} className="mb-2">{msg}</p>)
+                    ) : (
+                        <p className="text-cyan-400 font-semibold mb-4">Just a moment...</p>
+                    )}
             </div>
 
             {/* Mode Selection - Dropdown */}
