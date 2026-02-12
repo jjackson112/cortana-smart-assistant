@@ -126,7 +126,7 @@ export default function App() {
             <MainPanel onCommand={handleUserCommand} commands={commands} fsmResponse={fsmResponse} />
             
             {/* SidePanel shows unified activity log and semantic memory */}
-            <SidePanel response={response} activities={activities} />
+            <SidePanel semanticResponse={semanticResponse} handleSemanticMemory={handleSemanticMemory} activities={activities} />
         </div>
     )
 }

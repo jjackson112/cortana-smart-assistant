@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 {/* User Interaction */}
 
-export default function MainPanel({ onCommand, response }) {
+export default function MainPanel({ onCommand, fsmResponse }) {
     const [mode, setMode] = useState("");
     const [command, setCommand] = useState("");
 
     useEffect(() => {
         if( mode === "to-do") {
-            onCommand("");
+            onCommand({ mode, command });
         }
     }, [mode]);
 
@@ -24,8 +24,9 @@ export default function MainPanel({ onCommand, response }) {
             <div className="text-3xl font-bold text-center m-3">
                 <h1>Cortana</h1>
             </div>
+            
             <div className="p-6 min-h-[100px]">
-                {response.map((msg, i) => (
+                {fsmResponse.map((msg, i) => (
                     <p key={i} className="mb-2">{msg}</p>
                   ))}
             </div>
