@@ -7,7 +7,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
 
     useEffect(() => {
         if( mode === "to-do") {
-            onCommand({ mode, command });
+            onCommand();
         }
     }, [mode]);
 
@@ -15,7 +15,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
       e.preventDefault();
       if(!command.trim()) return;
 
-      onCommand(command);
+      onCommand({ mode, command });
       setCommand("");
     }
 
