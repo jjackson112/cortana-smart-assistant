@@ -15,7 +15,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
       e.preventDefault();
       if(!command.trim()) return;
 
-      onCommand({ mode, command });
+      onCommand({ mode, command }); // send correct object
       setCommand("");
     }
 
@@ -43,7 +43,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
                 </select>
             </div>
             {/* Command input appears ONLY after mode selection */}
-            {mode && (
+            {mode && mode !== "choose" && (
                 <form onSubmit={handleSubmit} className="flex gap-2 p-6">
                     <input
                         value={command}
