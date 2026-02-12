@@ -4,7 +4,7 @@ import MainPanel from "./components/MainPanel";
 {/* Hold state and pass props down - Structure */}
 
 export default function App() {
-  const [response, setResponse] = useState("Cortana is ready");
+  const [response, setResponse] = useState(["Cortana is ready"]);
   const [activities, setActivities] = useState([]);
   const [commands, setCommands] = useState([])
 
@@ -71,7 +71,7 @@ export default function App() {
 
       const data = await res.json();
 
-      setResponse(data.response);
+      setResponse(data.response || []);
 
       setActivities(prev => [
         ...prev,
