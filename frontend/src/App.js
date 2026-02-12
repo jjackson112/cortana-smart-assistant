@@ -1,13 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SidePanel from "./components/SidePanel";
 import MainPanel from "./components/MainPanel";
 {/* Hold state and pass props down - Structure */}
 
 export default function App() {
-  const [response, setResponse] = useState([]);
-  const [activities, setActivities] = useState([]);
+  const [response, setResponse] = useState([]); // semantic memory
+  const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
+  const [activities, setActivities] = useState([]); // activity log
   const [commands, setCommands] = useState([]);
   const [fsmState, setFsmState] = useState(null);
+
+  useEffect(() => {
+  const timestamp = new Date().toISOString();
+
+    setActivities([
+      {
+        id: crypto.randomUUID(),
+        action: "system ready",
+        entity_type: "system",
+        metadata: { message: "Cortana is ready" },
+        timestamp
+      }
+    ]);
+  }, []);
 
   async function handleSemanticMemory(userInput) {
     const timestamp = new Date().toISOString();
@@ -105,7 +120,7 @@ export default function App() {
 
     return (
         <div className="grid grid-cols-[2fr_1fr] h-screen">
-            <MainPanel onCommand={handleUserCommand} commands={commands} response={response} />
+            <MainPanel onCommand={handleUserCommand} commands={commands} />
             <SidePanel response={response} activities={activities} />
         </div>
     )
