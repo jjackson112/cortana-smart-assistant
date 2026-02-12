@@ -6,7 +6,8 @@ import MainPanel from "./components/MainPanel";
 export default function App() {
   const [response, setResponse] = useState(["Cortana is ready"]);
   const [activities, setActivities] = useState([]);
-  const [commands, setCommands] = useState([])
+  const [commands, setCommands] = useState([]);
+  const [fsmState, setFsmState] = useState(null);
 
   async function handleSemanticMemory(userInput) {
     const timestamp = new Date().toISOString();
@@ -70,8 +71,6 @@ export default function App() {
       });
 
       const data = await res.json();
-      input_text = data.get("command");
-      state = data.get("state");
 
       setResponse(data.response || []);
 
