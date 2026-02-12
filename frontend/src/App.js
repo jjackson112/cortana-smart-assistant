@@ -89,8 +89,8 @@ export default function App() {
 
       // Merge messages and response if both exist
       const mergedResponse = [
-        ...(data.messages || []),
-        ...(data.response || [])
+        ...(Array.isArray(data.messages) ? data.messages : [data.messages].filter(Boolean)),
+        ...(Array.isArray(data.response) ? data.response : [data.response].filter(Boolean))
       ];
       setFsmResponse(mergedResponse);
 
