@@ -7,7 +7,7 @@ export default function SidePanel({ response = "", activities = [] }) {
             {/* Cortana Response Area */}
             <div className="response-area mb-6">
                 <h2 className="text-2xl font-semibold mb-2">Response</h2>
-                <p className="cortana-reply text-cyan-400 font-semibold mb-4">{response || "Cortana is ready"}</p>
+                <p className="cortana-reply text-cyan-400 font-semibold mb-4">{response}</p>
             </div>
 
             {/* Activity Log */}

@@ -103,7 +103,7 @@ export default function App() {
 
     return (
         <div className="grid grid-cols-[2fr_1fr] h-screen">
-            <MainPanel onCommand={handleUserCommand} onSemantic={handleSemanticMemory} commands={commands} />
+            <MainPanel onCommand={handleUserCommand} commands={commands} />
             <SidePanel response={response} activities={activities} />
         </div>
     )
