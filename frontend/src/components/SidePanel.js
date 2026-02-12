@@ -5,10 +5,16 @@ export default function SidePanel({ semanticResponse = [], activities = [] }) {
     return (
         <aside className="side-panel bg-slate-50 p-4">
             {/* Cortana Response Area */}
-            <div className="response-area mb-6">
-                <h2 className="text-2xl font-semibold mb-2">Response</h2>
-                <p className="cortana-reply text-cyan-400 font-semibold mb-4">{semanticResponse}</p>
-            </div>
+            {semanticResponse.length > 0 && (
+                <div className="response-area mb-6">
+                    <h2 className="text-2xl font-semibold mb-2">Response</h2>
+                    <div className="cortana-reply text-cyan-400 font-semibold mb-4">
+                        {semanticResponse.map((msg, i) => (
+                            <p key={i}>{msg}</p>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Activity Log */}
             <div className="activity-log-area">
