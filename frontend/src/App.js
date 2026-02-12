@@ -4,7 +4,7 @@ import MainPanel from "./components/MainPanel";
 {/* Hold state and pass props down - Structure */}
 
 export default function App() {
-  const [response, setResponse] = useState([]); // semantic memory
+  const [semanticResponse, setSemanticResponse] = useState([]); // semantic memory
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
   const [activities, setActivities] = useState([]); // activity log
   const [commands, setCommands] = useState([]);
@@ -12,7 +12,6 @@ export default function App() {
 
   useEffect(() => {
   const timestamp = new Date().toISOString();
-
     setActivities([
       {
         id: crypto.randomUUID(),
@@ -24,9 +23,9 @@ export default function App() {
     ]);
   }, []);
 
+  // Semantic Memory
   async function handleSemanticMemory(userInput) {
     const timestamp = new Date().toISOString();
-
     try {
       const res = await fetch("/api/semantic", {
         method: "POST",
@@ -35,7 +34,7 @@ export default function App() {
       });
       const data = await res.json();
 
-      setResponse(data.response);
+      setSemanticResponse(data.response || []);
       setCommands(data.commands || []);
 
       setActivities(prev => [
@@ -49,7 +48,7 @@ export default function App() {
         }
       ]);
     } catch (err) {
-      setResponse("Failed semantic memory")
+      setSemanticResponse("Failed semantic memory")
 
       setActivities(prev => [
         ...prev,
@@ -64,6 +63,7 @@ export default function App() {
     }
   }
 
+  // FSM assistant logic
   async function handleUserCommand({ mode, command }) {
     const timestamp = new Date().toISOString();
 
@@ -84,13 +84,15 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mode, command, state: fsmState })
       });
-
       const data = await res.json();
-
       setFsmState(data.state);
-      setResponse(data.messages || []);
 
-      setResponse(data.response || []);
+      // Merge messages and response if both exist
+      const mergedResponse = [
+        ...(data.messages || []),
+        ...(data.response || [])
+      ];
+      setFsmResponse(mergedResponse);
 
       setActivities(prev => [
         ...prev,
@@ -98,12 +100,12 @@ export default function App() {
           id: crypto.randomUUID(),
           action: "Cortana replied",
           entity_type: "message",
-          metadata: { message: data.response },
+          metadata: { message: mergedResponse },
           timestamp: new Date().toISOString()
         }
       ]);
     } catch (err) {
-      setResponse("Something went wrong.");
+      setFsmResponse("Something went wrong.");
 
       setActivities(prev => [
         ...prev,
@@ -120,7 +122,10 @@ export default function App() {
 
     return (
         <div className="grid grid-cols-[2fr_1fr] h-screen">
-            <MainPanel onCommand={handleUserCommand} commands={commands} />
+            {/* MainPanel shows FSM replies and commands */}
+            <MainPanel onCommand={handleUserCommand} commands={commands} fsmResponse={fsmResponse} />
+            
+            {/* SidePanel shows unified activity log and semantic memory */}
             <SidePanel response={response} activities={activities} />
         </div>
     )
