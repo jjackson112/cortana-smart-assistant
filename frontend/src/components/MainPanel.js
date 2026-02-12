@@ -25,13 +25,9 @@ export default function MainPanel({ onCommand, response }) {
                 <h1>Cortana</h1>
             </div>
             <div className="p-6 min-h-[100px]">
-                {Array.isArray(response) ? (
-                  response.map((msg, i) => (
+                {response.map((msg, i) => (
                     <p key={i} className="mb-2">{msg}</p>
-                  ))
-                ) : (
-                  <p>{response}</p>
-                )}
+                  ))}
             </div>
 
             {/* Mode Selection - Dropdown */}

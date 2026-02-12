@@ -4,7 +4,7 @@ import MainPanel from "./components/MainPanel";
 {/* Hold state and pass props down - Structure */}
 
 export default function App() {
-  const [response, setResponse] = useState(["Cortana is ready"]);
+  const [response, setResponse] = useState([]);
   const [activities, setActivities] = useState([]);
   const [commands, setCommands] = useState([]);
   const [fsmState, setFsmState] = useState(null);
@@ -105,7 +105,7 @@ export default function App() {
 
     return (
         <div className="grid grid-cols-[2fr_1fr] h-screen">
-            <MainPanel onCommand={handleUserCommand} commands={commands} />
+            <MainPanel onCommand={handleUserCommand} commands={commands} response={response} />
             <SidePanel response={response} activities={activities} />
         </div>
     )
