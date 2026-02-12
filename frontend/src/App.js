@@ -67,10 +67,13 @@ export default function App() {
       const res = await fetch("/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode, command })
+        body: JSON.stringify({ mode, command, state: fsmState })
       });
 
       const data = await res.json();
+
+      setFsmState(data.state);
+      setResponse(data.messages || []);
 
       setResponse(data.response || []);
 
