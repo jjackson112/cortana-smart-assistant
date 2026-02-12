@@ -3,6 +3,9 @@ import SidePanel from "./components/SidePanel";
 import MainPanel from "./components/MainPanel";
 {/* Hold state and pass props down - Structure */}
 
+// Helper to normalize API responses into arrays
+const normalizeToArray = (val) => (Array.isArray(val) ? val : val ? [val] : []);
+
 export default function App() {
   const [semanticResponse, setSemanticResponse] = useState([]); // semantic memory
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
@@ -34,7 +37,8 @@ export default function App() {
       });
       const data = await res.json();
 
-      setSemanticResponse(data.response || []);
+      const semantic = normalizeToArray(data.response);
+      setSemanticResponse(semantic);
       setCommands(data.commands || []);
 
       setActivities(prev => [
@@ -43,7 +47,7 @@ export default function App() {
           id: crypto.randomUUID(),
           action: "semantic memory replied",
           entity_type: "message",
-          metadata: { message: data.response },
+          metadata: { message: semantic },
           timestamp
         }
       ]);
@@ -89,8 +93,8 @@ export default function App() {
 
       // Merge messages and response if both exist
       const mergedResponse = [
-        ...(Array.isArray(data.messages) ? data.messages : [data.messages].filter(Boolean)),
-        ...(Array.isArray(data.response) ? data.response : [data.response].filter(Boolean))
+        ...normalizeToArray(data.messages),
+        ...normalizeToArray(data.response),
       ];
       setFsmResponse(mergedResponse);
 
