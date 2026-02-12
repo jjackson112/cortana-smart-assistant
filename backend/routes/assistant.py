@@ -1,12 +1,10 @@
 from flask import Blueprint, request
-from modules.to_do_list import ToDo
 from utils.response import success, error_response
 from assistant_core import to_do_list_mode
 
-todo = ToDo()
-assistant_bp = Blueprint("assistant", __name__, url_prefix="/api/assistant")
+assistant_bp = Blueprint("assistant", __name__, url_prefix="/api")
 
-@assistant_bp.route("", methods=["GET", "POST"])
+@assistant_bp.route("/assistant", methods=["POST"])
 def assistant_command():
     if request.method == "GET":
         return {"status": "assistant route is alive"}
@@ -18,7 +16,7 @@ def assistant_command():
     state = data.get("state")
 
     print("TESTING")
-    result = to_do_list_mode(todo, input_text=input_text, state=state)
+    result = to_do_list_mode(input_text=input_text, state=state)
     return success(result), 200
 
     
