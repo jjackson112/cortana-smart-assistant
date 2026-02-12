@@ -7,7 +7,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
 
     useEffect(() => {
         if( mode === "to-do") {
-            onCommand();
+            onCommand({ mode, command: "" }); // trigger FSM with empty command
         }
     }, [mode]);
 
