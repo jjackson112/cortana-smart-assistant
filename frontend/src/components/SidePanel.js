@@ -1,7 +1,7 @@
 import ActivityList from "./ActivityList";
 {/* Output */}
 
-export default function SidePanel({ semanticResponse = "", activities = [] }) {
+export default function SidePanel({ semanticResponse = [], activities = [] }) {
     return (
         <aside className="side-panel bg-slate-50 p-4">
             {/* Cortana Response Area */}
