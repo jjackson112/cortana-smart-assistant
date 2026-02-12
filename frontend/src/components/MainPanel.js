@@ -1,15 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 {/* User Interaction */}
 
 export default function MainPanel({ onCommand, fsmResponse }) {
     const [mode, setMode] = useState("");
     const [command, setCommand] = useState("");
-
-    useEffect(() => {
-        if( mode === "to-do") {
-            onCommand({ mode, command: "" }); // trigger FSM with empty command
-        }
-    }, [mode]);
 
     function handleSubmit(e) {
       e.preventDefault();
