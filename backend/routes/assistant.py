@@ -18,5 +18,3 @@ def assistant_command():
     print("TESTING")
     result = to_do_list_mode(input_text=input_text, state=state)
     return success(result), 200
-
-    

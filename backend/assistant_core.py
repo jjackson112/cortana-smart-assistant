@@ -4,7 +4,7 @@ from modules.to_do_list import ToDo
 
 todo = ToDo()
 
-def to_do_list_mode(todo, input_text=None, state=None):
+def to_do_list_mode(input_text=None, state=None):
 
     if input_text:
         input_text = input_text.strip().lower()
