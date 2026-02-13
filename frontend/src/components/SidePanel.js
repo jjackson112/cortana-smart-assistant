@@ -5,6 +5,9 @@ export default function SidePanel({ semanticResponse = [], activities = [] }) {
   // Decide what to display in the response area
   const displayMessages = semanticResponse.length > 0 ? semanticResponse : ["Cortana is ready"];
 
+  // Show only most recent 5 activity logs 
+  const displayActivities = [...activities].slice(-5).reverse();
+
   return (
     <aside className="side-panel bg-slate-50 p-4 h-full flex flex-col">
       
