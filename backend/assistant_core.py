@@ -9,6 +9,15 @@ def to_do_list_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
 
+    if input_text == "main menu":
+            return {
+                "messages": [
+                    "Returning to main menu...",
+                    "What's on the to do list? 📝",
+                    "To do list command (add, list, update, delete, main menu):"],
+                "state": "main menu" # set main menu state (UX improvement)
+            }
+
     if state is None:
         return {
             "messages": [
@@ -19,12 +28,6 @@ def to_do_list_mode(input_text=None, state=None):
         }
 
     if state == "todo_command":
-        if input_text == "main menu":
-            return {
-                "messages": ["Returning to main menu..."],
-                "state": None
-            }
-
         if input_text == "add":
             return {
                 "messages": ["What would you like to add?"],

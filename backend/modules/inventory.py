@@ -44,20 +44,13 @@ class Inventory:
     
     # Commands
     def remember(self, category, key, value):
-        category = input("Category (personal/work/other): ").strip().lower()
-
+        category = category.lower()
         if category not in self.memory:
             category = "other"
             return "Unknown category, using 'other'."
             
-
-        key = input("What key should I remember? ").strip()
-        if not key:
-            return "Key cannot be empty!"
-            
-        value = input(f"What is the value of '{key}'? ").strip()
-        if not value:
-            return "Value cannot be empty!"
+        if not key or not value:
+            return "Key and value cannot be empty!"
         
         # Timestamp added
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -65,28 +58,24 @@ class Inventory:
 
         self.save_memory()
         return f"Got it! I'll remember '{key}' in {category}."
-
             
     def list_memory(self):
-        has_memory = False
+        output = []
         for category, items in self.memory.items():
             if items:
-                return f"\n[{category.capitalize()}]"
+                output.append(f"\n[{category.capitalize()}]")
                 for key, info in items.items():
                     value = info.get("value", "")
                     timestamp = info.get("timestamp", "unknown")
-                    return f"{key}: {value} (saved at {timestamp})"
-                has_memory = True
+                    output.append(f"{key}: {value} (saved at {timestamp})")
 
-        if not has_memory:
-            return "I don't remember anything yet."
+        return "\n".join(output) if output else "I don't remember anything yet."
 
-    def search(self):
-        query = input("What do you want to search for? ").strip().lower()
+    def search(self, query):
         if not query:
             return "Search query cannot be empty."
         
-        found = False
+        query = query.lower()
         for category, items in self.memory.items():
             results = {k:v for k, v in items.items() if query in k.lower() or query in v.get("value", "").lower()}
             if results:
