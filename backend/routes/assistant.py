@@ -1,5 +1,8 @@
 from flask import Blueprint, request, jsonify
 from assistant_core import to_do_list_mode
+from modules.to_do_list import ToDo
+
+todo = ToDo()
 
 assistant_bp = Blueprint("assistant", __name__, url_prefix="/api")
 
