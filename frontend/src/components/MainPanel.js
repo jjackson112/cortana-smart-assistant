@@ -13,6 +13,18 @@ export default function MainPanel({ onCommand, fsmResponse }) {
       setCommand("");
     }
 
+    function handleModeChange(e) {
+        const selectedMode = e.target.value;
+        setMode(selectedMode);
+
+        if(selectedMode === "to-do") {
+            onCommand({
+                mode: "to-do",
+                command: "",
+            })
+        }
+    }
+
     return (
         <section>
             <div className="text-3xl font-bold text-center m-3">
