@@ -87,7 +87,7 @@ class Inventory:
 
     # where to update, verify category exists, ask what to update, ask for new value and save
     # self.memory[category][key] = updated_value
-    def update(self, category, key, new):
+    def update(self, category, key, updated_key, updated_value):
         category = category.lower()
         if category not in self.memory:
             return "Category does not exist."
@@ -95,20 +95,10 @@ class Inventory:
         if key not in self.memory[category]:
             return "That does not exist."
         
-        entry = self.memory[category][key]
-
-        choice = input("Update (k)ey, (v)alue, or (b)oth? ").strip().lower()
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-        if choice == "v":
-            updated_value = input(f"What should '{key}' be updated to? ").strip()
-            if not updated_value:
-                return "Value cannot be empty."
-
-            entry["value"] = updated_value
-            entry["timestamp"] = timestamp
+        entry = self.memory[category][key]
         
-        elif choice == "k":
+        if choice == "k":
             updated_key = input(f"What's the new key's name? ").strip()
             if not updated_key:
                 return "Key cannot be empty"
@@ -119,6 +109,14 @@ class Inventory:
             self.memory[category][updated_key] = entry
             self.memory[category][updated_key]["timestamp"] = timestamp
             del self.memory[category][key]
+        
+        elif choice == "v":
+            updated_value = input(f"What should '{key}' be updated to? ").strip()
+            if not updated_value:
+                return "Value cannot be empty."
+
+            entry["value"] = updated_value
+            entry["timestamp"] = timestamp
         
         elif choice == "b":
             updated_key = input("New key name: ").strip()
@@ -137,7 +135,7 @@ class Inventory:
             del self.memory[category][key]
 
         else:
-            return "Invalid choice"
+            return "Invalid choice - cannot update"
 
         self.save_memory()
         return f"Updated successfully."
