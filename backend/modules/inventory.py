@@ -98,11 +98,7 @@ class Inventory:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         entry = self.memory[category][key]
         
-        if choice == "k":
-            updated_key = input(f"What's the new key's name? ").strip()
-            if not updated_key:
-                return "Key cannot be empty"
-            
+        if updated_key and not updated_value:
             if updated_key in self.memory[category]:
                 return "This key already exists."
             
@@ -110,21 +106,11 @@ class Inventory:
             self.memory[category][updated_key]["timestamp"] = timestamp
             del self.memory[category][key]
         
-        elif choice == "v":
-            updated_value = input(f"What should '{key}' be updated to? ").strip()
-            if not updated_value:
-                return "Value cannot be empty."
-
+        elif updated_value and not updated_key:
             entry["value"] = updated_value
             entry["timestamp"] = timestamp
         
-        elif choice == "b":
-            updated_key = input("New key name: ").strip()
-            updated_value = input("New value: ").strip()
-
-            if not updated_key or not updated_value:
-                return "Key and value cannot be empty."
-            
+        elif updated_key and updated_value:            
             if updated_key in self.memory[category]:
                 return "That key already exists."
             
