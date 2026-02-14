@@ -36,7 +36,7 @@ def inventory_mode(input_text=None, state=None):
 
         if input_text == "list":
             return {
-                "messages": inventory if inventory else ["Your inventory is empty."],
+                "messages": [inventory.list_memory()] if inventory else ["Your inventory is empty."],
                 "state": "inventory_command"
             }
         
@@ -59,7 +59,7 @@ def inventory_mode(input_text=None, state=None):
             return {
                 "messages": [
                     "What task should be deleted?",
-                    inventory.list_memory()
+                    [inventory.list_memory()]
                 ],
                 "state": "inventory_delete"
             }
