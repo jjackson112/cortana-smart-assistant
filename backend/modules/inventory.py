@@ -149,22 +149,17 @@ class Inventory:
 
     # delete function answers similar questions as updating the value - ending action is just different
     # verify category and key exist, is the new value valid, overwrite value and save
-    def delete(self):
-        category = input("What category should I delete from? ").strip().lower()
+    def delete(self, category, key, confirm=False):
+        category = category.lower()
 
         if category not in self.memory:
             return "Category does not exist."
-
-        key = input("What key should I delete? ").strip()
-        if not key:
-            return "Key cannot be empty."
         
         if key not in self.memory[category]:
             return "That does not exist."
         
-        delete_confirmation = input("Are you sure? (y/n): ").lower()
-        if delete_confirmation != "y":
-            return
+        if not confirm: 
+            return f"Are you sure you want to delete '{key}' from {category}? (y/n)"
 
         del self.memory[category][key]
         self.save_memory()
