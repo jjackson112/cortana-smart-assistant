@@ -9,34 +9,61 @@ def inventory_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
 
-    if input_text == "main menu":
-        return {
-            "messages": [
-                "Returning to main menu...",
-                "Let's check the inventory 📋💻",
-                "Inventory command (remember, list, search, update, delete, main menu):"],
-            "state": "main menu" # set main menu state (UX improvement)
-        }
-
     if state is None:
         return {
             "messages": [
                 "Let's check the inventory 📋💻",
                 "Inventory command (remember, list, search, update, delete, main menu):"
             ],
-            "state": "todo_command"
+            "state": "inventory_command"
         }
 
+    if input_text == "main menu":
+        return {
+            "messages": [
+                "Returning to main menu...",
+                "Let's check the inventory 📋💻",
+                "Inventory command (remember, list, search, update, delete, main menu):"],
+            "state": "main menu" 
+        }
+    
+    if state == "inventory_command":
+        if input_text == "remember":
+            return {
+                "messages": ["What would you like to add?"],
+                "state": "inventory_add"
+            }
 
-    commands = {
-        "remember": inventory.remember,
-        "list": inventory.list_memory,
-        "search": inventory.search,
-        "update": inventory.update,
-        "delete": inventory.delete
-    }
+        if input_text == "list":
+            return {
+                "messages": inventory if inventory else ["Your inventory is empty."],
+                "state": "inventory_command"
+            }
+        
+        if input_text == "search":
+            return {
+                "messages": ["What would you like to search for?"],
+                "state": "inventory_search"
+            }
 
+        if input_text == "update":
+            return {
+                "messages": [
+                    "What task would you like to update?",
+                    *todo.show_list()
+                ],
+                "state": "inventory_update"
+            }
 
+        if input_text == "delete":
+            return {
+                "messages": [
+                    "What task should be deleted?",
+                    inventory.list_memory()
+                ],
+                "state": "inventory_delete"
+            }
+        
     return {
         "messages": ["Unknown inventory command."],
         "state": "inventory_command"
