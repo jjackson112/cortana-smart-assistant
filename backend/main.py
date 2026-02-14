@@ -7,7 +7,6 @@ def main():
     assistant_name = "Cortana"
     username = "Jasmine"
 
-    inventory = Inventory()
     contacts = ContactList()
     scheduler = Scheduler()
 
@@ -24,15 +23,9 @@ def main():
 
         if select_mode == "1":
             contact_list_mode(contacts)
-        
-        elif select_mode == "2":
-            inventory_mode(inventory)
 
         elif select_mode == "3":
             schedule_mode(scheduler)
-
-        elif select_mode == "4":
-            to_do_list_mode(todo)
 
         elif select_mode == "5":
             print(f"See you next time {username}! 🤗")
@@ -64,30 +57,6 @@ def contact_list_mode(contacts):
             action()
         else:
             print("Unknown contact list command.")
-
-def inventory_mode(inventory):
-    print("\nLet's check the inventory 📋💻")
-
-    commands = {
-        "remember": inventory.remember,
-        "list": inventory.list_memory,
-        "search": inventory.search,
-        "update": inventory.update,
-        "delete": inventory.delete
-    }
-
-    while True:
-        command = input("\nInventory command (remember, list, search, update, delete, main menu): ").strip().lower()
-
-        if command == "main menu":
-            print("\nReturning to main menu...\n")
-            break
-
-        action = commands.get(command)
-        if action:
-            action()
-        else:
-            print("Unknown inventory command.")
 
 def schedule_mode(scheduler):
     print("What's up with the schedule? 📅")

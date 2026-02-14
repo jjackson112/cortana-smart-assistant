@@ -1,11 +1,48 @@
 # FSM logic - finite state machine (design systems that can be in one state at a time)
-
+from modules.inventory import Inventory
 from modules.to_do_list import ToDo
 
+inventory = Inventory()
 todo = ToDo()
 
-def to_do_list_mode(input_text=None, state=None):
+def inventory_mode(input_text=None, state=None):
+    if input_text:
+        input_text = input_text.strip().lower()
 
+    if input_text == "main menu":
+        return {
+            "messages": [
+                "Returning to main menu...",
+                "Let's check the inventory 📋💻",
+                "Inventory command (remember, list, search, update, delete, main menu):"],
+            "state": "main menu" # set main menu state (UX improvement)
+        }
+
+    if state is None:
+        return {
+            "messages": [
+                "Let's check the inventory 📋💻",
+                "Inventory command (remember, list, search, update, delete, main menu):"
+            ],
+            "state": "todo_command"
+        }
+
+
+    commands = {
+        "remember": inventory.remember,
+        "list": inventory.list_memory,
+        "search": inventory.search,
+        "update": inventory.update,
+        "delete": inventory.delete
+    }
+
+
+    return {
+        "messages": ["Unknown inventory command."],
+        "state": "inventory_command"
+    }
+
+def to_do_list_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
 
