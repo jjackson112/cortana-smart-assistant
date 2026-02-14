@@ -50,7 +50,7 @@ def inventory_mode(input_text=None, state=None):
             return {
                 "messages": [
                     "What task would you like to update?",
-                    *todo.show_list()
+                    *inventory.list_memory().split("\n")
                 ],
                 "state": "inventory_update"
             }
