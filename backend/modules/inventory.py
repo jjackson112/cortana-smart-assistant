@@ -76,16 +76,14 @@ class Inventory:
             return "Search query cannot be empty."
         
         query = query.lower()
+        output = []
         for category, items in self.memory.items():
             results = {k:v for k, v in items.items() if query in k.lower() or query in v.get("value", "").lower()}
             if results:
-                return f"\n[{category.capitalize()}]"
+                output.append(f"\n[{category.capitalize()}]")
                 for k, v in results.items():
-                    return f"{k}: {v['value']} (saved at {v['timestamp']})"
-                found = True
-
-        if not found:
-            return "There are no matching entries."
+                    output.append(f"{k}: {v['value']} (saved at {v['timestamp']})")
+        return "\n".join(output) if output else "There are no matching entries."
 
     # where to update, verify category exists, ask what to update, ask for new value and save
     # self.memory[category][key] = updated_value
