@@ -87,15 +87,10 @@ class Inventory:
 
     # where to update, verify category exists, ask what to update, ask for new value and save
     # self.memory[category][key] = updated_value
-    def update(self):
-        category = input("What category needs to be updated? ").strip().lower()
-
+    def update(self, category, key, new):
+        category = category.lower()
         if category not in self.memory:
             return "Category does not exist."
-
-        key = input("What should I update? ").strip()
-        if not key:
-            return "Key cannot be empty."
         
         if key not in self.memory[category]:
             return "That does not exist."
