@@ -5,7 +5,7 @@ from modules.to_do_list import ToDo
 inventory = Inventory()
 todo = ToDo()
 
-def inventory_mode(input_text=None, state=None):
+def inventory_mode(input_text=None, state=None, inventory=None):
     if input_text:
         input_text = input_text.strip().lower()
 
@@ -58,12 +58,34 @@ def inventory_mode(input_text=None, state=None):
         if input_text == "delete":
             return {
                 "messages": [
-                    "What task should be deleted?",
-                    [inventory.list_memory()]
+                    "What should be deleted?",
+                    *inventory.list_memory().split("\n")
                 ],
                 "state": "inventory_delete"
             }
-        
+    
+    if state == "inventory_add":
+        return {
+            "messages": ["Which category? (personal, work or other)"],
+            "state": "inventory_add_category"
+        }
+    
+    if state == "inventory_add_category":
+        category = input_text.lower()
+        return {
+            "messages": ["What key should I remember?"],
+            "state": f"inventory_add_key:{category}"
+        }
+    
+    if state and state.startswith("inventory_add_key"):
+        category = state.split(":")[1]
+        key = input_text
+
+        return {
+            "messages": [f"What is the value of '{key}'?"],
+            "state": f"inventory_add_value:{category}:{key}"
+        }     
+       
     return {
         "messages": ["Unknown inventory command."],
         "state": "inventory_command"
