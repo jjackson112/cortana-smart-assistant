@@ -71,7 +71,11 @@ def inventory_mode(input_text=None, state=None, inventory=None):
         }
     
     if state == "inventory_add_category":
-        category = input_text.lower()
+        category = input_text.strip().lower()
+
+        if category not in ["personal", "work"]:
+            category = "other"
+            
         return {
             "messages": ["What key should I remember?"],
             "state": f"inventory_add_key:{category}"
