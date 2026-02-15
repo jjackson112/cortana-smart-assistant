@@ -1,4 +1,5 @@
 # FSM logic - finite state machine (design systems that can be in one state at a time)
+# startswith() checks whether a string starts with a specific substring
 from modules.inventory import Inventory
 from modules.to_do_list import ToDo
 
@@ -75,7 +76,7 @@ def inventory_mode(input_text=None, state=None, inventory=None):
 
         if category not in ["personal", "work"]:
             category = "other"
-            
+
         return {
             "messages": ["What key should I remember?"],
             "state": f"inventory_add_key:{category}"
@@ -88,7 +89,18 @@ def inventory_mode(input_text=None, state=None, inventory=None):
         return {
             "messages": [f"What is the value of '{key}'?"],
             "state": f"inventory_add_value:{category}:{key}"
-        }     
+        } 
+
+    if state and state.startswith("inventory_add_value:"):
+        _, category, key = state.split(":")
+        value = input_text
+
+        msg = inventory.remember(category, key, value)
+
+        return {
+            "messages": [msg],
+            "state": "inventory_command"
+    }    
        
     return {
         "messages": ["Unknown inventory command."],
