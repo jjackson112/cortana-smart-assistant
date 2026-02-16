@@ -217,7 +217,7 @@ MODE_HANDLERS = {
 
 def handle_command(input_text=None, state=None):
     if state is None:
-        state = {"state": "default", "state": None}
+        state = {"mode": None, "state": None}
 
     current_mode = state.get("mode", "default")
 
@@ -226,9 +226,9 @@ def handle_command(input_text=None, state=None):
         # pass the internal FSM state
         result = handler(input_text, state.get("state"))
         # wrap it so the frontend knows current mode + internal state
-        return {"messages": result["messages"], "state": {"mode": current_mode, "state": result["state"]}}
+        return {
+            "messages": result["messages"], 
+            "state": {"mode": current_mode, "state": result["state"]}}
 
     else:
-        result = {"messages": ["No active mode selected"], "state": state}
-
-    return result
+        return {"messages": ["No active mode selected"], "state": state}
