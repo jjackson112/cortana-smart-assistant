@@ -7,27 +7,6 @@ from modules.to_do_list import ToDo
 inventory = Inventory()
 todo = ToDo()
 
-# map mode names to their handlers
-MODE_HANDLERS = {
-    "inventory": inventory.handle_command,
-    "to-do": todo.handle_command
-}
-
-def handle_command(input_text=None, state=None):
-    if state is None:
-        state = {"state": "default"}
-
-    current_mode = state.get("mode", "default")
-
-    if current_mode in MODE_HANDLERS:
-        handler = MODE_HANDLERS[current_mode]
-        result = handler(input_text, state)
-    
-    else:
-        result = {"messages": ["No active mode selected"], "state": state}
-
-    return result
-
 def inventory_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
@@ -229,3 +208,27 @@ def to_do_list_mode(input_text=None, state=None):
         "messages": ["Unknown to do list command."],
         "state": "todo_command"
     }
+
+# map mode names to their handlers
+MODE_HANDLERS = {
+    "inventory": inventory_mode,
+    "todo": to_do_list_mode
+}
+
+def handle_command(input_text=None, state=None):
+    if state is None:
+        state = {"state": "default", "state": None}
+
+    current_mode = state.get("mode", "default")
+
+    if current_mode in MODE_HANDLERS:
+        handler = MODE_HANDLERS[current_mode]
+        # pass the internal FSM state
+        result = handler(input_text, state.get("state"))
+        # wrap it so the frontend knows current mode + internal state
+        return {"messages": result["messages"], "state": {"mode": current_mode, "state": result["state"]}}
+
+    else:
+        result = {"messages": ["No active mode selected"], "state": state}
+
+    return result

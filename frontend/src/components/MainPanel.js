@@ -20,14 +20,14 @@ export default function MainPanel({ onCommand, fsmResponse }) {
         if(selectedMode === "inventory") {
             onCommand({
                 mode: "inventory",
-                command: "",
+                command: null,
             })
         }
 
-        if(selectedMode === "to-do") {
+        if(selectedMode === "todo") {
             onCommand({
-                mode: "to-do",
-                command: "",
+                mode: "todo",
+                command: null,
             })
         }
     }
@@ -55,7 +55,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
                     <option value="contacts">Contact List</option>
                     <option value="inventory">Inventory</option>
                     <option value="schedule">Schedule</option>
-                    <option value="to-do">To Do List</option>
+                    <option value="todo">To Do List</option>
                 </select>
             </div>
             {/* Command input appears ONLY after mode selection */}
