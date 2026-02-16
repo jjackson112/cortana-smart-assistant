@@ -15,7 +15,6 @@ export default function MainPanel({ onCommand, fsmResponse }) {
 
     function handleModeChange(e) {
         const selectedMode = e.target.value;
-        setMode(selectedMode);
         
         if(selectedMode === "choose") {
             setMode("")
