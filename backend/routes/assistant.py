@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from assistant_core import handle_command
 
 assistant_bp = Blueprint("assistant", __name__, url_prefix="/api") 
+
 @assistant_bp.route("/assistant", methods=["POST"]) 
 
 def assistant_command(): 

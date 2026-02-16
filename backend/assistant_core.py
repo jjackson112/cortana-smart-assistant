@@ -10,16 +10,23 @@ todo = ToDo()
 # map mode names to their handlers
 MODE_HANDLERS = {
     "inventory": inventory.handle_command,
-    "todo": todo.handle_command
+    "to-do": todo.handle_command
 }
 
-def handle_command():
+def handle_command(input_text=None, state=None):
     if state is None:
         state = {"state": "default"}
 
     current_mode = state.get("mode", "default")
 
+    if current_mode in MODE_HANDLERS:
+        handler = MODE_HANDLERS[current_mode]
+        result = handler(input_text, state)
     
+    else:
+        result = {"messages": ["No active mode selected"], "state": state}
+
+    return result
 
 def inventory_mode(input_text=None, state=None):
     if input_text:
