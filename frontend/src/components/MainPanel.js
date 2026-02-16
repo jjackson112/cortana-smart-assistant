@@ -21,24 +21,12 @@ export default function MainPanel({ onCommand, fsmResponse }) {
             return
         }
         setMode(selectedMode)
+
+        // single call to backend to set mode + trigger initial prompt
         onCommand({
             mode: selectedMode,
             command: null
         })
-
-        if(selectedMode === "inventory") {
-            onCommand({
-                mode: "inventory",
-                command: null,
-            })
-        }
-
-        if(selectedMode === "todo") {
-            onCommand({
-                mode: "todo",
-                command: null,
-            })
-        }
     }
 
     return (

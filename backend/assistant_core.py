@@ -216,19 +216,36 @@ MODE_HANDLERS = {
 }
 
 def handle_command(input_text=None, state=None):
+    # ensures the state is always a dict with keys 'mode' and 'state'
     if state is None:
         state = {"mode": None, "state": None}
 
     current_mode = state.get("mode", "default")
 
-    if current_mode in MODE_HANDLERS:
+    # If input_text is a mode name, switch mode immediately
+    if current_mode in MODE_HANDLERS and input_text != current_mode:
+        current_mode = input_text
+
+        # reset FSM state for new mode
+        state["mode"] = current_mode
+        state["state"] = None
+
         handler = MODE_HANDLERS[current_mode]
         # pass the internal FSM state
-        result = handler(input_text, state.get("state"))
+        result = handler(input_text=None, state=None) # trigger first prompt
         # wrap it so the frontend knows current mode + internal state
         return {
             "messages": result["messages"], 
             "state": {"mode": current_mode, "state": result["state"]}}
 
-    else:
-        return {"messages": ["No active mode selected"], "state": state}
+    # normal FSM handling
+    if current_mode in MODE_HANDLERS:
+        handler = MODE_HANDLERS[current_mode]
+        result = handler(input_text, state.get("state"))
+        return {
+            "messages": result["messages"],
+            "state": {"mode": current_mode, "state": result["state"]}
+        }
+    
+    # fallback if no mode is selected
+    return {"messages": ["No active mode selected"], "state": state}
