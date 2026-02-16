@@ -2,8 +2,8 @@ import ActivityItem from "./ActivityItem"
 /*array data model */
 
 export default function ActivityList({ activities }) {
-  // Show only most recent 5 activity logs 
-  const displayActivities = [...activities].slice(-5).reverse();
+  // Show only most recent 8 activity logs 
+  const displayActivities = [...activities].slice(-8).reverse();
 
   if (!activities.length) {
     return <p>No activity yet.</p>

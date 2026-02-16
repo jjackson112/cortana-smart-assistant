@@ -17,6 +17,13 @@ export default function MainPanel({ onCommand, fsmResponse }) {
         const selectedMode = e.target.value;
         setMode(selectedMode);
 
+        if(selectedMode === "inventory") {
+            onCommand({
+                mode: "inventory",
+                command: "",
+            })
+        }
+
         if(selectedMode === "to-do") {
             onCommand({
                 mode: "to-do",

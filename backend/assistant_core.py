@@ -1,6 +1,5 @@
 # FSM logic - finite state machine (design systems that can be in one state at a time)
 # startswith() checks whether a string starts with a specific substring
-# {"command": "remember", "state": "inventory_command", "mode": "inventory"}
 
 from modules.inventory import Inventory
 from modules.to_do_list import ToDo
@@ -8,19 +7,21 @@ from modules.to_do_list import ToDo
 inventory = Inventory()
 todo = ToDo()
 
-def handle_command(input_text=None, state=None, mode=None):
-    if mode == "inventory":
-        return inventory_mode(input_text, state)
-    
-    if mode == "todo":
-        return inventory_mode(input_text, state)
-    
-    return {
-        "messages": ["Invalid mode"],
-        "state": state
-    }
+# map mode names to their handlers
+MODE_HANDLERS = {
+    "inventory": inventory.handle_command,
+    "todo": todo.handle_command
+}
 
-def inventory_mode(input_text=None, state=None, inventory=None):
+def handle_command():
+    if state is None:
+        state = {"state": "default"}
+
+    current_mode = state.get("mode", "default")
+
+    
+
+def inventory_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
 
@@ -39,7 +40,7 @@ def inventory_mode(input_text=None, state=None, inventory=None):
                 "Returning to main menu...",
                 "Let's check the inventory 📋💻",
                 "Inventory command (remember, list, search, update, delete, main menu):"],
-            "state": "main menu" 
+            "state": "inventory_command" 
         }
     
     if state == "inventory_command":
@@ -131,7 +132,7 @@ def to_do_list_mode(input_text=None, state=None):
                     "Returning to main menu...",
                     "What's on the to do list? 📝",
                     "To do list command (add, list, update, delete, main menu):"],
-                "state": "main menu" # set main menu state (UX improvement)
+                "state": "todo_command" # set main menu state (UX improvement)
             }
 
     if state is None:
