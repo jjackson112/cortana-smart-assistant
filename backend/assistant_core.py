@@ -220,23 +220,7 @@ def handle_command(input_text=None, state=None):
     if state is None:
         state = {"mode": None, "state": None}
 
-    current_mode = state.get("mode", "default")
-
-    # If input_text is a mode name, switch mode immediately
-    if current_mode in MODE_HANDLERS and input_text != current_mode:
-        current_mode = input_text
-
-        # reset FSM state for new mode
-        state["mode"] = current_mode
-        state["state"] = None
-
-        handler = MODE_HANDLERS[current_mode]
-        # pass the internal FSM state
-        result = handler(input_text=None, state=None) # trigger first prompt
-        # wrap it so the frontend knows current mode + internal state
-        return {
-            "messages": result["messages"], 
-            "state": {"mode": current_mode, "state": result["state"]}}
+    current_mode = state.get("mode")
 
     # normal FSM handling
     if current_mode in MODE_HANDLERS:

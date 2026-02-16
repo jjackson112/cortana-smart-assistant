@@ -9,23 +9,25 @@ export default function MainPanel({ onCommand, fsmResponse }) {
       e.preventDefault();
       if(!command.trim()) return;
 
-      onCommand({ mode, command }); // send correct object
+      onCommand({ mode, state: null, input_text: command }); // send correct object
       setCommand("");
     }
 
     function handleModeChange(e) {
-        const selectedMode = e.target.value;
+        const selectedMode = e.target.value.toLowerCase();
         
         if(selectedMode === "choose") {
             setMode("")
             return
         }
         setMode(selectedMode)
+        setCommand("") // reset input when switching modes
 
         // single call to backend to set mode + trigger initial prompt
         onCommand({
             mode: selectedMode,
-            command: null
+            state: null,
+            input_text: ""
         })
     }
 
