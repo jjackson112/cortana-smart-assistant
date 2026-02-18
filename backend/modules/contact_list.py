@@ -66,7 +66,7 @@ class ContactList:
 
 # add contacts - method of class (data-focused function)
 # User → prompt method → data method → save
-  def add_contacts(self, name, phone_number, job):
+  def add_contacts_normalized(self, name, phone_number, job):
     if any (c["name"].lower() == name.lower() for c in self.contacts):
       raise ValueError("This contact already exists.")
     
@@ -99,9 +99,9 @@ class ContactList:
     if any(c["phone_number"].lower() == normalized_phone_number.lower() for c in self.contacts):
       return "This phone number already exists."
     
-    self.add_contacts.append({
+    self.contacts.append({
       "name": name.strip(),
-      "phone_number": phone_number.strip(),
+      "phone_number": normalized_phone_number,
       "job": job.strip(),
       "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     })
@@ -118,7 +118,7 @@ class ContactList:
     return None
 
 # search contacts - find by name or job
-  def search_contacts(self):
+  def search_contacts(self, query):
     query = query.strip().lower()
     if not query:
       return []
@@ -132,7 +132,7 @@ class ContactList:
     return results
 
 # update contacts - find by name, verify existence in self.contacts, edit value only, timestamp
-  def update_contacts(self, name, updated_value):
+  def update_contacts(self, name, field, updated_value):
     contact = self.find_contact(name)
     if not contact:
       return "Contact not found."
