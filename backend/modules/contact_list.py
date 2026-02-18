@@ -132,13 +132,13 @@ class ContactList:
     return results
 
 # update contacts - find by name, verify existence in self.contacts, edit value only, timestamp
-  def update_contacts(self):
-    update_query = input("Enter the name of the contact you want to update. ").strip().lower()
-    contact = self.find_contact(update_query)
+  def update_contacts(self, name, updated_value):
+    contact = self.find_contact(name)
     if not contact:
       return "Contact not found."
-
-    selected_value = input(f"Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
+    
+    if not updated_value.strip():
+      return "Value cannot be empty."
 
     if selected_value == "n":
       updated_value = input(f"What's the new name? ").strip()
