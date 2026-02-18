@@ -139,10 +139,11 @@ class ContactList:
     
     if not updated_value.strip():
       return "Value cannot be empty."
+    
+    field = field.lower()
 
-    if selected_value == "n":
-      updated_value = input(f"What's the new name? ").strip()
-      if not updated_value:
+    if not updated_value:
+      if not updated_name:
         return "It cannot be empty"
 
       if any(c["name"].lower() == updated_value.lower() for c in self.contacts):
@@ -160,12 +161,8 @@ class ContactList:
 
       contact["phone_number"] = updated_value
 
-    elif selected_value == "j":
-      updated_value = input(f"What's the new job title? ").strip()
-      if not updated_value:
-        return "It cannot be empty"
-
-      contact["job"] = updated_value
+    elif field == "job":
+      contact["job"] = updated_value.strip()
 
     else:
       return "Invalid choice"
