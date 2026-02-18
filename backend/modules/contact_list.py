@@ -119,10 +119,9 @@ class ContactList:
 
 # search contacts - find by name or job
   def search_contacts(self):
-    query = input(f"Enter a keyword to search the contact list. " ).strip().lower()
+    query = query.strip().lower()
     if not query:
-      return "Search query cannot be empty."  
-    found = False
+      return []
 
     for contact in self.contacts:
       if query in contact["name"].lower() or query in contact["job"].lower():
