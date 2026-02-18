@@ -80,16 +80,10 @@ class Scheduler:
 
     def list_events(self):
         if not self.events:
-            return "No events added yet."
+            return []
         
-        self.events.sort(key=self.event_datetime)
+        return sorted(self.events, key=self.event_datetime)
         
-        for i, event in enumerate(self.events, start=1):
-            return (f"{i}. {event['title']} "
-                f"({event['type']}) "
-                f"{event['date'] or ''} {event['time'] or ''}"
-                )
-
     def search_events(self, query_category):
         if query_category not in ("meeting", "reminder"):
             return "Invalid category."
