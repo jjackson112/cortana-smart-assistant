@@ -172,13 +172,10 @@ class ContactList:
     return "Contact updated successfully."
 
 # delete contacts -verify existence, is the new value valid, overwrite value and save
-  def delete_contacts(self, name, confirm=False):
+  def delete_contacts(self, name):
     contact = self.find_contact(name)
     if not contact:
       return "This contact cannot be found."
-
-    if not confirm:
-      return f"Are you sure you want to delete '{contact['name']}'? (y/n): ".lower()
 
     self.contacts.remove(contact)
     self.save_contacts()
