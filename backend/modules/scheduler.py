@@ -66,22 +66,15 @@ class Scheduler:
         
         return sorted(self.events, key=self.event_datetime)
         
-    def search_events(self, query_category):
-        if query_category not in ("meeting", "reminder"):
-            return "Invalid category."
+    def search_events(self, event_type):
+        event_type = event_type.lower()
+        if event_type not in ("meeting", "reminder"):
+            return []
         
-        filtered_events = list(
-            filter(
-                lambda event: event["type"] == query_category,
-                self.events
-            )
-        )
-
-        if not filtered_events:
-            return(f"No {query_category} found.")
-        
-        for event in filtered_events:
-            return(f"{event['title']} ({event['date']} {event['time']})")
+        return [
+            event for event in self.events
+            if event["type"] == event_type
+        ]
 
     def update_events(self):
         update_type = input("What needs to be updated - a meeting or a reminder? ")
