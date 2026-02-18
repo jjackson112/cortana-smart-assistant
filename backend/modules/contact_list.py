@@ -90,15 +90,17 @@ class ContactList:
     
     if any(c["name"].lower() == name.lower() for c in self.contacts):
       return "This name already exists."
-
-    if any(c["phone_number"].lower() == phone_number.lower() for c in self.contacts):
-      return "This phone number already exists."
     
     try:
-      self.add_contacts(name, phone_number, job)
-      return "Contact added successfully."
+      normalized_phone_number = self.normalize_phone_number(phone_number)
     except ValueError as e:
       return str(e)
+
+    if any(c["phone_number"].lower() == normalized_phone_number.lower() for c in self.contacts):
+      return "This phone number already exists."
+    
+    self.save_contacts()
+    return "Contact added successfully."
 
 # find contacts as a utility method - search for a single contact by job or name
   def find_contact(self, query):
