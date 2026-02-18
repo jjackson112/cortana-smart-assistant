@@ -3,25 +3,53 @@
 
 from modules.contact_list import ContactList
 from modules.inventory import Inventory
+from modules.scheduler import Scheduler
 from modules.to_do_list import ToDo
 
 contacts = ContactList()
 inventory = Inventory()
+schedule = Scheduler()
 todo = ToDo()
 
-def contact_list_mode()
-    
-    results = contacts.search_contacts(user_input)
+def contact_list_mode(input_text=None, state=None):
+    if input_text:
+        input_text = input_text.strip().lower()
 
-    if not results:
-        return "No matching contacts found."
+    if state is None:
+        {
+            "messages": [
+            "Let's head to the contact list 📲📞☎️"
+            ],
+            "state": "contact_list_command"
+        }
+
+    commands = {
+        "add": contacts.add_contacts_prompt,
+        "search": contacts.search_contacts,
+        "update": contacts.update_contacts,
+        "delete": contacts.delete_contacts
+    }
+
+    while True:
+        command = input("\nContact list command (add, search, update, delete, main menu): ").strip().lower()
+
+        action = commands.get(command)
+        if action:
+            action()
+        else:
+            print("Unknown contact list command.")
     
-    formatted = "\n".join(
-        f"{c['name']} | {c['phone_number']} | {c['job']}"
-        for c in results
-    )
-    
-    return formatted
+        results = contacts.search_contacts(user_input)
+
+        if not results:
+            return "No matching contacts found."
+
+        formatted = "\n".join(
+            f"{c['name']} | {c['phone_number']} | {c['job']}"
+            for c in results
+        )
+
+        return formatted
 
 def inventory_mode(input_text=None, state=None):
     if input_text:
@@ -123,6 +151,31 @@ def inventory_mode(input_text=None, state=None):
         "messages": ["Unknown inventory command."],
         "state": "inventory_command"
     }
+
+def schedule_mode(scheduler):
+    print("What's up with the schedule? 📅")
+
+    commands = {
+        "add": scheduler.add_events,
+        "list": scheduler.list_events,
+        "search": scheduler.search_events,
+        "update": scheduler.update_events,
+        "delete": scheduler.delete_event
+    }
+
+    while True:
+        command = input("\nSchedule command (add, list, search, update, delete, main menu): ").strip().lower()
+
+        if command == "main menu":
+            print("\nReturning to main menu...\n")
+            break
+
+        action = commands.get(command)
+        if action:
+            action()
+        else:
+            print("Unknown schedule command.")
+
 
 def to_do_list_mode(input_text=None, state=None):
     if input_text:

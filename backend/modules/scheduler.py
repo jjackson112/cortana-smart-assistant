@@ -24,14 +24,15 @@ class Scheduler:
         with open(self.file_path, "w") as file:
             json.dump(self.events, file, indent=4)
 
-    def add_events(self):
-        title = input("Event title: ").strip()
+    def add_events(self, title, schedule_type, description="", date=None, time=None):
+        title = title.strip()
         if not title:
             return "Title not found."
         
         date = None
         time = None
-        schedule_type = input("Is this a meeting or a reminder? ").strip().lower()
+        schedule_type = schedule_type.strip().lower()
+        description = description.strip()
 
         if schedule_type not in ("meeting", "reminder"):
             return "Invalid type"
@@ -47,8 +48,6 @@ class Scheduler:
                 reminder_time = input("Do you want to add a time? (y/n) ").lower()
                 if reminder_time == "y":
                     time = input("Enter the reminder time (HH:MM): ").strip()
-
-        description = input("Add a short description ").strip()
         
         event ={
             "title": title,
@@ -85,16 +84,13 @@ class Scheduler:
         
         self.events.sort(key=self.event_datetime)
         
-        print("All events")
         for i, event in enumerate(self.events, start=1):
-            print(f"{i}. {event['title']} "
+            return (f"{i}. {event['title']} "
                 f"({event['type']}) "
                 f"{event['date'] or ''} {event['time'] or ''}"
                 )
 
-    def search_events(self):
-        query_category = input("Would you like to look up meetings or reminders? ").strip().lower()
-
+    def search_events(self, query_category):
         if query_category not in ("meeting", "reminder"):
             return "Invalid category."
         
@@ -166,7 +162,7 @@ class Scheduler:
             
         print("\nEvents:")
         for i, event in enumerate(filtered_events, start=1):
-            print(f"{i}. {event['title']} ({event['type']})")
+            return f"{i}. {event['title']} ({event['type']})"
         
         choice = input("Enter event number to delete. ").strip()
 
@@ -180,4 +176,4 @@ class Scheduler:
         deleted_event = filtered_events[index]
         self.events.remove(deleted_event)
         self.save_events()
-        return(f"Deleted: {deleted_event['title']}")
+        return f"Deleted: {deleted_event['title']}"
