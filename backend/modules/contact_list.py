@@ -84,20 +84,21 @@ class ContactList:
 
     self.save_contacts()
 
-  def add_contacts_prompt(self):
-    name = input("Enter name: ").strip()
-    phone_number = input("Enter phone number: ").strip()
-    job = input("Enter job title: ").strip()
-
+  def add_contacts(self, name, phone_number, job):
     if not name or not phone_number or not job:
-      print("All fields are required.")
-      return
+      return "All fields are required."
+    
+    if any(c["name"].lower() == name.lower() for c in self.contacts):
+      return "This name already exists."
 
+    if any(c["phone_number"].lower() == phone_number.lower() for c in self.contacts):
+      return "This phone number already exists."
+    
     try:
       self.add_contacts(name, phone_number, job)
-      print("Contact added successfully.")
+      return "Contact added successfully."
     except ValueError as e:
-      print(e)
+      return str(e)
 
 # find contacts as a utility method - search for a single contact by job or name
   def find_contact(self, query):
@@ -111,78 +112,68 @@ class ContactList:
   def search_contacts(self):
     query = input(f"Enter a keyword to search the contact list. " ).strip().lower()
     if not query:
-      print("Search query cannot be empty.")
-      return
-  
+      return "Search query cannot be empty."  
     found = False
 
     for contact in self.contacts:
       if query in contact["name"].lower() or query in contact["job"].lower():
-        print(f"{contact['name']} | {contact['phone_number']} | {contact['job']}")
         found = True
+        return f"{contact['name']} | {contact['phone_number']} | {contact['job']}"
 
     if not found:
-      print("No matching contacts found.")
+      return "No matching contacts found."
 
 # update contacts - find by name, verify existence in self.contacts, edit value only, timestamp
   def update_contacts(self):
     update_query = input("Enter the name of the contact you want to update. ").strip().lower()
     contact = self.find_contact(update_query)
     if not contact:
-      print("Contact not found.")
-      return 
+      return "Contact not found."
 
     selected_value = input(f"Update (n)ame, (p)hone number, or (j)ob? ").strip().lower()
 
     if selected_value == "n":
       updated_value = input(f"What's the new name? ").strip()
       if not updated_value:
-        print("It cannot be empty")
-        return
+        return "It cannot be empty"
 
       if any(c["name"].lower() == updated_value.lower() for c in self.contacts):
-        print("This name already exists.")
-        return
+        return "This name already exists."
 
       contact["name"] = updated_value
 
     elif selected_value == "p":
       updated_value = input(f"What's the new phone number? ").strip()
       if not updated_value:
-        print("It cannot be empty")
-        return
+        return "It cannot be empty"
 
       if any(c["phone_number"] == updated_value for c in self.contacts):
-        print("This phone number already exists.")
-        return
+        return "This phone number already exists."
 
       contact["phone_number"] = updated_value
 
     elif selected_value == "j":
       updated_value = input(f"What's the new job title? ").strip()
       if not updated_value:
-        print("It cannot be empty")
-        return
+        return "It cannot be empty"
 
       contact["job"] = updated_value
 
     else:
-      print("Invalid choice")
-      return
+      return "Invalid choice"
 
     # timestamp
     contact["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     self.save_contacts()
-    print("Contact updated successfully.")
+    return "Contact updated successfully."
 
 # delete contacts -verify existence, is the new value valid, overwrite value and save
   def delete_contacts(self):
     delete_name = input(f"What contact would you like to delete? ").strip().lower()
     contact = self.find_contact(delete_name)
     if not contact:
-      print("This contact cannot be found.")
-      return 
+      return "This contact cannot be found."
 
     delete_confirmation = input(f"Are you sure you want to delete '{contact['name']}'? (y/n): ").lower()
     if delete_confirmation != "y":
@@ -190,4 +181,4 @@ class ContactList:
 
     self.contacts.remove(contact)
     self.save_contacts()
-    print(f"{contact['name']} has been deleted successfully.")
+    return f"{contact['name']} has been deleted successfully."
