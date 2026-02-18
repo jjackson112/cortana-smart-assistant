@@ -76,73 +76,32 @@ class Scheduler:
             if event["type"] == event_type
         ]
 
-    def update_events(self):
-        update_type = input("What needs to be updated - a meeting or a reminder? ")
-        
-        filtered_type = [
-            event for event in self.events
-            if event["type"] == update_type
-        ]
-
-        if not filtered_type:
-            return "No matching event types."
-        
-        print(f"\n{update_type.capitalize()}s:")
-        for i, event in enumerate(self.events, start=1):
-            return(f"{i}. {event['title']} ({event['date']} {event['time']})")
-
-        selection = input("Enter event number to be updated: ").strip()
-
-        if not selection.isdigit():
-            return "Invalid number"
-
-        index = int(selection) -1
-
+    def update_events(self, index, field, updated_value):
         if index < 0 or index >= len(self.events):
-            return "Event number out of range."
-        
-        updated_event = input("Enter the updated event: ").strip()
-        if not updated_event:
-            return "Event cannot be empty."
-    
-        # Update the chosen event
-        self.events[index] ["title"] = updated_event
-        self.events[index]["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
+            return "Invalid event index."
+
+        if not updated_value.strip():
+            return "Value cannot be empty."
+
+        event = self.events[index]
+
+        if field not in ("title", "description", "date", "time"):
+            return "Invalid field."
+
+        event[field] = updated_value.strip()
+        event["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         self.save_events()
         return "Event updated successfully."
 
-    def delete_event(self):        
+    def delete_event(self, index):        
         if not self.events:
-            return "Nothing to delete."
+            return []
         
-        delete_filter_type = input("Do you want to delete a meeting or a reminder? ").strip().lower()
-        
-        if delete_filter_type in ("meeting", "reminder"):
-            filtered_events = [
-                event for event in self.events
-                if event["type"] == delete_filter_type
-            ]
-        else:
-            filtered_events = self.events # show all with no filtering
-
-        if not filtered_events:
-            return "No events found to delete."
-            
-        print("\nEvents:")
-        for i, event in enumerate(filtered_events, start=1):
-            return f"{i}. {event['title']} ({event['type']})"
-        
-        choice = input("Enter event number to delete. ").strip()
-
-        if not choice.isdigit():
-            return "Enter a valid number."
-
-        index = int(choice) -1
         if index < 0 or index >= len(self.events):
-            return "Event number out of range."
+            return "Invalid event."
         
-        deleted_event = filtered_events[index]
+        deleted_event = self.events[index]
         self.events.remove(deleted_event)
         self.save_events()
         return f"Deleted: {deleted_event['title']}"
