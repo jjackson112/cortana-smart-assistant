@@ -149,14 +149,15 @@ class ContactList:
       contact["name"] = updated_value.strip()
 
     elif field == "phone_number":
-      updated_value = input(f"What's the new phone number? ").strip()
-      if not updated_value:
-        return "It cannot be empty"
+      try:
+        normalized = self.normalize_phone_number(updated_value)
+      except ValueError as e:
+        return str(e)
 
       if any(c["phone_number"] == updated_value for c in self.contacts):
         return "This phone number already exists."
 
-      contact["phone_number"] = updated_value
+      contact["phone_number"] = normalized
 
     elif field == "job":
       contact["job"] = updated_value.strip()
