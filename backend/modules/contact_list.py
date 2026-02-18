@@ -142,16 +142,13 @@ class ContactList:
     
     field = field.lower()
 
-    if not updated_value:
-      if not updated_name:
-        return "It cannot be empty"
-
+    if field == "name":
       if any(c["name"].lower() == updated_value.lower() for c in self.contacts):
         return "This name already exists."
 
-      contact["name"] = updated_value
+      contact["name"] = updated_value.strip()
 
-    elif selected_value == "p":
+    elif field == "phone_number":
       updated_value = input(f"What's the new phone number? ").strip()
       if not updated_value:
         return "It cannot be empty"
