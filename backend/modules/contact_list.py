@@ -89,7 +89,7 @@ class ContactList:
       return "All fields are required."
     
     if any(c["name"].lower() == name.lower() for c in self.contacts):
-      return "This name already exists."
+      return "This contact already exists."
     
     try:
       normalized_phone_number = self.normalize_phone_number(phone_number)
@@ -98,6 +98,13 @@ class ContactList:
 
     if any(c["phone_number"].lower() == normalized_phone_number.lower() for c in self.contacts):
       return "This phone number already exists."
+    
+    self.add_contacts.append({
+      "name": name.strip(),
+      "phone_number": phone_number.strip(),
+      "job": job.strip(),
+      "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    })
     
     self.save_contacts()
     return "Contact added successfully."
@@ -171,15 +178,13 @@ class ContactList:
     return "Contact updated successfully."
 
 # delete contacts -verify existence, is the new value valid, overwrite value and save
-  def delete_contacts(self):
-    delete_name = input(f"What contact would you like to delete? ").strip().lower()
-    contact = self.find_contact(delete_name)
+  def delete_contacts(self, name, confirm=False):
+    contact = self.find_contact(name)
     if not contact:
       return "This contact cannot be found."
 
-    delete_confirmation = input(f"Are you sure you want to delete '{contact['name']}'? (y/n): ").lower()
-    if delete_confirmation != "y":
-      return
+    if not confirm:
+      return f"Are you sure you want to delete '{contact['name']}'? (y/n): ".lower()
 
     self.contacts.remove(contact)
     self.save_contacts()
