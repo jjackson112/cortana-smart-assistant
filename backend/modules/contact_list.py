@@ -154,7 +154,7 @@ class ContactList:
       except ValueError as e:
         return str(e)
 
-      if any(c["phone_number"] == updated_value for c in self.contacts):
+      if any(c["phone_number"] == normalized for c in self.contacts):
         return "This phone number already exists."
 
       contact["phone_number"] = normalized
