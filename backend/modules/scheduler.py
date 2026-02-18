@@ -25,34 +25,17 @@ class Scheduler:
             json.dump(self.events, file, indent=4)
 
     def add_events(self, title, schedule_type, description="", date=None, time=None):
-        title = title.strip()
         if not title:
             return "Title not found."
-        
-        date = None
-        time = None
-        schedule_type = schedule_type.strip().lower()
-        description = description.strip()
 
+        event_type = event_type.strip().lower()
         if schedule_type not in ("meeting", "reminder"):
             return "Invalid type"
 
-        if schedule_type == "meeting":
-            date = input("Enter the meeting date (MM-DD-YYYY): ").strip()
-            time = input("Enter the meeting time (HH:MM): ").strip()
-        else:
-            reminder_date = input("Do you want to add a date? (y/n) ").lower()
-            if reminder_date == "y":
-                date = input("Enter the reminder date (MM-DD-YYYY): ").strip()
-            
-                reminder_time = input("Do you want to add a time? (y/n) ").lower()
-                if reminder_time == "y":
-                    time = input("Enter the reminder time (HH:MM): ").strip()
-        
         event ={
-            "title": title,
-            "type": schedule_type,
-            "description": description,
+            "title": title.strip(),
+            "type": event_type,
+            "description": description.strip(),
             "date": date,
             "time": time,
             "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -60,7 +43,6 @@ class Scheduler:
         }
 
         self.events.append(event)
-
         self.save_events()
         return "Added to calendar."
 
