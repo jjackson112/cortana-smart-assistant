@@ -123,13 +123,13 @@ class ContactList:
     if not query:
       return []
 
-    for contact in self.contacts:
-      if query in contact["name"].lower() or query in contact["job"].lower():
-        found = True
-        return f"{contact['name']} | {contact['phone_number']} | {contact['job']}"
+    results = [
+      contact for contact in self.contacts
+      if query in contact["name"].lower()
+      or query in contact["job"].lower()
+    ]
 
-    if not found:
-      return "No matching contacts found."
+    return results
 
 # update contacts - find by name, verify existence in self.contacts, edit value only, timestamp
   def update_contacts(self):

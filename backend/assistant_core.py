@@ -1,11 +1,27 @@
 # FSM logic - finite state machine (design systems that can be in one state at a time)
 # startswith() checks whether a string starts with a specific substring
 
+from modules.contact_list import ContactList
 from modules.inventory import Inventory
 from modules.to_do_list import ToDo
 
+contacts = ContactList()
 inventory = Inventory()
 todo = ToDo()
+
+def contact_list_mode()
+    
+    results = contacts.search_contacts(user_input)
+
+    if not results:
+        return "No matching contacts found."
+    
+    formatted = "\n".join(
+        f"{c['name']} | {c['phone_number']} | {c['job']}"
+        for c in results
+    )
+    
+    return formatted
 
 def inventory_mode(input_text=None, state=None):
     if input_text:
