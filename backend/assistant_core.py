@@ -64,6 +64,21 @@ def contact_mode(input_text=None, state=None):
                 ],
                 "state": "contact_delete"
             }
+    
+    if state == "contact_add":
+        try:
+            name, phone, job = [x.strip() for x in input_text.split(",")]
+        except:
+            return {
+                "messages": ["Invalid format. Use: name, phone, job."],
+                "state": "contact_add"
+            }
+
+        result = contacts.add_contacts(name, phone, job)
+        return {
+            "messages": [result],
+            "state": "contact_command"
+        }
 
 def inventory_mode(input_text=None, state=None):
     if input_text:
