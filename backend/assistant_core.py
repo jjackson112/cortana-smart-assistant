@@ -88,6 +88,16 @@ def contact_mode(input_text=None, state=None):
                 "messages": ["No contacts found."],
                 "state": "contact_command"
             }
+        
+        formatted = [
+            f"{c["name"]} | {c["phone_number"] | {c["job"]}}"
+            f c in results
+        ]
+
+        return {
+            "messages": formatted,
+            "state": "contact_command"
+        }
 
 def inventory_mode(input_text=None, state=None):
     if input_text:
