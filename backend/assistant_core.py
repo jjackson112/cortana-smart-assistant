@@ -16,40 +16,45 @@ def contact_list_mode(input_text=None, state=None):
         input_text = input_text.strip().lower()
 
     if state is None:
-        {
+        return {
             "messages": [
             "Let's head to the contact list 📲📞☎️"
             ],
             "state": "contact_list_command"
         }
 
-    commands = {
-        "add": contacts.add_contacts_prompt,
-        "search": contacts.search_contacts,
-        "update": contacts.update_contacts,
-        "delete": contacts.delete_contacts
-    }
+    if input_text == "main menu":
+        return {
+            "messages": [
+                "Returning to main menu...",
+                "Let's head to the contact list 📲📞☎️",
+                "Contact list command (add, search, update, delete, main menu):"],
+            "state": "contact_list_command" 
+        }
+    if state == "contact_list_command":
+        if input_text == "add":
+            return {
+                "messages": ,
+                "state": "contact_list_command"
+            }
 
-    while True:
-        command = input("\nContact list command (add, search, update, delete, main menu): ").strip().lower()
+        if input_text == "search":
+            return {
+                "messages": ,
+                "state": "contact_list_command"
+            }
 
-        action = commands.get(command)
-        if action:
-            action()
-        else:
-            print("Unknown contact list command.")
-    
-        results = contacts.search_contacts(user_input)
+        if input_text == "update":
+            return {
+                "messages": ,
+                "state": "contact_list_command"
+            }
 
-        if not results:
-            return "No matching contacts found."
-
-        formatted = "\n".join(
-            f"{c['name']} | {c['phone_number']} | {c['job']}"
-            for c in results
-        )
-
-        return formatted
+        if input_text == "delete":
+            return {
+                "messages": ,
+                "state": "contact_list_command"
+            }
 
 def inventory_mode(input_text=None, state=None):
     if input_text:
@@ -152,30 +157,56 @@ def inventory_mode(input_text=None, state=None):
         "state": "inventory_command"
     }
 
-def schedule_mode(scheduler):
-    print("What's up with the schedule? 📅")
+def schedule_mode(input_text=None, state=None):
+    if input_text:
+        input_text = input_text.strip().lower()
 
-    commands = {
-        "add": scheduler.add_events,
-        "list": scheduler.list_events,
-        "search": scheduler.search_events,
-        "update": scheduler.update_events,
-        "delete": scheduler.delete_event
-    }
+    if state is None:
+        return {
+            "messages": [
+            "What's up with the schedule? 📅"
+            ],
+            "state": "schedule_command"
+        }
 
-    while True:
-        command = input("\nSchedule command (add, list, search, update, delete, main menu): ").strip().lower()
+    if input_text == "main menu":
+        return {
+            "messages": [
+                "Returning to main menu...",
+                "What's up with the schedule? 📅",
+                "Schedule command (add, list, search, update, delete, main menu):"],
+            "state": "schedule_command" 
+        }
+    if state == "schedule_command":
+        if input_text == "add":
+            return {
+                "messages": ,
+                "state": "schedule_command"
+            }
+        
+        if input_text == "list":
+            return {
+                "messages": [],
+                "state": "schedule_command"
+            }
 
-        if command == "main menu":
-            print("\nReturning to main menu...\n")
-            break
+        if input_text == "search":
+            return {
+                "messages": ,
+                "state": "schedule_command"
+            }
 
-        action = commands.get(command)
-        if action:
-            action()
-        else:
-            print("Unknown schedule command.")
+        if input_text == "update":
+            return {
+                "messages": ,
+                "state": "schedule_command"
+            }
 
+        if input_text == "delete":
+            return {
+                "messages": ,
+                "state": "schedule_command"
+            }
 
 def to_do_list_mode(input_text=None, state=None):
     if input_text:

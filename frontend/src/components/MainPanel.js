@@ -42,7 +42,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
                     fsmResponse.map((msg, i) => 
                         <p key={i} className="mb-2">{msg}</p>)
                     ) : (
-                        <p className="text-400 font-semibold mr-3 mb-4">Awaiting commands...</p>
+                        <p className="text-400 font-semibold mr-3 mb-4">Hi Jasmine, I'm Cortana! <br />Awaiting commands...</p>
                     )}
             </div>
 

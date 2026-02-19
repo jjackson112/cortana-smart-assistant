@@ -24,12 +24,12 @@ class Scheduler:
         with open(self.file_path, "w") as file:
             json.dump(self.events, file, indent=4)
 
-    def add_events(self, title, schedule_type, description="", date=None, time=None):
+    def add_events(self, title, event_type, description="", date=None, time=None):
         if not title:
             return "Title not found."
 
         event_type = event_type.strip().lower()
-        if schedule_type not in ("meeting", "reminder"):
+        if event_type not in ("meeting", "reminder"):
             return "Invalid type"
 
         event ={
@@ -96,7 +96,7 @@ class Scheduler:
 
     def delete_event(self, index):        
         if not self.events:
-            return []
+            return "No event found"
         
         if index < 0 or index >= len(self.events):
             return "Invalid event."

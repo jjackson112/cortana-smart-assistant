@@ -1,4 +1,6 @@
 # Main program loop (COMMAND ROUTER)
+from assistant_core import 
+
 def main():
     assistant_name = "Cortana"
     username = "Jasmine"
