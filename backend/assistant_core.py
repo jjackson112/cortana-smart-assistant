@@ -235,32 +235,34 @@ def schedule_mode(input_text=None, state=None):
     if state == "schedule_command":
         if input_text == "add":
             return {
-                "messages": ,
-                "state": "schedule_command"
+                "messages": ["Enter title, type(meeting/reminder), description, date(MM-DD-YYYY), time(HH:MM) separated by commas."],
+                "state": "schedule_add"
             }
         
         if input_text == "list":
-            return {
-                "messages": [],
-                "state": "schedule_command"
-            }
+            events = schedule.list_events()
+            if not events:
+                return {
+                    "messages": ["No events found."],
+                    "state": "schedule_command"
+                }
 
         if input_text == "search":
             return {
                 "messages": ,
-                "state": "schedule_command"
+                "state": "schedule_search"
             }
 
         if input_text == "update":
             return {
                 "messages": ,
-                "state": "schedule_command"
+                "state": "schedule_update"
             }
 
         if input_text == "delete":
             return {
                 "messages": ,
-                "state": "schedule_command"
+                "state": "schedule_delete"
             }
 
 def to_do_list_mode(input_text=None, state=None):
