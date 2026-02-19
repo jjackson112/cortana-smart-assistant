@@ -90,7 +90,7 @@ def contact_mode(input_text=None, state=None):
             }
         
         formatted = [
-            f"{c["name"]} | {c["phone_number"] | {c["job"]}}"
+            f"{c["name"]} | {c["phone_number"]} | {c["job"]}"
             f c in results
         ]
 
@@ -246,6 +246,16 @@ def schedule_mode(input_text=None, state=None):
                     "messages": ["No events found."],
                     "state": "schedule_command"
                 }
+            
+            formatted = [
+                f"{e['title'] ({e['type']}) {e['date']} {e['time']}}"
+                for e in events
+            ]
+
+            return {
+                "messages": formatted,
+                "state": "schedule_command"
+            }
 
         if input_text == "search":
             return {
