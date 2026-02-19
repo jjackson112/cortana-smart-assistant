@@ -98,6 +98,18 @@ def contact_mode(input_text=None, state=None):
             "messages": formatted,
             "state": "contact_command"
         }
+    
+    if state == "contact_delete":
+        result = contacts.delete_contacts(input_text, confirm=True)
+        return {
+            "messages": [result],
+            "state": "contact_command"
+        }   
+    
+    return {
+        "messages": ["Unknown contact command"],
+        "state": "contact_command"
+    }
 
 def inventory_mode(input_text=None, state=None):
     if input_text:
