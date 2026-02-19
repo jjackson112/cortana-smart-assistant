@@ -80,6 +80,15 @@ def contact_mode(input_text=None, state=None):
             "state": "contact_command"
         }
 
+    if state == "contact_search":
+        results = contacts.search_contacts(input_text)
+
+        if not results:
+            return {
+                "messages": ["No contacts found."],
+                "state": "contact_command"
+            }
+
 def inventory_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
