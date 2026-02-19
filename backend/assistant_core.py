@@ -11,7 +11,7 @@ inventory = Inventory()
 schedule = Scheduler()
 todo = ToDo()
 
-def contact_list_mode(input_text=None, state=None):
+def contact_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
 
@@ -20,7 +20,7 @@ def contact_list_mode(input_text=None, state=None):
             "messages": [
             "Let's head to the contact list 📲📞☎️"
             ],
-            "state": "contact_list_command"
+            "state": "contact_command"
         }
 
     if input_text == "main menu":
@@ -29,31 +29,40 @@ def contact_list_mode(input_text=None, state=None):
                 "Returning to main menu...",
                 "Let's head to the contact list 📲📞☎️",
                 "Contact list command (add, search, update, delete, main menu):"],
-            "state": "contact_list_command" 
+            "state": "contact_command" 
         }
-    if state == "contact_list_command":
+    
+    if state == "contact_command":
         if input_text == "add":
             return {
-                "messages": ,
-                "state": "contact_list_command"
+                "messages": [
+                    "Enter name, phone number, and job separated by commas."
+                ],
+                "state": "contact_add"
             }
 
         if input_text == "search":
             return {
-                "messages": ,
-                "state": "contact_list_command"
+                "messages": [
+                    "Enter a name or job to search."
+                ],
+                "state": "contact_search"
             }
 
         if input_text == "update":
             return {
-                "messages": ,
-                "state": "contact_list_command"
+                "messages": [
+                    "Enter contact name to update."
+                ],
+                "state": "contact_update"
             }
 
         if input_text == "delete":
             return {
-                "messages": ,
-                "state": "contact_list_command"
+                "messages": [
+                    "Enter contact name to delete."
+                ],
+                "state": "contact_delete"
             }
 
 def inventory_mode(input_text=None, state=None):
@@ -311,7 +320,7 @@ def to_do_list_mode(input_text=None, state=None):
 
 # map mode names to their handlers
 MODE_HANDLERS = {
-    "contacts": contact_list_mode,
+    "contacts": contact_mode,
     "inventory": inventory_mode,
     "schedule": schedule_mode,
     "todo": to_do_list_mode
