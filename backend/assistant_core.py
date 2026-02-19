@@ -311,7 +311,9 @@ def to_do_list_mode(input_text=None, state=None):
 
 # map mode names to their handlers
 MODE_HANDLERS = {
+    "contacts": contact_list_mode,
     "inventory": inventory_mode,
+    "schedule": schedule_mode,
     "todo": to_do_list_mode
 }
 
