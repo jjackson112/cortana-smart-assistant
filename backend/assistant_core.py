@@ -99,6 +99,27 @@ def contact_mode(input_text=None, state=None):
             "state": "contact_command"
         }
     
+    if state == "contact_update":
+        return {
+            "messages": ["Enter name, phone number, and job separated by commas."],
+            "state": "contact_update"
+        }
+    
+    if state == "contact_update_data":
+        try:
+            name, phone, job = [x.strip() for x in input_text.split(",")]
+        except:
+            return {
+                "messages": ["Invalid format. Use: name, phone, job."],
+                "state": "contact_update_data"
+            }
+
+        result = contacts.update_contacts(name, phone, job)
+        return {
+            "messages": [result],
+            "state": "contact_command"
+        }
+    
     if state == "contact_delete":
         result = contacts.delete_contacts(input_text, confirm=True)
         return {
