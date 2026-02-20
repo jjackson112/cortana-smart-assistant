@@ -102,16 +102,18 @@ def contact_mode(input_text=None, state=None):
     if state == "contact_update":
         return {
             "messages": ["Enter name, phone number, and job separated by commas."],
-            "state": "contact_update"
+            "state": f"contact_update_data:{input_text}"
         }
     
-    if state == "contact_update_data":
+    if state and state.startswith("contact_update_data"):   
+        name = state.split(":")[1]
+
         try:
             name, phone, job = [x.strip() for x in input_text.split(",")]
         except:
             return {
                 "messages": ["Invalid format. Use: name, phone, job."],
-                "state": "contact_update_data"
+                "state": state
             }
 
         result = contacts.update_contacts(name, phone, job)
@@ -269,7 +271,7 @@ def schedule_mode(input_text=None, state=None):
                 }
             
             formatted = [
-                f"{e['title'] ({e['type']}) {e['date']} {e['time']}}"
+                f"{e['title']} ({e['type']}) - {e['date']} {e['time']}"
                 for e in events
             ]
 
