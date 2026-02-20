@@ -90,8 +90,8 @@ def contact_mode(input_text=None, state=None):
             }
         
         formatted = [
-            f"{c["name"]} | {c["phone_number"]} | {c["job"]}"
-            f c in results
+            f"{c['name']} | {c['phone_number']} | {c['job']}"
+            for c in results
         ]
 
         return {
@@ -257,23 +257,28 @@ def schedule_mode(input_text=None, state=None):
                 "state": "schedule_command"
             }
 
-        if input_text == "search":
+    if state == "schedule_add":
+        try:
+            title, event_type, description, date, time = [
+                x.strip() for x in input_text.split(",")
+            ]
+        except:
             return {
-                "messages": ,
-                "state": "schedule_search"
+                "messages": ["Invalid format. Please try again."],
+                "state": "schedule_add"
             }
 
-        if input_text == "update":
-            return {
-                "messages": ,
-                "state": "schedule_update"
-            }
+        result = schedule.add_events(title, event_type, description, date, time)
 
-        if input_text == "delete":
-            return {
-                "messages": ,
-                "state": "schedule_delete"
-            }
+        return {
+            "messages": [result],
+            "state": "schedule_command"
+        }
+
+    return {
+        "messages": ["Unknown schedule command"],
+        "state": "schedule_command"
+    }
 
 def to_do_list_mode(input_text=None, state=None):
     if input_text:
