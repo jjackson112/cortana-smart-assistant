@@ -102,7 +102,7 @@ def contact_mode(input_text=None, state=None):
     if state == "contact_update":
         return {
             "messages": ["Enter name, phone number, and job separated by commas."],
-            "state": f"contact_update_data:{input_text}"
+            "state": f"contact_update_data"
         }
     
     if state and state.startswith("contact_update_data"):   
@@ -279,6 +279,24 @@ def schedule_mode(input_text=None, state=None):
                 "messages": formatted,
                 "state": "schedule_command"
             }
+        
+        if input_text == "search":
+            return {
+                "messages": ["Enter title or type to search."],
+                "state": "schedule_search"
+            }
+        
+        if input_text == "update":
+            return {
+                "messages": ["Enter the title of the event to update."],
+                "state": "schedule_update_select"
+            }
+
+        if input_text == "delete":
+            return {
+                "messages": ["Enter the title of the event to delete."],
+                "state": "schedule_delete"
+            }
 
     if state == "schedule_add":
         try:
@@ -293,6 +311,58 @@ def schedule_mode(input_text=None, state=None):
 
         result = schedule.add_events(title, event_type, description, date, time)
 
+        return {
+            "messages": [result],
+            "state": "schedule_command"
+        }
+    
+    if state == "schedule_search":
+        results = schedule.search_events(input_text)
+
+        if not results:
+            return {
+                "messages": ["No matching events found."],
+                "state": "schedule_command"
+            }
+
+        formatted = [
+                f"{e['title']} ({e['type']}) - {e['date']} {e['time']}"
+                for e in results
+            ]
+
+        return {
+            "messages": formatted,
+            "state": "schedule_command"
+        }
+
+    if state == "schedule_update_select":
+        return {
+            "messages": ["Enter new type, description, date, time separated by commas."],
+            "state": f"schedule_update_data:{input_text}"
+        }
+
+    if state and state.startswith("schedule_update_data:"):
+        old_title = state.split(":")[1]
+
+        try:
+            event_type, description, date, time = [
+                x.strip() for x in input_text.split(",")
+            ]
+        except:
+            return {
+                "messages": ["Invalid format. Use: type, description, date, time."],
+                "state": state
+            }
+
+        result = schedule.update_events(old_title, event_type, description, date, time)
+
+        return {
+            "messages": [result],
+            "state": "schedule_command"
+        }
+
+    if state == "schedule_delete":
+        result = schedule.delete_events(input_text)
         return {
             "messages": [result],
             "state": "schedule_command"
