@@ -492,6 +492,7 @@ MODE_HANDLERS = {
     "todo": to_do_list_mode
 }
 
+# Frontend  →  Flask Route  →  handle_command()  →  Mode Handler
 def handle_command(input_text=None, state=None):
     # ensures the state is always a dict with keys 'mode' and 'state'
     if state is None:
@@ -505,7 +506,7 @@ def handle_command(input_text=None, state=None):
         result = handler(input_text, state.get("state"))
         return {
             "messages": result["messages"],
-            "state": {"mode": current_mode, "state": result["state"]}
+            "state": {"mode": current_mode, "state": result["state"]} # mode is combined with state here
         }
     
     # fallback if no mode is selected
