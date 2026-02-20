@@ -111,10 +111,10 @@ def contact_mode(input_text=None, state=None):
             "messages": ["Enter new phone number and job separated by commas."],
             "state": f"contact_update_data:{selected_name}"
         }
-    
+
     if state and state.startswith("contact_update_data:"):
         selected_name = state.split(":")[1]
-    
+
         try:
             phone, job = [x.strip() for x in input_text.split(",")]
         except:
@@ -122,9 +122,9 @@ def contact_mode(input_text=None, state=None):
                 "messages": ["Invalid format. Use: phone, job."],
                 "state": state
             }
-    
+
         result = contacts.update_contacts(selected_name, phone, job)
-    
+
         return {
             "messages": [result],
             "state": "contact_command"
@@ -172,8 +172,10 @@ def inventory_mode(input_text=None, state=None):
             }
 
         if input_text == "list":
+            items = inventory.list_memory()
+
             return {
-                "messages": [inventory.list_memory()] if inventory else ["Your inventory is empty."],
+                "messages": [items] if items else ["Your inventory is empty."],
                 "state": "inventory_command"
             }
         
