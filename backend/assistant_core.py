@@ -497,6 +497,14 @@ def handle_command(input_text=None, state=None):
     # ensures the state is always a dict with keys 'mode' and 'state'
     if state is None:
         state = {"mode": None, "state": None}
+    
+    # Mode entry point
+    if state["mode"] is None:
+        if input_text == "contacts":
+            return {
+                "messages": ["Entering contacts mode 📲"],
+                "state": {"mode": "contacts", "state": None}
+            }
 
     current_mode = state.get("mode")
 
