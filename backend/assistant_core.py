@@ -505,6 +505,25 @@ def handle_command(input_text=None, state=None):
                 "messages": ["Entering contacts mode 📲"],
                 "state": {"mode": "contacts", "state": None}
             }
+        if input_text == "inventory":
+            return {
+                "messages": ["Entering inventory mode 📋"],
+                "state": {"mode": "inventory", "state": None}
+            }
+        if input_text == "schedule":
+            return {
+                "messages": ["Entering schedule mode 📅"],
+                "state": {"mode": "schedule", "state": None}
+            }
+        if input_text == "todo":
+            return {
+                "messages": ["Entering to-do mode 📝"],
+                "state": {"mode": "todo", "state": None}
+            }
+        return {
+            "messages": ["Select a mode: contacts, inventory, schedule, todo"],
+            "state": state
+        }
 
     current_mode = state.get("mode")
 
