@@ -11,7 +11,7 @@ export default function App() {
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
   const [activities, setActivities] = useState([]); // activity log
   const [commands, setCommands] = useState([]);
-  const [fsmState, setFsmState] = useState(null);
+  const [fsmState, setFsmState] = useState({ mode:null, state: null });
 
   useEffect(() => {
   const timestamp = new Date().toISOString();

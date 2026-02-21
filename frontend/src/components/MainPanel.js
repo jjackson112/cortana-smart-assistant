@@ -25,8 +25,9 @@ export default function MainPanel({ onCommand, fsmResponse }) {
 
         // single call to backend to set mode + trigger initial prompt
         onCommand({
-            command: selectedMode,
-            state: { mode: null, state: null }
+            mode: selectedMode,
+            state: null,
+            input_text: ""
         })
     }
 
