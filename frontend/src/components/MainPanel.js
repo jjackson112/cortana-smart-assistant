@@ -9,26 +9,18 @@ export default function MainPanel({ onCommand, fsmResponse }) {
       e.preventDefault();
       if(!command.trim()) return;
 
-      onCommand({ mode, state: null, input_text: command }); // send correct object
+      onCommand(command); // send correct object
       setCommand("");
     }
 
     function handleModeChange(e) {
         const selectedMode = e.target.value.toLowerCase();
-        
-        if(selectedMode === "choose") {
-            setMode("")
-            return
-        }
-        setMode(selectedMode)
+        setMode(selectedMode === "choose" ? "" : selectedMode);
+
         setCommand("") // reset input when switching modes
 
         // single call to backend to set mode + trigger initial prompt
-        onCommand({
-            mode: selectedMode,
-            state: null,
-            input_text: ""
-        })
+        onCommand("")
     }
 
     return (
@@ -58,7 +50,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
                 </select>
             </div>
             {/* Command input appears ONLY after mode selection */}
-            {mode && mode !== "choose" && (
+            {mode && (
                 <form onSubmit={handleSubmit} className="flex gap-2 p-6">
                     <input
                         value={command}
