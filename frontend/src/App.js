@@ -8,10 +8,10 @@ const normalizeToArray = (val) => (Array.isArray(val) ? val : val ? [val] : []);
 
 export default function App() {
   const [semanticResponse, setSemanticResponse] = useState([]); // semantic memory
-  const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
   const [activities, setActivities] = useState([]); // activity log
   const [commands, setCommands] = useState([]);
   const [fsmState, setFsmState] = useState({ mode:null, state: null });
+  const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
 
   useEffect(() => {
   const timestamp = new Date().toISOString();
@@ -68,7 +68,7 @@ export default function App() {
   }
 
   // FSM assistant logic
-  async function handleUserCommand({ mode, command }) {
+  async function handleUserCommand({ commandText }) {
     const timestamp = new Date().toISOString();
 
     setActivities(prev => [
@@ -77,7 +77,7 @@ export default function App() {
         id: crypto.randomUUID(),
         action: "user executed",
         entity_type: "command",
-        metadata: { mode, command },
+        metadata: { command: commandText },
         timestamp
       }
     ]);
@@ -86,7 +86,7 @@ export default function App() {
       const res = await fetch("/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode, command, state: fsmState })
+        body: JSON.stringify({ commandText, state: fsmState })
       });
       const data = await res.json();
       setFsmState(data.state);
