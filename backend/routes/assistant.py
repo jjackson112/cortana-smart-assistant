@@ -14,7 +14,11 @@ def assistant_command():
         return jsonify("Invalid JSON", 400) 
     
     input_text = data.get("input_text")
-    state = data.get("state") 
+    state = data.get("state") or {"mode": None, "state": None}
     
     result = handle_command(input_text=input_text, state=state) 
-    return jsonify(result), 200
+    return jsonify({
+        "messages": result.get("messages", []),
+        "response": result.get("response", []),
+        "state": result.get("state", {"mode": None, "state": None})
+    }), 200
