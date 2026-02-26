@@ -15,12 +15,12 @@ export default function MainPanel({ onCommand, fsmResponse }) {
 
     function handleModeChange(e) {
         const selectedMode = e.target.value.toLowerCase();
-        setMode(selectedMode === "choose" ? "" : selectedMode);
 
+        setMode(selectedMode);
         setCommand("") // reset input when switching modes
 
         // single call to backend to set mode + trigger initial prompt
-        onCommand(selectedMode === "choose" ? null : selectedMode);
+        onCommand(selectedMode);
     }
 
     return (
