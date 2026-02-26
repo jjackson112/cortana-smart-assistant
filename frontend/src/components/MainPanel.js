@@ -9,7 +9,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
       e.preventDefault();
       if(!command.trim()) return;
 
-      onCommand(command); // send correct object
+      onCommand({ commandText: command }); // send correct object wrapped 
       setCommand("");
     }
 
@@ -20,7 +20,8 @@ export default function MainPanel({ onCommand, fsmResponse }) {
         setCommand("") // reset input when switching modes
 
         // single call to backend to set mode + trigger initial prompt
-        onCommand(selectedMode);
+        // wrap in object so handleUserCommand receives { commandText }
+        onCommand({ commandText: selectedMode });
     }
 
     return (

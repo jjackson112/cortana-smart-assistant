@@ -102,7 +102,13 @@ export default function App() {
       });
 
       const data = await res.json();
+
       setFsmState(data.state); // FSM state updated
+
+      // update commands if they exist
+      if (data.commands) {
+        setCommands(normalizeToArray(data.commands));
+      }
 
       // Merge messages and response if both exist
       const mergedResponse = [

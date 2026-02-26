@@ -18,7 +18,8 @@ def contact_mode(input_text=None, state=None):
     if state is None:
         return {
             "messages": [
-            "Let's head to the contact list 📲📞☎️"
+            "Let's head to the contact list 📲📞☎️",
+            "Contact list command (add, search, update, delete, main menu):"
             ],
             "state": "contact_command"
         }
@@ -252,7 +253,8 @@ def schedule_mode(input_text=None, state=None):
     if state is None:
         return {
             "messages": [
-            "What's up with the schedule? 📅"
+            "What's up with the schedule? 📅",
+            "Schedule command (add, list, search, update, delete, main menu):"
             ],
             "state": "schedule_command"
         }
