@@ -19,7 +19,7 @@ def contact_mode(input_text=None, state=None):
         return {
             "messages": [
             "Let's head to the contact list 📲📞☎️",
-            "Contact list command (add, search, update, delete, main menu):"
+            "Contact list commands (add, search, update, delete, main menu):"
             ],
             "state": "contact_command"
         }
@@ -29,7 +29,7 @@ def contact_mode(input_text=None, state=None):
             "messages": [
                 "Returning to main menu...",
                 "Let's head to the contact list 📲📞☎️",
-                "Contact list command (add, search, update, delete, main menu):"],
+                "Contact list commands (add, search, update, delete, main menu):"],
             "state": "contact_command" 
         }
     
@@ -151,7 +151,7 @@ def inventory_mode(input_text=None, state=None):
         return {
             "messages": [
                 "Let's check the inventory 📋💻",
-                "Inventory command (remember, list, search, update, delete, main menu):"
+                "Inventory commands (remember, list, search, update, delete, main menu):"
             ],
             "state": "inventory_command"
         }
@@ -161,7 +161,7 @@ def inventory_mode(input_text=None, state=None):
             "messages": [
                 "Returning to main menu...",
                 "Let's check the inventory 📋💻",
-                "Inventory command (remember, list, search, update, delete, main menu):"],
+                "Inventory commands (remember, list, search, update, delete, main menu):"],
             "state": "inventory_command" 
         }
     
@@ -254,7 +254,7 @@ def schedule_mode(input_text=None, state=None):
         return {
             "messages": [
             "What's up with the schedule? 📅",
-            "Schedule command (add, list, search, update, delete, main menu):"
+            "Schedule commands (add, list, search, update, delete, main menu):"
             ],
             "state": "schedule_command"
         }
@@ -264,7 +264,7 @@ def schedule_mode(input_text=None, state=None):
             "messages": [
                 "Returning to main menu...",
                 "What's up with the schedule? 📅",
-                "Schedule command (add, list, search, update, delete, main menu):"],
+                "Schedule commands (add, list, search, update, delete, main menu):"],
             "state": "schedule_command" 
         }
     if state == "schedule_command":
@@ -394,7 +394,7 @@ def to_do_list_mode(input_text=None, state=None):
                 "messages": [
                     "Returning to main menu...",
                     "What's on the to do list? 📝",
-                    "To do list command (add, list, update, delete, main menu):"],
+                    "To do list commands (add, list, update, delete, main menu):"],
                 "state": "todo_command" # set main menu state (UX improvement)
             }
 
@@ -402,7 +402,7 @@ def to_do_list_mode(input_text=None, state=None):
         return {
             "messages": [
                 "What's on the to do list? 📝",
-                "To do list command (add, list, update, delete, main menu):"
+                "To do list commands (add, list, update, delete, main menu):"
             ],
             "state": "todo_command"
         }
