@@ -20,7 +20,7 @@ export default function MainPanel({ onCommand, fsmResponse }) {
         setCommand("") // reset input when switching modes
 
         // single call to backend to set mode + trigger initial prompt
-        onCommand("")
+        onCommand({ mode, command: "" })
     }
 
     return (

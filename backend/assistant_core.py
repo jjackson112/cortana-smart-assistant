@@ -497,35 +497,24 @@ def handle_command(input_text=None, state=None):
     # ensures the state is always a dict with keys 'mode' and 'state'
     if state is None:
         state = {"mode": None, "state": None}
+
+    # normalize empty string to None
+    if not state.get("mode"):
+        state["mode"] = None
+
+    current_mode = state.get("mode")
     
     # Mode entry point
-    if state["mode"] is None:
-        if input_text == "contacts":
+    if current_mode is None:
+        if input_text in ["contacts", "inventory", "schedule", "todo"]:
             return {
-                "messages": ["Entering contacts mode 📲"],
-                "state": {"mode": "contacts", "state": None}
-            }
-        if input_text == "inventory":
-            return {
-                "messages": ["Entering inventory mode 📋"],
-                "state": {"mode": "inventory", "state": None}
-            }
-        if input_text == "schedule":
-            return {
-                "messages": ["Entering schedule mode 📅"],
-                "state": {"mode": "schedule", "state": None}
-            }
-        if input_text == "todo":
-            return {
-                "messages": ["Entering to-do mode 📝"],
-                "state": {"mode": "todo", "state": None}
+                "messages": [f"Entering {input_text} mode"],
+                "state": {"mode": input_text, "state": None}
             }
         return {
             "messages": ["Select a mode: contacts, inventory, schedule, todo"],
             "state": state
         }
-
-    current_mode = state.get("mode")
 
     # normal FSM handling
     if current_mode in MODE_HANDLERS:
