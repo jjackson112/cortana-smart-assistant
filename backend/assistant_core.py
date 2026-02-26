@@ -503,6 +503,7 @@ def handle_command(input_text=None, state=None):
         state["mode"] = None
 
     current_mode = state.get("mode")
+    current_substate = state.get("state")
     
     # Mode entry point
     if current_mode is None:
