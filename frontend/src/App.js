@@ -83,13 +83,26 @@ export default function App() {
     ]);
 
     try {
+      // auto-detect if the commandText is a mode name
+      const modeNames = ["contacts", "inventory", "schedule", "todo"];
+      let payload;
+
+      if (modeNames.includes(commandText.toLowerCase())) {
+        // initialize mode if user typed mode name
+        payload = { input_text: commandText.toLowerCase(), state: { mode: null, state: null } };
+      } else {
+        // otherwise use current FSM state
+        payload = { input_text: commandText, state: fsmState };
+      }
+
       const res = await fetch("/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ input_text: commandText, state: fsmState })
+        body: JSON.stringify(payload)
       });
+
       const data = await res.json();
-      setFsmState(data.state);
+      setFsmState(data.state); // FSM state updated
 
       // Merge messages and response if both exist
       const mergedResponse = [
