@@ -494,6 +494,8 @@ MODE_HANDLERS = {
 
 # Frontend  →  Flask Route  →  handle_command()  →  Mode Handler
 def handle_command(input_text=None, state=None):
+    print("INPUT:", input_text)
+    print("MODE IN STATE:", state.get("mode"))
     # ensures the state is always a dict with keys 'mode' and 'state'
     if state is None:
         state = {"mode": None, "state": None}

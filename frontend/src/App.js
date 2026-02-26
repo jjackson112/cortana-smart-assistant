@@ -86,7 +86,7 @@ export default function App() {
       const res = await fetch("http://127.0.0.1:5000/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ commandText, state: fsmState })
+        body: JSON.stringify({ input_text: commandText, state: fsmState })
       });
       const data = await res.json();
       setFsmState(data.state);
