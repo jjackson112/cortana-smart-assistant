@@ -504,27 +504,34 @@ def handle_command(input_text=None, state=None):
 
     current_mode = state.get("mode")
     current_substate = state.get("state")
-    
-    # Mode entry point
-    if current_mode is None:
-        if input_text in ["contacts", "inventory", "schedule", "todo"]:
-            return {
-                "messages": [f"Entering {input_text} mode"],
-                "state": {"mode": input_text, "state": None}
-            }
-        return {
-            "messages": ["Select a mode: contacts, inventory, schedule, todo"],
-            "state": state
-        }
 
-    # normal FSM handling
+    # normal FSM handling - input_text is the mode name, always switch modes
     if input_text in MODE_HANDLERS:
         handler = MODE_HANDLERS[input_text]
         result = handler(None, None) # initialize mode
         return {
             "messages": result["messages"],
-            "state": {"mode": input_text, "state": result["state"]}
+            "state": {
+                "mode": input_text, 
+                "state": result["state"]
+            }
         }
     
     # fallback if no mode is selected
-    return {"messages": ["No active mode selected"], "state": state}
+    if current_mode is None:
+        return {
+            "messages": ["No active mode selected"], 
+            "state": state
+        }
+    
+    # Otherwise route to active mode
+    handler = MODE_HANDLERS[current_mode]
+    result = handler(input_text, current_substate)
+
+    return {
+        "messages": result["messages"],
+        "state": {
+            "mode": current_mode,
+            "state": result["state"]
+        }
+    }
