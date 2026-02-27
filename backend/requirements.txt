@@ -1,0 +1,27 @@
+# Core web framework
+flask==2.3.4
+
+# Cross-origin requests from your frontend
+flask-cors==3.1.1
+
+# WebSocket support
+flask-socketio==6.7.2
+eventlet==0.33.3  # async worker for SocketIO
+
+# Production-ready server
+gunicorn==21.2.0
+
+# HTTP requests for APIs or external services
+requests==2.32.0
+
+# Environment variable management (optional but handy)
+python-dotenv==1.0.0
+
+# Database support (PostgreSQL, optional if you migrate memory)
+psycopg2-binary==2.9.8
+
+# JSON handling (standard library is fine, but these are common helpers)
+simplejson==3.19.1
+
+# Optional logging & debugging helpers
+loguru==0.7.0
