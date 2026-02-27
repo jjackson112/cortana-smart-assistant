@@ -53,25 +53,25 @@ export default function MainPanel({ onCommand, fsmResponse }) {
 
             {/* Reiterate the commands once the mode is selected*/}
             {mode === "contacts" && (
-                <div className="px-6 text-sm text-gray-500">
+                <div className="px-6 text-sm text-gray-600">
                     Commands: add • search • update • delete • main menu
                 </div>
             )}
 
             {mode === "inventory" && (
-                <div className="px-6 text-sm text-gray-500">
+                <div className="px-6 text-sm text-gray-600">
                     Commands: remember • list • search • update • delete • main menu
                 </div>
             )}
 
             {mode === "schedule" && (
-                <div className="">
+                <div className="px-6 text-sm text-gray-600">
                     Commands: add • list • search • update • delete • main menu
                 </div>
             )}
 
             {mode === "todo" && (
-                <div className="px-6 text-sm text-gray-500">
+                <div className="px-6 text-sm text-gray-600">
                     Commands: add • list • update • delete • main menu
                 </div>
             )}

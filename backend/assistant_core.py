@@ -11,6 +11,9 @@ inventory = Inventory()
 schedule = Scheduler()
 todo = ToDo()
 
+# input_text is the raw command string (trigger, decision input, user intent - no state or memory involved)
+# input sanitization - if input_text == "add"
+
 def contact_mode(input_text=None, state=None):
     if input_text:
         input_text = input_text.strip().lower()
@@ -24,7 +27,7 @@ def contact_mode(input_text=None, state=None):
             "state": "contact_command"
         }
 
-    if input_text == "main menu":
+    if input_text == "main menu": 
         return {
             "messages": ["Returning to main menu..."],
             "mode": None,
