@@ -103,10 +103,7 @@ export default function App() {
 
       const data = await res.json();
 
-      // User selects > React sends {input_text, state }, FSM logic returns { messages, state, mode }, React updates and UI re-renders
-      setFsmResponse(data.messages); // update what user sees on frontend
       setFsmState(data.state); // FSM state updated
-      setMode(data.mode); // track which mode is selected
 
       // update commands if they exist
       if (data.commands) {

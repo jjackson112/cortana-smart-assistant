@@ -50,6 +50,32 @@ export default function MainPanel({ onCommand, fsmResponse }) {
                     <option value="todo">To Do List</option>
                 </select>
             </div>
+
+            {/* Reiterate the commands once the mode is selected*/}
+            {mode === "contacts" && (
+                <div className="px-6 text-sm text-gray-500">
+                    Commands: add • search • update • delete • main menu
+                </div>
+            )}
+
+            {mode === "inventory" && (
+                <div className="px-6 text-sm text-gray-500">
+                    Commands: remember • list • search • update • delete • main menu
+                </div>
+            )}
+
+            {mode === "schedule" && (
+                <div className="">
+                    Commands: add • list • search • update • delete • main menu
+                </div>
+            )}
+
+            {mode === "todo" && (
+                <div className="px-6 text-sm text-gray-500">
+                    Commands: add • list • update • delete • main menu
+                </div>
+            )}
+            
             {/* Command input appears ONLY after mode selection */}
             {mode && (
                 <form onSubmit={handleSubmit} className="flex gap-2 p-6">
