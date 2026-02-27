@@ -26,11 +26,9 @@ def contact_mode(input_text=None, state=None):
 
     if input_text == "main menu":
         return {
-            "messages": [
-                "Returning to main menu...",
-                "Let's head to the contact list 📲📞☎️",
-                "Contact list commands (add, search, update, delete, main menu):"],
-            "state": "contact_command" 
+            "messages": ["Returning to main menu..."],
+            "mode": None,
+            "state": None
         }
     
     if state == "contact_command":
