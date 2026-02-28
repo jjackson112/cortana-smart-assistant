@@ -1,10 +1,10 @@
 # FSM logic - finite state machine (design systems that can be in one state at a time)
 # startswith() checks whether a string starts with a specific substring
 
-from modules.contact_list import ContactList
-from modules.inventory import Inventory
-from modules.scheduler import Scheduler
-from modules.to_do_list import ToDo
+from .modules.contact_list import ContactList
+from .modules.inventory import Inventory
+from .modules.scheduler import Scheduler
+from .modules.to_do_list import ToDo
 
 contacts = ContactList()
 inventory = Inventory()
