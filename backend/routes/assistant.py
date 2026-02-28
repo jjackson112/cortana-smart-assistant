@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from backend.assistant_core import handle_command
+from ..assistant_core import handle_command
 
 # transport logic - extract JSON + pass it to handle_command() in assistant_core.py (FSM)
 assistant_bp = Blueprint("assistant", __name__, url_prefix="/api") 

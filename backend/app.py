@@ -1,7 +1,7 @@
 # routes are registered here
 
 from flask import Flask
-from backend.extensions import db
+from .extensions import db
 from flask_cors import CORS
 from .routes.status import status_bp
 from .routes.health import health_bp
@@ -10,7 +10,7 @@ from .routes.inventory import inventory_bp
 from .routes.schedule import schedule_bp
 from .routes.todo import todo_bp
 from .routes.assistant import assistant_bp
-from backend.services.activity import activity_bp
+from .services.activity import activity_bp
 
 def create_app():
     app = Flask(__name__)

@@ -4,10 +4,9 @@
 # where will the activity live - memory or persistence? - business logic - how to create what the user wants
 
 from flask import Blueprint, request
-from backend.models import ActivityLog
-from backend.utils.response import success
-from backend.services.activity_retention import prune_activity_log
-
+from ..models import ActivityLog
+from ..utils.response import success
+from ..services.activity_retention import prune_activity_log
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
 # each activity for each mode (CRUD) gets its own endpoint - check routes for separate files
