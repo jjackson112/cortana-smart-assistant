@@ -16,7 +16,8 @@ from .services.activity import activity_bp
 def create_app():
     app = Flask(__name__)
     CORS(app, origins=[
-        "http://localhost:3000"
+        "http://localhost:3000",
+        os.getenv("FRONTEND_URL", "*")
     ])
     
     # Database configuration
@@ -24,7 +25,7 @@ def create_app():
     # Fix Render's postgres URL for SQLAlchemy
     if db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
-        
+
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -48,4 +49,4 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.getenv("PORT", 5000)))

@@ -18,7 +18,7 @@ requests==2.32.0
 python-dotenv==1.0.0
 
 # Database support (PostgreSQL, optional if you migrate memory)
-psycopg2-binary==2.9
+psycopg2-binary==3.1.8
 
 # JSON handling (standard library is fine, but these are common helpers)
 simplejson==3.19.1
