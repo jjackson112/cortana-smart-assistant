@@ -12,18 +12,18 @@ eventlet==0.33.3  # async worker for SocketIO
 gunicorn==21.2.0
 
 # HTTP requests for APIs or external services
-requests==2.32.0
+requests==2.31.0
 
 # Environment variable management (optional but handy)
 python-dotenv==1.0.0
 
 # Database support (PostgreSQL, optional if you migrate memory)
-psycopg2-binary==3.1.8
+psycopg==3.1.8
+SQLAlchemy==2.0.47
+Flask-SQLAlchemy==3.0.5
 
 # JSON handling (standard library is fine, but these are common helpers)
 simplejson==3.19.1
 
 # Optional logging & debugging helpers
 loguru==0.7.0
-
-Flask-SQLAlchemy==3.0.5
