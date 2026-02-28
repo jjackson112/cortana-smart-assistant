@@ -1,5 +1,5 @@
 # Core web framework
-flask==2.3.4
+flask==2.3.3
 
 # Cross-origin requests from your frontend
 flask-cors==3.1.1
