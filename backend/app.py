@@ -1,7 +1,6 @@
-import os
-
 # routes are registered here
 
+import os
 from flask import Flask
 from .extensions import db
 from flask_cors import CORS
@@ -19,8 +18,16 @@ def create_app():
     CORS(app, origins=[
         "http://localhost:3000"
     ])
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+    
+    # Database configuration
+    db_url = os.getenv("DATABASE_URL", "sqlite:///cortana.db")
+    # Fix Render's postgres URL for SQLAlchemy
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql://", 1)
+        
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 
     # bind extensions
     db.init_app(app)
