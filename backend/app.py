@@ -15,7 +15,7 @@ from .routes.assistant import assistant_bp
 from .services.activity import activity_bp
 
 def create_app():
-    app = Flask(app)
+    app = Flask(__name__)
     CORS(app, origins=[
         "http://localhost:3000"
     ])
