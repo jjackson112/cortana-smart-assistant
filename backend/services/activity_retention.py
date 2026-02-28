@@ -3,7 +3,7 @@
 # Load → prune → save → report - data lifecycle policy
 
 from backend.extensions import db
-from models import ActivityLog
+from backend.models import ActivityLog
 
 MAX_ENTRIES = 1000
 
