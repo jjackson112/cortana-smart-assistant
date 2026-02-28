@@ -1,7 +1,7 @@
 # routes are registered here
 
 from flask import Flask
-from extensions import db
+from backend.extensions import db
 from flask_cors import CORS
 from routes.status import status_bp
 from routes.health import health_bp
