@@ -4,7 +4,7 @@ from backend.models import Inventory
 from backend.utils.crud import apply_updates
 from backend.utils.validation import require_fields
 from backend.utils.response import success, error_response
-from services.activity_log import log_activity
+from backend.services.activity_log import log_activity
 
 inventory_bp = Blueprint("inventory", __name__, url_prefix='/api/inventory')
 

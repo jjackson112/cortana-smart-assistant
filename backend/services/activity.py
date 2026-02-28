@@ -6,7 +6,7 @@
 from flask import Blueprint, request
 from backend.models import ActivityLog
 from backend.utils.response import success
-from services.activity_retention import prune_activity_log
+from backend.services.activity_retention import prune_activity_log
 
 activity_bp = Blueprint("activity", __name__, url_prefix='/api/activity')
 
