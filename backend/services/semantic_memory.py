@@ -1,7 +1,7 @@
 # accept user input + sends it to Cortana's brain (main.py) then returns the reply 
 # new layer on top of CRUD approach for conversation flow - contextual knowledge
 from flask import Blueprint, request
-from utils.response import error_response, success
+from backend.utils.response import error_response, success
 from main import to_do_list_mode
 
 cortana_bp = Blueprint("semantic", __name__, url_prefix='/api')
