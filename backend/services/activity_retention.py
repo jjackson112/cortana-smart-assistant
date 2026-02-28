@@ -2,7 +2,7 @@
 # activity log maintenance - no user interaction, low risk, scales with usage and defines log structure
 # Load → prune → save → report - data lifecycle policy
 
-from extensions import db
+from backend.extensions import db
 from models import ActivityLog
 
 MAX_ENTRIES = 1000

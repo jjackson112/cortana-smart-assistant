@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from extensions import db
+from backend.extensions import db
 from models import Todos
 from utils.crud import apply_updates
 from utils.validation import require_fields

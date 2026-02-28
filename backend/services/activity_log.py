@@ -1,6 +1,6 @@
 # business logic - separation of concerns from activity_bp (HTTP)
 
-from extensions import db
+from backend.extensions import db
 from models import ActivityLog
 
 # log activity
