@@ -1,10 +1,9 @@
-
 from flask import Blueprint, request, jsonify
 
-command_bp = Blueprint("/command", __name__, url_prefix='/api')
+command_bp = Blueprint("command", __name__, url_prefix='/api')
 
-@command_bp.route("/api/command", methods=["POST"])
-def handle_command():
+@command_bp.route("/command", methods=["POST"])
+def process_command():
     data = request.get_json()
 
     if not data or "command" not in data:
