@@ -30,7 +30,6 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-
     # bind extensions
     db.init_app(app)
 
@@ -46,6 +45,9 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+
+    for rule in app.url_map.iter_rules():
+        print(rule)
 
     return app
 
