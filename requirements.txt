@@ -18,7 +18,7 @@ requests==2.31.0
 python-dotenv==1.0.0
 
 # Database support (PostgreSQL, optional if you migrate memory)
-psycopg==3.1.8
+psycopg2-binary==2.9.8
 SQLAlchemy==2.0.47
 Flask-SQLAlchemy==3.0.5
 
