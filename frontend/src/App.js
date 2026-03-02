@@ -62,7 +62,7 @@ export default function App() {
         }
       ]);
     } catch (err) {
-      setSemanticResponse("Failed semantic memory")
+      setSemanticResponse(["Failed semantic memory"])
 
       setActivities(prev => [
         ...prev,
@@ -110,6 +110,10 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
+
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
 
       const data = await res.json();
 
