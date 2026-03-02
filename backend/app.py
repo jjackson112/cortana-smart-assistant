@@ -43,11 +43,20 @@ def create_app():
     app.register_blueprint(status_bp)
     app.register_blueprint(todo_bp)
 
+    @app.route("/")
+    def index():
+        return {
+            "service": "cortana",
+            "status": "online",
+            "message": "API is running. Use /api/* endpoints."
+        }
+
+    # test to show all endpoints - no / route
+    # for rule in app.url_map.iter_rules():
+    #    print(rule)
+
     with app.app_context():
         db.create_all()
-
-    for rule in app.url_map.iter_rules():
-        print(rule)
 
     return app
 
