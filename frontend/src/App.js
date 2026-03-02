@@ -13,7 +13,9 @@ export default function App() {
   const [fsmState, setFsmState] = useState({ mode:null, state: null });
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
   
-  const API_BASE = "https://cortana-ahop.onrender.com";
+  const API_BASE = import.meta.env.MODE === "development"
+    ? "http://localhost:5000"
+    : "https://cortana-ahop.onrender.com";
 
   useEffect(() => {
   const timestamp = new Date().toISOString();
