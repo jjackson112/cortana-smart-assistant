@@ -2,8 +2,6 @@ import ActivityList from "./ActivityList";
 {/* Output */}
 
 export default function SidePanel({ fsmResponse = [], activities = [] }) {
-  // Decide what to display in the response area
-  const displayMessages = fsmResponse.length > 0 ? fsmResponse : ["Cortana is ready"];
 
   return (
     <aside className="side-panel bg-slate-50 p-4 h-full flex flex-col">
@@ -12,9 +10,7 @@ export default function SidePanel({ fsmResponse = [], activities = [] }) {
       <div className="response-area mb-6">
         <h2 className="text-2xl font-semibold mb-2">Response</h2>
         <div className="cortana-reply text-cyan-400 font-semibold space-y-1">
-          {displayMessages.map((msg, i) => (
-            <p key={i}>{msg}</p>
-          ))}
+          Cortana is ready
         </div>
       </div>
 

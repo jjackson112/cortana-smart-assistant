@@ -425,7 +425,7 @@ def to_do_list_mode(input_text=None, state=None):
         if input_text == "update":
             return {
                 "messages": [
-                    "What task would you like to update?",
+                    "What task would you like to update? Enter task number.",
                     *todo.show_list()
                 ],
                 "state": "todo_update_task"
