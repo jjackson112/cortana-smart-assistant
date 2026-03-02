@@ -45,10 +45,6 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    @app.route("/")
-    def root():
-        return "Cortana backend is alive"
-
     return app
 
 if __name__ == "__main__":

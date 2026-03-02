@@ -5,13 +5,12 @@ from ..assistant_core import handle_command
 assistant_bp = Blueprint("assistant", __name__, url_prefix="/api") 
 
 @assistant_bp.route("/assistant", methods=["POST"]) 
-
 def assistant_command(): 
     data = request.get_json(force=True) # force ensures JSON parsing
     print("RAW DATA", data)
 
     if not data: 
-        return jsonify("Invalid JSON", 400) 
+        return jsonify({"error":"Invalid JSON"}), 400
     
     input_text = data.get("input_text")
     state = data.get("state") or {"mode": None, "state": None}
