@@ -39,9 +39,15 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: userInput })
       });
+
+      // check res.ok to try + parse JSON like it's a success
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+
       const data = await res.json();
 
-      const semantic = normalizeToArray(data.response);
+      const semantic = normalizeToArray(data.messages);
       setSemanticResponse(semantic);
       setCommands(data.commands || []);
 
