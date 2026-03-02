@@ -12,6 +12,8 @@ export default function App() {
   const [commands, setCommands] = useState([]);
   const [fsmState, setFsmState] = useState({ mode:null, state: null });
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
+  
+  const API_BASE = "https://cortana-ahop.onrender.com";
 
   useEffect(() => {
   const timestamp = new Date().toISOString();
@@ -30,7 +32,7 @@ export default function App() {
   async function handleSemanticMemory(userInput) {
     const timestamp = new Date().toISOString();
     try {
-      const res = await fetch("/api/semantic", {
+      const res = await fetch(`${API_BASE}/api/semantic`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: userInput })
@@ -95,7 +97,7 @@ export default function App() {
         payload = { input_text: commandText, state: fsmState };
       }
 
-      const res = await fetch("/api/assistant", {
+      const res = await fetch(`${API_BASE}/api/assistant`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
