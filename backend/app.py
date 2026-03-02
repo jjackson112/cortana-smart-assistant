@@ -13,7 +13,6 @@ from .routes.todo import todo_bp
 from .routes.command import command_bp
 from .routes.assistant import assistant_bp
 from .services.activity import activity_bp
-from .services.semantic_memory import cortana_bp
 
 def create_app():
     app = Flask(__name__)
@@ -43,7 +42,6 @@ def create_app():
     app.register_blueprint(schedule_bp)
     app.register_blueprint(status_bp)
     app.register_blueprint(todo_bp)
-    app.register_blueprint(cortana_bp)
 
     @app.route("/")
     def index():

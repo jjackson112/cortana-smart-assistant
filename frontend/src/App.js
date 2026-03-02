@@ -7,7 +7,6 @@ import MainPanel from "./components/MainPanel";
 const normalizeToArray = (val) => (Array.isArray(val) ? val : val ? [val] : []);
 
 export default function App() {
-  const [semanticResponse, setSemanticResponse] = useState([]); // semantic memory
   const [activities, setActivities] = useState([]); // activity log
   const [commands, setCommands] = useState([]);
   const [fsmState, setFsmState] = useState({ mode:null, state: null });
@@ -29,53 +28,6 @@ export default function App() {
       }
     ]);
   }, []);
-
-  // Semantic Memory
-  async function handleSemanticMemory(userInput) {
-    const timestamp = new Date().toISOString();
-    try {
-      const res = await fetch(`${API_BASE}/api/semantic`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: userInput })
-      });
-
-      // check res.ok to try + parse JSON like it's a success
-      if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
-      }
-
-      const data = await res.json();
-
-      const semantic = normalizeToArray(data.messages);
-      setSemanticResponse(semantic);
-      setCommands(data.commands || []);
-
-      setActivities(prev => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          action: "semantic memory replied",
-          entity_type: "message",
-          metadata: { message: semantic },
-          timestamp
-        }
-      ]);
-    } catch (err) {
-      setSemanticResponse(["Failed semantic memory"])
-
-      setActivities(prev => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          action: "error",
-          entity_type: "message",
-          metadata: { message: err.message },
-          timestamp
-        }
-      ]);
-    }
-  }
 
   // FSM assistant logic
   async function handleUserCommand({ commandText }) {
@@ -163,7 +115,7 @@ export default function App() {
             <MainPanel onCommand={handleUserCommand} commands={commands} fsmResponse={fsmResponse} />
             
             {/* SidePanel shows unified activity log and semantic memory */}
-            <SidePanel semanticResponse={semanticResponse} handleSemanticMemory={handleSemanticMemory} activities={activities} />
+            <SidePanel activities={activities} />
         </div>
-    )
+    );
 }
