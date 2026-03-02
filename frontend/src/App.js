@@ -37,7 +37,7 @@ export default function App() {
       const res = await fetch(`${API_BASE}/api/semantic`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: userInput })
+        body: JSON.stringify({ text: userInput })
       });
       const data = await res.json();
 

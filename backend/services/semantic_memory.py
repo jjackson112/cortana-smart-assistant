@@ -19,6 +19,6 @@ def handle_command():
 
     return success({
         "messages": result["messages"],
-        "events": result["state"],
+        "state": result["state"],
         "events": result.get("events", []) # optional to change UI and not touch routes
     })
