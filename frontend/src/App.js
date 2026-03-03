@@ -33,6 +33,7 @@ export default function App() {
   function handleRestart() {
     setCommands([]);
     setFsmState({ mode: null, state: null });
+    setFsmResponse([]);
   }
 
   // FSM assistant logic

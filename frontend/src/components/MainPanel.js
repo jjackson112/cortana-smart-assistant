@@ -35,14 +35,14 @@ export default function MainPanel({ onCommand, fsmResponse, handleRestart }) {
                     fsmResponse.map((msg, i) => 
                         <p key={i} className="mb-2">{msg}</p>)
                     ) : (
-                        <p className="text-400 font-semibold mr-3 mb-4">Hi Jasmine, I'm Cortana! <br />Awaiting commands...</p>
+                        <p className="flex flex-col sm:flex-row sm:items-center items-center sm:items-start text-400 font-semibold mr-3 mb-4">Hi Jasmine, I'm Cortana! <br />What can I help with?</p>
                     )}
             </div>
 
             {/* Mode Selection - Dropdown */}
-            <div className="mode-selection p-6">
-                <label htmlFor="modes" className="text-2xl font-semibold mr-3">Choose a mode:</label>
-                <select value={mode} onChange={handleModeChange} className="outline rounded-lg text-center">
+            <div className="mode-selection flex flex-col sm:flex-row sm:items-center items-center sm:items-start text-center sm:text-left gap-2 px-4 py-4 sm:p-6">
+                <label htmlFor="modes" className="block text-lg sm:text-2xl font-semibold mb-2 sm:mb-0 sm:mr-3">Choose a mode:</label>
+                <select value={mode} onChange={handleModeChange} className="outline rounded-lg px-3 py-2 text-center">
                     <option value="choose">Select a mode</option>
                     <option value="contacts">Contact List</option>
                     <option value="inventory">Inventory</option>
@@ -96,9 +96,13 @@ export default function MainPanel({ onCommand, fsmResponse, handleRestart }) {
             )}
 
             {/* Restart Cortana Button */}
-            <button className="bg-cyan-500 hover:bg-cyan-700 text-white font-semibold px-4 rounded-full" onClick={handleRestart}>
-                Restart Conversation
-            </button>
+            <div className="p-6 flex flex-col sm:flex-row sm:items-center 
+                items-center sm:items-start 
+                text-center">
+                <button className="bg-cyan-500 hover:bg-cyan-700 text-white font-semibold px-4 rounded-full p-3" onClick={handleRestart}>
+                    Restart Conversation
+                </button>
+            </div>
         </section>
   )    
 }   
