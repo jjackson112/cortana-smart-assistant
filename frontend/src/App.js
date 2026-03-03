@@ -11,7 +11,6 @@ export default function App() {
   const [commands, setCommands] = useState([]);
   const [fsmState, setFsmState] = useState({ mode:null, state: null });
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
-  const [restartMessage, setRestartMessage] = useState([]); 
 
   const API_BASE = process.env.NODE_ENV === "development"
     ? "http://localhost:5000"
@@ -31,18 +30,9 @@ export default function App() {
   }, []);
 
   // Restart conversation button
-  async function handleRestart () {
-    try {
-      const res = await fetch("/api/restart", {
-        method: "POST",
-      });
-
-      const data = await res.json();
-
-      setMessages([data.message]); // reset to greeting
-    } catch {
-      console.error("Restart failed", error);
-    }
+  function handleRestart() {
+    setCommands([]);
+    setFsmState({ mode: null, state: null });
   }
 
   // FSM assistant logic
@@ -128,7 +118,7 @@ export default function App() {
     return (
         <div className="grid grid-cols-[2fr_1fr] h-screen">
             {/* MainPanel shows FSM replies and commands */}
-            <MainPanel onCommand={handleUserCommand} commands={commands} fsmResponse={fsmResponse} />
+            <MainPanel onCommand={handleUserCommand} commands={commands} fsmResponse={fsmResponse} handleRestart={handleRestart} />
             
             {/* SidePanel shows unified activity log and semantic memory */}
             <SidePanel fsmResponse={fsmResponse} activities={activities} />

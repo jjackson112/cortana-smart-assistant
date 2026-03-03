@@ -1,7 +1,7 @@
 import { useState } from "react";
 {/* User Interaction */}
 
-export default function MainPanel({ onCommand, fsmResponse }) {
+export default function MainPanel({ onCommand, fsmResponse, handleRestart }) {
     const [mode, setMode] = useState("");
     const [command, setCommand] = useState("");
 
@@ -94,6 +94,11 @@ export default function MainPanel({ onCommand, fsmResponse }) {
                     </button>
                 </form>
             )}
+
+            {/* Restart Cortana Button */}
+            <button className="bg-cyan-500 hover:bg-cyan-700 text-white font-semibold px-4 rounded-full" onClick={handleRestart}>
+                Restart Conversation
+            </button>
         </section>
-  );    
+  )    
 }   
