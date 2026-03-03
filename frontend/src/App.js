@@ -12,9 +12,9 @@ export default function App() {
   const [fsmState, setFsmState] = useState({ mode:null, state: null });
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
   
-  const API_BASE = import.meta.env.MODE === "development"
+  const API_BASE = process.env.NODE_ENV === "development"
     ? "http://localhost:5000"
-    : "http://cortana-backend-njsr.onrender.com/";
+    : process.env.REACT_APP_API_URL;
 
   useEffect(() => {
   const timestamp = new Date().toISOString();
