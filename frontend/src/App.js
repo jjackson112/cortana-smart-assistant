@@ -14,7 +14,7 @@ export default function App() {
   
   const API_BASE = import.meta.env.MODE === "development"
     ? "http://localhost:5000"
-    : "https://cortana-ahop.onrender.com";
+    : "http://cortana-backend-njsr.onrender.com/";
 
   useEffect(() => {
   const timestamp = new Date().toISOString();
