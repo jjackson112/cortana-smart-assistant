@@ -11,7 +11,8 @@ export default function App() {
   const [commands, setCommands] = useState([]);
   const [fsmState, setFsmState] = useState({ mode:null, state: null });
   const [fsmResponse, setFsmResponse] = useState([]); // FSM logic
-  
+  const [restartMessage, setRestartMessage] = useState([]); 
+
   const API_BASE = process.env.NODE_ENV === "development"
     ? "http://localhost:5000"
     : process.env.REACT_APP_API_URL;
@@ -28,6 +29,21 @@ export default function App() {
       }
     ]);
   }, []);
+
+  // Restart conversation button
+  async function handleRestart () {
+    try {
+      const res = await fetch("/api/restart", {
+        method: "POST",
+      });
+
+      const data = await res.json();
+
+      setMessages([data.message]); // reset to greeting
+    } catch {
+      console.error("Restart failed", error);
+    }
+  }
 
   // FSM assistant logic
   async function handleUserCommand({ commandText }) {
